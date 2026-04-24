@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MIELSY · Sesión 1 de 4 · Rescate del Sistema</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --verde: #2D5A3D;
+    --verde-claro: #4A8A5F;
+    --verde-suave: #E8F2EC;
+    --dorado: #C9A84C;
+    --dorado-claro: #F0DFA0;
+    --crema: #FAF7F2;
+    --gris: #6B7280;
+    --texto: #1A2E23;
+    --blanco: #FFFFFF;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--crema);
+    color: var(--texto);
+    min-height: 100vh;
+  }
+
+  /* CABECERA */
+  header {
+    background: var(--verde);
+    color: var(--blanco);
+    padding: 24px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+  }
+
+  .logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    letter-spacing: 2px;
+    color: var(--dorado-claro);
+  }
+
+  .sesion-badge {
+    background: var(--dorado);
+    color: var(--verde);
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+  }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(135deg, var(--verde) 0%, #1A3D2A 100%);
+    color: var(--blanco);
+    padding: 48px 32px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 220px; height: 220px;
+    border-radius: 50%;
+    background: rgba(201,168,76,0.1);
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; left: -40px;
+    width: 160px; height: 160px;
+    border-radius: 50%;
+    background: rgba(201,168,76,0.07);
+  }
+
+  .semana-label {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--dorado-claro);
+    margin-bottom: 10px;
+  }
+
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 34px;
+    font-weight: 300;
+    line-height: 1.2;
+    margin-bottom: 8px;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--dorado-claro);
+  }
+
+  .hero-sub {
+    font-size: 14px;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 24px;
+  }
+
+  /* BARRA DE PROGRESO GLOBAL */
+  .progreso-global {
+    background: rgba(255,255,255,0.15);
+    border-radius: 12px;
+    padding: 16px 20px;
+    max-width: 480px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .tiempo-total {
+    font-size: 13px;
+    color: rgba(255,255,255,0.8);
+    white-space: nowrap;
+  }
+
+  .barra-contenedor {
+    flex: 1;
+    height: 6px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .barra-fill {
+    height: 100%;
+    background: var(--dorado);
+    border-radius: 3px;
+    transition: width 0.5s ease;
+    width: 0%;
+  }
+
+  .pct-label {
+    font-size: 13px;
+    color: var(--dorado-claro);
+    font-weight: 500;
+    white-space: nowrap;
+    min-width: 36px;
+    text-align: right;
+  }
+
+  /* CONTENIDO PRINCIPAL */
+  main {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+  }
+
+  /* TARJETA DE ETAPA */
+  .etapa-card {
+    background: var(--blanco);
+    border-radius: 16px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    transition: box-shadow 0.3s;
+  }
+
+  .etapa-card.activa {
+    box-shadow: 0 4px 20px rgba(45,90,61,0.15);
+  }
+
+  .etapa-header {
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .etapa-icono {
+    width: 44px; height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+
+  .etapa-1 .etapa-icono { background: #E8F5EE; }
+  .etapa-2 .etapa-icono { background: #EEE8F5; }
+  .etapa-3 .etapa-icono { background: #F5F0E8; }
+
+  .etapa-info { flex: 1; }
+
+  .etapa-nombre {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 19px;
+    font-weight: 400;
+    color: var(--verde);
+    line-height: 1.2;
+  }
+
+  .etapa-meta {
+    font-size: 12px;
+    color: var(--gris);
+    margin-top: 2px;
+  }
+
+  .etapa-estado {
+    font-size: 12px;
+    padding: 4px 10px;
+    border-radius: 10px;
+    font-weight: 500;
+  }
+
+  .estado-pendiente { background: #F3F4F6; color: var(--gris); }
+  .estado-activa { background: var(--verde-suave); color: var(--verde); }
+  .estado-lista { background: #DCFCE7; color: #166534; }
+
+  .etapa-body {
+    display: none;
+    padding: 0 24px 24px;
+    border-top: 1px solid #F0F0F0;
+  }
+
+  .etapa-body.visible { display: block; }
+
+  /* PASOS */
+  .paso {
+    margin-top: 20px;
+  }
+
+  .paso-num {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--dorado);
+    font-weight: 500;
+    margin-bottom: 6px;
+  }
+
+  .paso h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    color: var(--verde);
+    margin-bottom: 8px;
+  }
+
+  .paso p {
+    font-size: 14px;
+    line-height: 1.7;
+    color: #374151;
+  }
+
+  .paso-instruccion {
+    background: var(--verde-suave);
+    border-left: 3px solid var(--verde);
+    padding: 12px 16px;
+    border-radius: 0 8px 8px 0;
+    margin-top: 10px;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--texto);
+  }
+
+  /* TIMER */
+  .timer-bloque {
+    background: var(--verde);
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 16px;
+    text-align: center;
+    color: var(--blanco);
+  }
+
+  .timer-display {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 52px;
+    font-weight: 300;
+    letter-spacing: 2px;
+    color: var(--dorado-claro);
+    line-height: 1;
+    margin: 8px 0;
+  }
+
+  .timer-label {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 16px;
+  }
+
+  .timer-barra {
+    height: 4px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: 16px;
+  }
+
+  .timer-barra-fill {
+    height: 100%;
+    background: var(--dorado);
+    border-radius: 2px;
+    transition: width 1s linear;
+    width: 100%;
+  }
+
+  .timer-btns {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+  }
+
+  .btn-timer {
+    padding: 10px 24px;
+    border-radius: 8px;
+    border: none;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .btn-iniciar { background: var(--dorado); color: var(--verde); }
+  .btn-iniciar:hover { background: #D4B460; }
+  .btn-pausar { background: rgba(255,255,255,0.15); color: var(--blanco); }
+  .btn-pausar:hover { background: rgba(255,255,255,0.25); }
+  .btn-reiniciar { background: transparent; color: rgba(255,255,255,0.6); font-size: 12px; padding: 10px 12px; }
+
+  /* CHECKLIST */
+  .checklist {
+    margin-top: 20px;
+  }
+
+  .checklist-titulo {
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gris);
+    margin-bottom: 12px;
+  }
+
+  .check-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid #F0F0F0;
+    cursor: pointer;
+  }
+
+  .check-item:last-child { border-bottom: none; }
+
+  .check-box {
+    width: 22px; height: 22px;
+    border: 2px solid #D1D5DB;
+    border-radius: 6px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    margin-top: 1px;
+  }
+
+  .check-item.marcado .check-box {
+    background: var(--verde);
+    border-color: var(--verde);
+  }
+
+  .check-item.marcado .check-box::after {
+    content: '✓';
+    color: white;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .check-texto {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #374151;
+  }
+
+  .check-item.marcado .check-texto {
+    color: var(--gris);
+    text-decoration: line-through;
+  }
+
+  /* BOTÓN COMPLETAR ETAPA */
+  .btn-completar {
+    width: 100%;
+    margin-top: 20px;
+    padding: 14px;
+    background: var(--verde);
+    color: var(--blanco);
+    border: none;
+    border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .btn-completar:hover { background: var(--verde-claro); }
+  .btn-completar:disabled { background: #D1D5DB; cursor: not-allowed; }
+
+  /* VIDEO */
+  .video-bloque {
+    background: linear-gradient(135deg, #1A3D2A 0%, var(--verde) 100%);
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 16px;
+    text-align: center;
+    color: var(--blanco);
+  }
+
+  .video-placeholder {
+    background: rgba(0,0,0,0.3);
+    border-radius: 8px;
+    height: 140px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .video-placeholder:hover { background: rgba(0,0,0,0.4); }
+
+  .play-btn {
+    width: 52px; height: 52px;
+    background: var(--dorado);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    color: var(--verde);
+  }
+
+  .video-texto { font-size: 13px; color: rgba(255,255,255,0.7); }
+  .video-titulo { font-family: 'Cormorant Garamond', serif; font-size: 17px; margin-bottom: 6px; }
+
+  /* CIERRE FINAL */
+  .cierre-final {
+    background: linear-gradient(135deg, var(--verde) 0%, #1A3D2A 100%);
+    border-radius: 16px;
+    padding: 32px 24px;
+    text-align: center;
+    color: var(--blanco);
+    display: none;
+    margin-top: 24px;
+  }
+
+  .cierre-final.visible { display: block; animation: fadeIn 0.6s ease; }
+
+  .cierre-estrella { font-size: 40px; margin-bottom: 12px; }
+
+  .cierre-final h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    font-weight: 300;
+    margin-bottom: 8px;
+    color: var(--dorado-claro);
+  }
+
+  .cierre-final p {
+    font-size: 14px;
+    color: rgba(255,255,255,0.8);
+    line-height: 1.6;
+    max-width: 380px;
+    margin: 0 auto 20px;
+  }
+
+  .proxima-sesion {
+    background: rgba(255,255,255,0.1);
+    border-radius: 10px;
+    padding: 14px 20px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.8);
+  }
+
+  .proxima-sesion strong {
+    display: block;
+    color: var(--dorado-claro);
+    font-size: 15px;
+    margin-bottom: 4px;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* SEPARADOR DE DIMENSIONES */
+  .dim-tag {
+    display: inline-block;
+    background: var(--dorado-claro);
+    color: #7A5E1A;
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 10px;
+    margin: 2px;
+    font-weight: 500;
+  }
+
+  .dims-bloque {
+    margin-top: 10px;
+    margin-bottom: 4px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">MIELSY®</div>
+  <div class="sesion-badge">Sesión 1 de 4</div>
+</header>
+
+<div class="hero">
+  <div class="semana-label">Semana 1 · Variable C — Contexto Moderno</div>
+  <h1>Rescate del <em>Sistema Nervioso</em></h1>
+  <p class="hero-sub">Regulación · Reescritura · Anclaje · 60 minutos</p>
+  <div class="progreso-global">
+    <span class="tiempo-total">0 / 60 min</span>
+    <div class="barra-contenedor">
+      <div class="barra-fill" id="barraGlobal"></div>
+    </div>
+    <span class="pct-label" id="pctLabel">0%</span>
+  </div>
+</div>
+
+<main>
+
+  <!-- ETAPA 1: REGULACIÓN -->
+  <div class="etapa-card etapa-1" id="card1">
+    <div class="etapa-header" onclick="toggleEtapa(1)">
+      <div class="etapa-icono">🌿</div>
+      <div class="etapa-info">
+        <div class="etapa-nombre">Etapa 1 · Regulación Sensorial</div>
+        <div class="etapa-meta">20 minutos · Terapia Sensorial</div>
+      </div>
+      <div class="etapa-estado estado-activa" id="estado1">En curso</div>
+    </div>
+    <div class="etapa-body visible" id="body1">
+
+      <div class="paso">
+        <div class="paso-num">Paso 1 · Preparación</div>
+        <h3>Crea tu espacio de bienestar</h3>
+        <p>Antes de comenzar, prepara el entorno para que tu sistema nervioso pueda regularse con facilidad.</p>
+        <div class="paso-instruccion">
+          🕯️ Atenúa la luz de la pantalla al mínimo confortable.<br>
+          🎵 Pon música instrumental suave o sonidos de naturaleza (río, lluvia, bosque).<br>
+          📵 Activa el modo "No molestar" en todos tus dispositivos.<br>
+          🪑 Siéntate con la columna alineada, pies apoyados en el suelo.
+        </div>
+      </div>
+
+      <div class="paso">
+        <div class="paso-num">Paso 2 · PadSensorial Digital</div>
+        <h3>Desconexión consciente del entorno digital</h3>
+        <p>Esta técnica trabaja directamente sobre D13 (Digital), regulando la hiperconectividad del sistema nervioso.</p>
+        <div class="paso-instruccion">
+          👁️ Cierra los ojos. Coloca las palmas suavemente sobre ellos durante 30 segundos.<br>
+          🤲 Luego frota las palmas entre sí hasta sentir calor y vuelve a cubrirte los ojos.<br>
+          🔄 Repite 3 veces. Siente cómo disminuye la tensión ocular acumulada por las pantallas.
+        </div>
+      </div>
+
+      <div class="paso">
+        <div class="paso-num">Paso 3 · Respiración 4-7-8</div>
+        <h3>Activar el freno parasimpático</h3>
+        <div class="paso-instruccion">
+          Inhala por la nariz contando <strong>4</strong> segundos.<br>
+          Retén el aire contando <strong>7</strong> segundos.<br>
+          Exhala lentamente por la boca contando <strong>8</strong> segundos.<br><br>
+          Repite este ciclo <strong>5 veces</strong>. Con cada exhalación, imagina que liberas la carga digital del día.
+        </div>
+      </div>
+
+      <div class="paso">
+        <div class="paso-num">Paso 4 · Conexión con la naturaleza (D12)</div>
+        <h3>Restauración medioambiental</h3>
+        <div class="paso-instruccion">
+          🌱 Si es posible, coloca las manos sobre una planta, tierra o una taza con agua tibia.<br>
+          Si estás en interior: visualiza un espacio natural que te genere paz (un bosque, el mar, un jardín).<br>
+          Permanece en este estado durante <strong>3 minutos</strong>, respirando naturalmente.
+        </div>
+      </div>
+
+      <div class="dims-bloque">
+        <span class="dim-tag">D12 Medioambiental</span>
+        <span class="dim-tag">D13 Digital</span>
+      </div>
+
+      <div class="timer-bloque">
+        <div class="timer-label">Tiempo de la etapa</div>
+        <div class="timer-display" id="timer1">20:00</div>
+        <div class="timer-barra"><div class="timer-barra-fill" id="barra1"></div></div>
+        <div class="timer-btns">
+          <button class="btn-timer btn-iniciar" onclick="iniciarTimer(1, 1200)">▶ Iniciar</button>
+          <button class="btn-timer btn-pausar" onclick="pausarTimer(1)">⏸ Pausar</button>
+          <button class="btn-timer btn-reiniciar" onclick="reiniciarTimer(1, 1200)">↺</button>
+        </div>
+      </div>
+
+      <div class="checklist">
+        <div class="checklist-titulo">Confirma tu práctica</div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div class="check-texto">Preparé mi espacio: luz atenuada, sonidos relajantes, modo no molestar</div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div class="check-texto">Realicé el PadSensorial Digital (palmas sobre ojos, 3 veces)</div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div class="check-texto">Completé 5 ciclos de respiración 4-7-8</div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div class="check-texto">Practiqué la conexión con la naturaleza (real o visualizada)</div>
+        </div>
+      </div>
+
+      <button class="btn-completar" id="btn1" onclick="completarEtapa(1)">
+        ✓ Completar Regulación · Avanzar a Reescritura
+      </button>
+    </div>
+  </div>
+
+  <!-- ETAPA 2: REESCRITURA -->
+  <div class="etapa-card etapa-2" id="card2">
+    <div class="etapa-header" onclick="toggleEtapa(2)">
+      <div class="etapa-icono">✍️</div>
+      <div class="etapa-info">
+        <div class="etapa-nombre">Etapa 2 · Reescritura Narrativa</div>
+        <div class="etapa-meta">15 minutos · Terapia Narrativa</div>
+      </div>
+      <div class="etapa-estado estado-pendiente" id="estado2">Pendiente</div>
+    </div>
+    <div class="etapa-body" id="body2">
+
+      <div class="paso">
+        <div class="paso-num">Paso 1 · Observación sin juicio</div>
+        <h3>¿Cómo ha sido tu relación con la tecnología esta semana?</h3>
+        <p>Reflexiona honestamente, sin autocrítica. Solo observa.</p>
+        <div class="paso-instruccion">
+          En un papel o en tu mente, completa estas frases:<br><br>
+          📍 <em>"Esta semana, la tecnología me ha hecho sentir…"</em><br>
+          📍 <em>"El momento en que más me desconecté de mí mismo/a fue…"</em><br>
+          📍 <em>"Lo que más extraño cuando estoy todo el día con pantallas es…"</em>
+        </div>
+      </div>
+
+      <div class="paso">
+        <div class="paso-num">Paso 2 · Narraterapia Sensorial</div>
+        <h3>La historia que me cuento sobre el mundo digital</h3>
+        <div class="paso-instruccion">
+          Imagina que eres el/la protagonista de una historia donde <strong>tú decides cómo relacionarte</strong> con la tecnología.<br><br>
+          En esa historia:<br>
+          🌟 ¿Qué hábito digital abandonas?<br>
+          🌟 ¿Qué práctica natural recuperas?<br>
+          🌟 ¿Cómo se siente tu cuerpo en esa versión de ti?<br><br>
+          Tómate 5 minutos para visualizar o escribir esa historia.
+        </div>
+      </div>
+
+      <div class="paso">
+        <div class="paso-num">Paso 3 · Diseño Emocional Sensorial (D11)</div>
+        <h3>Reconecta con tu identidad cultural</h3>
+        <div class="paso-instruccion">
+          Piensa en algo que forma parte de tu cultura y que te genera bienestar:<br>
+          una canción, un platillo, una celebración, una tradición familiar.<br><br>
+          🎭 Evócalo con todos los sentidos: ¿qué ves, escuchas, sientes, hueles?<br>
+          Anota en una palabra cómo te hace sentir ese vínculo cultural.<br><br>
+          Esa palabra es tu <strong>ancla cultural MIELSY</strong> para esta semana.
+        </div>
+      </div>
+
+      <div class="dims-bloque">
+        <span class="dim-tag">D11 Cultural</span>
+        <span class="dim-tag">D13 Digital</span>
+      </div>
+
+      <div class="timer-bloque">
+        <div class="timer-label">Tiempo de la etapa</div>
+        <div class="timer-display" id="timer2">15:00</div>
+        <div class="timer-barra"><div class="timer-barra-fill" id="barra2"></div></div>
+        <div class="timer-btns">
+          <button class="btn-timer btn-iniciar" onclick="iniciarTimer(2, 900)">▶ Iniciar</button>
+          <button class="btn-timer btn-pausar" onclick="pausarTimer(2)">⏸ Pausar</button>
+          <button class="btn-timer btn-reiniciar" onclick="reiniciarTimer(2, 900)">↺</button>
+        </div>
+      </div>
+
+      <div class="checklist">
+        <div class="checklist-titulo">Confirma tu práctica</div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div class="check-texto">Completé las 3 frases de observación sin juicio</div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div class="check-texto">Visualicé o escribí mi historia de relación sana con la tecnología</div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div class="check-texto">Identifiqué mi ancla cultural MIELSY de esta semana</div>
+        </div>
+      </div>
+
+      <button class="btn-completar" id="btn2" onclick="completarEtapa(2)">
+        ✓ Completar Reescritura · Avanzar a Anclaje
+      </button>
+    </div>
+  </div>
+
+  <!-- ETAPA 3: ANCLAJE -->
+  <div class="etapa-card etapa-3" id="card3">
+    <div class="etapa-header" onclick="toggleEtapa(3)">
+      <div class="etapa-icono">⚓</div>
+      <div class="etapa-info">
+        <div class="etapa-nombre">Etapa 3 · Anclaje Integrativo</div>
+        <div class="etapa-meta">5 minutos · Cierre Multimodal</div>
+      </div>
+      <div class="etapa-estado estado-pendiente" id="estado3">Pendiente</div>
+    </div>
+    <div class="etapa-body" id="body3">
+
+      <div class="paso">
+        <div class="paso-num">Anclaje Multisensorial</div>
+        <h3>Cierra la sesión activando todos tus sentidos</h3>
+        <div class="paso-instruccion">
+          🌬️ <strong>Respiración de cierre:</strong> 3 respiraciones profundas, lentamente.<br><br>
+          🖐️ <strong>Toque consciente:</strong> Coloca una mano sobre el corazón. Siente el latido. Di internamente: <em>"Elijo el equilibrio."</em><br><br>
+          👁️ <strong>Visualización de anclaje:</strong> Evoca tu ancla cultural MIELSY de esta semana. Mantenla 30 segundos con toda su fuerza sensorial.<br><br>
+          🌟 <strong>Intención para la semana:</strong> Formula una intención breve:<br>
+          <em>"Esta semana, yo voy a…"</em> (ej: descansar 30 min sin pantallas al día)
+        </div>
+      </div>
+
+      <div class="video-bloque">
+        <div class="video-titulo">🎬 Mensaje de cierre · Dra. Columbié</div>
+        <div class="video-placeholder" onclick="alert('Enlace al video motivacional de la Dra. Columbié — próximamente disponible.')">
+          <div class="play-btn">▶</div>
+          <div class="video-texto">Video motivacional de cierre · Semana 1</div>
+        </div>
+        <p style="font-size:12px; color:rgba(255,255,255,0.6);">Ver el video antes de cerrar la sesión</p>
+      </div>
+
+      <div class="timer-bloque">
+        <div class="timer-label">Tiempo de la etapa</div>
+        <div class="timer-display" id="timer3">05:00</div>
+        <div class="timer-barra"><div class="timer-barra-fill" id="barra3"></div></div>
+        <div class="timer-btns">
+          <button class="btn-timer btn-iniciar" onclick="iniciarTimer(3, 300)">▶ Iniciar</button>
+          <button class="btn-timer btn-pausar" onclick="pausarTimer(3)">⏸ Pausar</button>
+          <button class="btn-timer btn-reiniciar" onclick="reiniciarTimer(3, 300)">↺</button>
+        </div>
+      </div>
+
+      <div class="checklist">
+        <div class="checklist-titulo">Confirma tu cierre</div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div class="check-texto">Realicé las 3 respiraciones de cierre</div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div class="check-texto">Practiqué el toque consciente y formulé mi intención</div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div class="check-texto">Evoqué mi ancla cultural MIELSY</div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div class="check-texto">Vi el video de cierre de la Dra. Columbié</div>
+        </div>
+      </div>
+
+      <button class="btn-completar" id="btn3" onclick="completarEtapa(3)">
+        🌿 Completar Sesión 1 · ¡Lo lograste!
+      </button>
+    </div>
+  </div>
+
+  <!-- CIERRE FINAL -->
+  <div class="cierre-final" id="cierreFinal">
+    <div class="cierre-estrella">🌟</div>
+    <h2>¡Sesión 1 completada!</h2>
+    <p>Has dado el primer paso hacia el rescate de tu sistema nervioso. Tu cuerpo y mente agradecen este tiempo de cuidado consciente.</p>
+    <div class="proxima-sesion">
+      <strong>📅 Próxima sesión — Semana 2</strong>
+      Restaurar ritmos y vínculos con el entorno natural y cultural
+    </div>
+  </div>
+
+</main>
+
+<script>
+  // ── ESTADO GLOBAL
+  const etapasCompletadas = { 1: false, 2: false, 3: false };
+  const duraciones = { 1: 1200, 2: 900, 3: 300 };
+  const intervalos = {};
+  const tiemposRestantes = { 1: 1200, 2: 900, 3: 300 };
+  const corriendo = { 1: false, 2: false, 3: false };
+
+  // ── TOGGLE ETAPA
+  function toggleEtapa(n) {
+    const body = document.getElementById('body' + n);
+    body.classList.toggle('visible');
+    document.getElementById('card' + n).classList.toggle('activa');
+  }
+
+  // ── TIMER
+  function iniciarTimer(n, duracion) {
+    if (corriendo[n]) return;
+    corriendo[n] = true;
+    const total = duraciones[n];
+
+    intervalos[n] = setInterval(() => {
+      tiemposRestantes[n]--;
+      if (tiemposRestantes[n] <= 0) {
+        tiemposRestantes[n] = 0;
+        clearInterval(intervalos[n]);
+        corriendo[n] = false;
+        document.getElementById('timer' + n).style.color = '#C9A84C';
+      }
+      actualizarTimer(n, total);
+    }, 1000);
+  }
+
+  function pausarTimer(n) {
+    clearInterval(intervalos[n]);
+    corriendo[n] = false;
+  }
+
+  function reiniciarTimer(n, duracion) {
+    clearInterval(intervalos[n]);
+    corriendo[n] = false;
+    tiemposRestantes[n] = duracion;
+    document.getElementById('timer' + n).style.color = '';
+    actualizarTimer(n, duracion);
+  }
+
+  function actualizarTimer(n, total) {
+    const t = tiemposRestantes[n];
+    const min = String(Math.floor(t / 60)).padStart(2, '0');
+    const seg = String(t % 60).padStart(2, '0');
+    document.getElementById('timer' + n).textContent = min + ':' + seg;
+    const pct = (t / total) * 100;
+    document.getElementById('barra' + n).style.width = pct + '%';
+  }
+
+  // ── CHECKLIST
+  function toggleCheck(el) {
+    el.classList.toggle('marcado');
+  }
+
+  // ── COMPLETAR ETAPA
+  function completarEtapa(n) {
+    etapasCompletadas[n] = true;
+
+    // Actualizar estado visual
+    const estado = document.getElementById('estado' + n);
+    estado.textContent = '✓ Completada';
+    estado.className = 'etapa-estado estado-lista';
+
+    // Cerrar etapa actual
+    document.getElementById('body' + n).classList.remove('visible');
+    document.getElementById('card' + n).classList.remove('activa');
+
+    // Abrir siguiente
+    if (n < 3) {
+      const sig = n + 1;
+      document.getElementById('estado' + sig).textContent = 'En curso';
+      document.getElementById('estado' + sig).className = 'etapa-estado estado-activa';
+      document.getElementById('body' + sig).classList.add('visible');
+      document.getElementById('card' + sig).classList.add('activa');
+      document.getElementById('card' + sig).scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // Si es la última, mostrar cierre
+    if (n === 3) {
+      document.getElementById('cierreFinal').classList.add('visible');
+      document.getElementById('cierreFinal').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    actualizarBarraGlobal();
+  }
+
+  // ── BARRA GLOBAL
+  function actualizarBarraGlobal() {
+    const completadas = Object.values(etapasCompletadas).filter(Boolean).length;
+    const pct = Math.round((completadas / 3) * 100);
+    document.getElementById('barraGlobal').style.width = pct + '%';
+    document.getElementById('pctLabel').textContent = pct + '%';
+
+    const mins = completadas === 1 ? 20 : completadas === 2 ? 35 : 40;
+    document.querySelector('.tiempo-total').textContent = mins + ' / 60 min';
+  }
+</script>
+
+</body>
+</html>
