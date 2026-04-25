@@ -59,6 +59,7 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .plan-input{width:100%;background:var(--sf2);border:1px solid var(--bd);border-radius:8px;padding:9px 12px;color:var(--cr);font-family:'DM Sans',sans-serif;font-size:.82rem;outline:none;}
 .plan-input:focus{border-color:var(--lav2);}
 .plan-row2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.plan-row2.plan-row-full{grid-template-columns:1fr;}
 .plan-btns{display:flex;gap:8px;margin-top:18px;}
 .btn-plan-ok{flex:1;background:linear-gradient(135deg,var(--lav2),#7b6db0);color:#fff;border:none;border-radius:9px;padding:11px;font-family:'DM Sans',sans-serif;font-size:.85rem;font-weight:600;cursor:pointer;}
 .btn-plan-ok:hover{opacity:.9;}
@@ -186,23 +187,26 @@ tr.selected-row td{background:rgba(155,143,192,.12);}
         <input class="plan-input" id="pf-wa" type="text" placeholder="+502 1234 5678"/>
       </div>
     </div>
-    <div class="plan-row2">
+    <div class="plan-row2 plan-row-full">
       <div class="plan-field">
         <label>Plan asignado</label>
         <select class="plan-input" id="pf-plan">
-          <option value="C">Plan C — Variable C (Digital/Ambiental/Cultural)</option>
+          <option value="C">Plan C — Variable C (Digital / Ambiental / Cultural)</option>
           <option value="A">Plan A — Variable A (Yo Fundamental)</option>
           <option value="B">Plan B — Variable B (Interacción y Entorno)</option>
           <option value="AB">Plan AB — Variables A + B</option>
           <option value="AC">Plan AC — Variables A + C</option>
           <option value="BC">Plan BC — Variables B + C</option>
-          <option value="ABC">Plan ABC — Integral (A+B+C)</option>
+          <option value="ABC">Plan ABC — Integral (A + B + C)</option>
         </select>
       </div>
+    </div>
+    <div class="plan-row2">
       <div class="plan-field">
         <label>Fecha de inicio</label>
         <input class="plan-input" id="pf-fecha" type="date"/>
       </div>
+      <div class="plan-field" style="visibility:hidden"></div>
     </div>
     <div class="plan-row2">
       <div class="plan-field">
