@@ -70,6 +70,7 @@
   .prox strong { display: block; color: var(--dc); font-size: 15px; margin-bottom: 4px; }
   @keyframes fi { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
 </style>
+<style>*{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;}</style>
 </head>
 <body>
 <header>
@@ -277,6 +278,14 @@
   function mk(el){el.classList.toggle('mk');}
   function comp(n){done[n]=true;const e=document.getElementById('est'+n);e.textContent='✓ Completada';e.className='cs sl';document.getElementById('body'+n).classList.remove('vis');document.getElementById('card'+n).classList.remove('open');if(n<3){const s=n+1;document.getElementById('est'+s).textContent='En curso';document.getElementById('est'+s).className='cs sa';document.getElementById('body'+s).classList.add('vis');document.getElementById('card'+s).classList.add('open');document.getElementById('card'+s).scrollIntoView({behavior:'smooth',block:'start'});}if(n===3){document.getElementById('fin').classList.add('vis');document.getElementById('fin').scrollIntoView({behavior:'smooth'});}upG();}
   function upG(){const c=Object.values(done).filter(Boolean).length,p=Math.round(c/3*100);document.getElementById('barraGlobal').style.width=p+'%';document.getElementById('pctLabel').textContent=p+'%';document.getElementById('tiempoTotal').textContent=(c===1?20:c===2?35:40)+' / 60 min';}
+</script>
+<script>
+document.addEventListener("contextmenu",function(e){e.preventDefault();});
+document.addEventListener("keydown",function(e){
+  if((e.ctrlKey||e.metaKey)&&["c","a","p","s","u"].includes(e.key))e.preventDefault();
+});
+document.addEventListener("copy",function(e){e.preventDefault();});
+document.addEventListener("dragstart",function(e){e.preventDefault();});
 </script>
 </body>
 </html>

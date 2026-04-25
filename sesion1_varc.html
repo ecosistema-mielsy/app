@@ -530,6 +530,7 @@
     margin-bottom: 4px;
   }
 </style>
+<style>*{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;}</style>
 </head>
 <body>
 
@@ -954,5 +955,13 @@
   }
 </script>
 
+<script>
+document.addEventListener("contextmenu",function(e){e.preventDefault();});
+document.addEventListener("keydown",function(e){
+  if((e.ctrlKey||e.metaKey)&&["c","a","p","s","u"].includes(e.key))e.preventDefault();
+});
+document.addEventListener("copy",function(e){e.preventDefault();});
+document.addEventListener("dragstart",function(e){e.preventDefault();});
+</script>
 </body>
 </html>
