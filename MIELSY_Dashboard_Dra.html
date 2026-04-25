@@ -187,26 +187,23 @@ tr.selected-row td{background:rgba(155,143,192,.12);}
         <input class="plan-input" id="pf-wa" type="text" placeholder="+502 1234 5678"/>
       </div>
     </div>
-    <div class="plan-row2 plan-row-full">
+    <div style="display:grid;grid-template-columns:2fr 1fr;gap:10px;margin-bottom:0;">
       <div class="plan-field">
         <label>Plan asignado</label>
-        <select class="plan-input" id="pf-plan">
-          <option value="C">Plan C — Variable C (Digital / Ambiental / Cultural)</option>
-          <option value="A">Plan A — Variable A (Yo Fundamental)</option>
-          <option value="B">Plan B — Variable B (Interacción y Entorno)</option>
-          <option value="AB">Plan AB — Variables A + B</option>
-          <option value="AC">Plan AC — Variables A + C</option>
-          <option value="BC">Plan BC — Variables B + C</option>
-          <option value="ABC">Plan ABC — Integral (A + B + C)</option>
+        <select class="plan-input" id="pf-plan" style="width:100%;text-overflow:ellipsis;">
+          <option value="C">Plan C · Variable C (Digital/Ambiental/Cultural)</option>
+          <option value="A">Plan A · Variable A (Yo Fundamental)</option>
+          <option value="B">Plan B · Variable B (Interacción y Entorno)</option>
+          <option value="AB">Plan AB · Variables A + B</option>
+          <option value="AC">Plan AC · Variables A + C</option>
+          <option value="BC">Plan BC · Variables B + C</option>
+          <option value="ABC">Plan ABC · Integral (A + B + C)</option>
         </select>
       </div>
-    </div>
-    <div class="plan-row2">
       <div class="plan-field">
         <label>Fecha de inicio</label>
         <input class="plan-input" id="pf-fecha" type="date"/>
       </div>
-      <div class="plan-field" style="visibility:hidden"></div>
     </div>
     <div class="plan-row2">
       <div class="plan-field">
