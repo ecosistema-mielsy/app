@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MIELSY · Sesión 1 de 4 · Plan A · Rescate del Yo</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root { --v: #6B5B8E; --vc: #8B7BB0; --vs: #EDE8F5; --d: #C9A84C; --dc: #F0DFA0; --cr: #FAF8FC; --g: #6B7280; --tx: #2A1F3D; --b: #FFFFFF; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--cr); color: var(--tx); min-height: 100vh; }
+  header { background: var(--v); color: var(--b); padding: 20px 28px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 12px rgba(0,0,0,0.15); }
+  .logo { font-family: 'Cormorant Garamond', serif; font-size: 22px; letter-spacing: 2px; color: var(--dc); }
+  .badge { background: var(--d); color: var(--v); padding: 6px 16px; border-radius: 20px; font-size: 13px; font-weight: 500; }
+  .hero { background: linear-gradient(135deg, var(--v) 0%, #3D2A5E 100%); color: var(--b); padding: 44px 28px 36px; text-align: center; }
+  .slabel { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--dc); margin-bottom: 10px; }
+  .hero h1 { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 300; margin-bottom: 8px; }
+  .hero h1 em { font-style: italic; color: var(--dc); }
+  .hero-sub { font-size: 14px; color: rgba(255,255,255,0.7); margin-bottom: 22px; }
+  .pg { background: rgba(255,255,255,0.15); border-radius: 12px; padding: 14px 18px; max-width: 460px; margin: 0 auto; display: flex; align-items: center; gap: 12px; }
+  .pt { font-size: 13px; color: rgba(255,255,255,0.8); white-space: nowrap; }
+  .pb { flex: 1; height: 6px; background: rgba(255,255,255,0.2); border-radius: 3px; overflow: hidden; }
+  .pf { height: 100%; background: var(--d); border-radius: 3px; transition: width 0.5s ease; width: 0%; }
+  .pl { font-size: 13px; color: var(--dc); font-weight: 500; white-space: nowrap; min-width: 36px; text-align: right; }
+  main { max-width: 620px; margin: 0 auto; padding: 28px 18px 80px; }
+  .card { background: var(--b); border-radius: 16px; margin-bottom: 18px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.06); transition: box-shadow 0.3s; }
+  .card.open { box-shadow: 0 4px 20px rgba(107,91,142,0.15); }
+  .ch { padding: 18px 22px; display: flex; align-items: center; gap: 14px; cursor: pointer; user-select: none; }
+  .ci { width: 42px; height: 42px; border-radius: 11px; display: flex; align-items: center; justify-content: center; font-size: 19px; flex-shrink: 0; background: var(--vs); }
+  .cn { font-family: 'Cormorant Garamond', serif; font-size: 18px; color: var(--v); }
+  .cm { font-size: 12px; color: var(--g); margin-top: 2px; }
+  .cs { font-size: 12px; padding: 4px 10px; border-radius: 10px; font-weight: 500; }
+  .sp { background: #F3F4F6; color: var(--g); } .sa { background: var(--vs); color: var(--v); } .sl { background: #DCFCE7; color: #166534; }
+  .cb { display: none; padding: 0 22px 22px; border-top: 1px solid #F0F0F0; }
+  .cb.vis { display: block; }
+  .paso { margin-top: 18px; }
+  .pn { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--d); font-weight: 500; margin-bottom: 5px; }
+  .paso h3 { font-family: 'Cormorant Garamond', serif; font-size: 17px; color: var(--v); margin-bottom: 7px; }
+  .pi { background: var(--vs); border-left: 3px solid var(--v); padding: 11px 15px; border-radius: 0 8px 8px 0; margin-top: 9px; font-size: 14px; line-height: 1.65; color: var(--tx); }
+  .tb { background: var(--v); border-radius: 12px; padding: 18px; margin-top: 14px; text-align: center; color: var(--b); }
+  .td { font-family: 'Cormorant Garamond', serif; font-size: 50px; font-weight: 300; color: var(--dc); line-height: 1; margin: 7px 0; }
+  .tl { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-bottom: 14px; }
+  .tbar { height: 4px; background: rgba(255,255,255,0.2); border-radius: 2px; overflow: hidden; margin-bottom: 14px; }
+  .tbf { height: 100%; background: var(--d); border-radius: 2px; transition: width 1s linear; width: 100%; }
+  .tbs { display: flex; gap: 10px; justify-content: center; }
+  .btn { padding: 9px 22px; border-radius: 8px; border: none; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; cursor: pointer; transition: all 0.2s; }
+  .bi { background: var(--d); color: var(--v); } .bi:hover { background: #D4B460; }
+  .bp { background: rgba(255,255,255,0.15); color: var(--b); } .bp:hover { background: rgba(255,255,255,0.25); }
+  .br { background: transparent; color: rgba(255,255,255,0.6); font-size: 12px; padding: 9px 11px; }
+  .cl { margin-top: 18px; }
+  .ct { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--g); margin-bottom: 11px; }
+  .ci2 { display: flex; align-items: flex-start; gap: 11px; padding: 11px 0; border-bottom: 1px solid #F0F0F0; cursor: pointer; }
+  .ci2:last-child { border-bottom: none; }
+  .cb2 { width: 21px; height: 21px; border: 2px solid #D1D5DB; border-radius: 6px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all 0.2s; margin-top: 1px; }
+  .ci2.mk .cb2 { background: var(--v); border-color: var(--v); }
+  .ci2.mk .cb2::after { content: '✓'; color: white; font-size: 13px; font-weight: 600; }
+  .ct2 { font-size: 14px; line-height: 1.5; color: #374151; }
+  .ci2.mk .ct2 { color: var(--g); text-decoration: line-through; }
+  .bcmp { width: 100%; margin-top: 18px; padding: 13px; background: var(--v); color: var(--b); border: none; border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 500; cursor: pointer; transition: all 0.2s; }
+  .bcmp:hover { background: var(--vc); }
+  .dtag { display: inline-block; background: var(--vs); color: #5A3D8A; font-size: 11px; padding: 3px 10px; border-radius: 10px; margin: 2px 2px 0; font-weight: 500; }
+  .dtags { margin-top: 10px; }
+  .fin { background: linear-gradient(135deg, var(--v) 0%, #3D2A5E 100%); border-radius: 16px; padding: 32px 22px; text-align: center; color: var(--b); display: none; margin-top: 22px; }
+  .fin.vis { display: block; animation: fi 0.6s ease; }
+  .fin h2 { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 300; margin-bottom: 8px; color: var(--dc); }
+  .fin p { font-size: 14px; color: rgba(255,255,255,0.8); line-height: 1.6; max-width: 370px; margin: 0 auto 18px; }
+  .prox { background: rgba(255,255,255,0.1); border-radius: 10px; padding: 13px 18px; font-size: 13px; color: rgba(255,255,255,0.8); }
+  .prox strong { display: block; color: var(--dc); font-size: 15px; margin-bottom: 4px; }
+  @keyframes fi { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">MIELSY®</div>
+  <div class="badge">Plan A · Sesión 1 de 4</div>
+</header>
+<div class="hero">
+  <div class="slabel">Semana 1 · Variable A — Yo Fundamental</div>
+  <h1>Rescate <em>del Yo</em></h1>
+  <p class="hero-sub">Regulación · Reescritura · Anclaje · 60 minutos</p>
+  <div class="pg">
+    <span class="pt" id="tiempoTotal">0 / 60 min</span>
+    <div class="pb"><div class="pf" id="barraGlobal"></div></div>
+    <span class="pl" id="pctLabel">0%</span>
+  </div>
+</div>
+<main>
+
+  <!-- VIDEO BIENVENIDA -->
+  <div style="background:linear-gradient(135deg,#3D2A5E 0%,var(--v) 100%);border-radius:16px;padding:24px;margin-bottom:20px;text-align:center;color:#fff;">
+    <div style="font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--dc);margin-bottom:8px;">Antes de comenzar</div>
+    <div style="font-family:'Cormorant Garamond',serif;font-size:20px;margin-bottom:16px;">Bienvenida · Un mensaje de la Dra. Columbié</div>
+    <div style="position:relative;padding-bottom:56.25%;height:0;border-radius:10px;overflow:hidden;background:#000;">
+      <iframe src="https://www.youtube.com/embed/EQLtuUPi9rY" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+    </div>
+    <p style="margin-top:12px;font-size:13px;color:rgba(255,255,255,0.7);">Mira este video antes de iniciar tu sesión</p>
+  </div>
+
+  <!-- ETAPA 1 -->
+  <div class="card open" id="card1">
+    <div class="ch" onclick="tog(1)">
+      <div class="ci">🌱</div>
+      <div style="flex:1"><div class="cn">Etapa 1 · Regulación del Yo Físico y Mental</div><div class="cm">20 minutos · Terapia Sensorial</div></div>
+      <div class="cs sa" id="est1">En curso</div>
+    </div>
+    <div class="cb vis" id="body1">
+      <div class="paso">
+        <div class="pn">Paso 1 · Reconexión con el cuerpo</div>
+        <h3>Tu cuerpo es tu primer hogar</h3>
+        <p>El Yo Fundamental comienza en el cuerpo. Antes de cualquier pensamiento o emoción, existe una sensación física que nos dice que estamos vivos.</p>
+        <div class="pi">
+          🧍 Ponte de pie si puedes. Sacude suavemente las manos, los brazos, los hombros durante 30 segundos.<br><br>
+          👁️ Luego siéntate. Cierra los ojos. Haz un recorrido mental desde los pies hasta la cabeza: ¿dónde sientes tensión? ¿dónde sientes calor? ¿dónde sientes vacío?<br><br>
+          🤲 Coloca ambas manos sobre el abdomen. Respira hacia tus manos. Siente cómo tu vientre sube y baja.
+        </div>
+      </div>
+      <div class="paso">
+        <div class="pn">Paso 2 · PadSensorial del Yo</div>
+        <h3>Activar los sentidos como puerta al presente (D1 · D2)</h3>
+        <div class="pi">
+          Elige un objeto cercano que puedas sostener: una taza, una piedra, una fruta, cualquier cosa.<br><br>
+          🖐️ <strong>Tacto:</strong> explora su textura durante 1 minuto con los ojos cerrados.<br>
+          👃 <strong>Olfato:</strong> si tiene aroma, acércalo a la nariz. Respira profundamente.<br>
+          👂 <strong>Sonido:</strong> golpéalo suavemente. Escucha el sonido que produce.<br><br>
+          Este ejercicio activa el sistema nervioso parasimpático y ancla el Yo al momento presente.
+        </div>
+      </div>
+      <div class="paso">
+        <div class="pn">Paso 3 · Respiración del Yo Esencial</div>
+        <h3>El ritmo que te devuelve a ti mismo/a</h3>
+        <div class="pi">
+          Inhala lentamente por la nariz contando <strong>4</strong>.<br>
+          Retén contando <strong>4</strong>.<br>
+          Exhala por la boca contando <strong>6</strong>.<br><br>
+          Con cada exhalación di internamente: <em>"Estoy aquí. Soy yo."</em><br>
+          Realiza <strong>8 ciclos completos</strong>.
+        </div>
+      </div>
+      <div class="dtags"><span class="dtag">D1 Física</span><span class="dtag">D2 Mental</span><span class="dtag">D3 Emocional</span></div>
+      <div class="tb">
+        <div class="tl">Tiempo de la etapa</div>
+        <div class="td" id="timer1">20:00</div>
+        <div class="tbar"><div class="tbf" id="barra1"></div></div>
+        <div class="tbs">
+          <button class="btn bi" onclick="ini(1,1200)">▶ Iniciar</button>
+          <button class="btn bp" onclick="pau(1)">⏸ Pausar</button>
+          <button class="btn br" onclick="rei(1,1200)">↺</button>
+        </div>
+      </div>
+      <div class="cl">
+        <div class="ct">Confirma tu práctica</div>
+        <div class="ci2" onclick="mk(this)"><div class="cb2"></div><div class="ct2">Realicé el recorrido corporal y la sacudida de activación</div></div>
+        <div class="ci2" onclick="mk(this)"><div class="cb2"></div><div class="ct2">Practiqué el PadSensorial con un objeto (tacto, olfato, sonido)</div></div>
+        <div class="ci2" onclick="mk(this)"><div class="cb2"></div><div class="ct2">Completé 8 ciclos de respiración del Yo Esencial</div></div>
+      </div>
+      <button class="bcmp" onclick="comp(1)">✓ Completar Regulación · Avanzar a Reescritura</button>
+    </div>
+  </div>
+
+  <!-- ETAPA 2 -->
+  <div class="card" id="card2">
+    <div class="ch" onclick="tog(2)">
+      <div class="ci">✍️</div>
+      <div style="flex:1"><div class="cn">Etapa 2 · Reescritura del Yo Narrativo</div><div class="cm">15 minutos · Terapia Narrativa</div></div>
+      <div class="cs sp" id="est2">Pendiente</div>
+    </div>
+    <div class="cb" id="body2">
+      <div class="paso">
+        <div class="pn">Paso 1 · ¿Quién soy hoy?</div>
+        <h3>La historia que me cuento sobre mí mismo/a</h3>
+        <div class="pi">
+          Completa estas frases sin pensar demasiado — escribe lo primero que surja:<br><br>
+          📍 <em>"Cuando pienso en mí mismo/a, lo primero que siento es…"</em><br>
+          📍 <em>"La parte de mí que más descuido es…"</em><br>
+          📍 <em>"Si me tratara como trato a las personas que quiero, yo…"</em>
+        </div>
+      </div>
+      <div class="paso">
+        <div class="pn">Paso 2 · Narraterapia del Yo Creativo (D5)</div>
+        <h3>Rescatar la voz creativa interior</h3>
+        <div class="pi">
+          Piensa en algo que solías hacer con placer y que ya no haces — dibujar, bailar, escribir, cantar, cocinar, jugar.<br><br>
+          🎨 Visualiza durante 3 minutos cómo sería volver a hacerlo. No importa si "eres bueno/a" — solo si lo disfrutas.<br><br>
+          Escribe o di en voz alta: <em>"Una cosa creativa que quiero recuperar es…"</em>
+        </div>
+      </div>
+      <div class="paso">
+        <div class="pn">Paso 3 · El Yo Espiritual (D4)</div>
+        <h3>Lo que le da sentido a tu existencia</h3>
+        <div class="pi">
+          Espiritualidad no es necesariamente religión — es lo que te conecta con algo más grande que los problemas cotidianos.<br><br>
+          Puede ser la naturaleza, el arte, la familia, una creencia, el servicio a otros, la gratitud.<br><br>
+          Completa: <em>"Lo que más sentido le da a mi vida en este momento es…"</em><br><br>
+          Esa respuesta es tu <strong>ancla espiritual MIELSY</strong> para esta semana.
+        </div>
+      </div>
+      <div class="dtags"><span class="dtag">D4 Espiritual</span><span class="dtag">D5 Creativa</span></div>
+      <div class="tb">
+        <div class="tl">Tiempo de la etapa</div>
+        <div class="td" id="timer2">15:00</div>
+        <div class="tbar"><div class="tbf" id="barra2"></div></div>
+        <div class="tbs">
+          <button class="btn bi" onclick="ini(2,900)">▶ Iniciar</button>
+          <button class="btn bp" onclick="pau(2)">⏸ Pausar</button>
+          <button class="btn br" onclick="rei(2,900)">↺</button>
+        </div>
+      </div>
+      <div class="cl">
+        <div class="ct">Confirma tu práctica</div>
+        <div class="ci2" onclick="mk(this)"><div class="cb2"></div><div class="ct2">Completé las 3 frases de autoobservación sin juicio</div></div>
+        <div class="ci2" onclick="mk(this)"><div class="cb2"></div><div class="ct2">Visualicé y nombré mi actividad creativa a recuperar</div></div>
+        <div class="ci2" onclick="mk(this)"><div class="cb2"></div><div class="ct2">Identifiqué mi ancla espiritual MIELSY de esta semana</div></div>
+      </div>
+      <button class="bcmp" onclick="comp(2)">✓ Completar Reescritura · Avanzar a Anclaje</button>
+    </div>
+  </div>
+
+  <!-- ETAPA 3 -->
+  <div class="card" id="card3">
+    <div class="ch" onclick="tog(3)">
+      <div class="ci">⚓</div>
+      <div style="flex:1"><div class="cn">Etapa 3 · Anclaje del Yo Esencial</div><div class="cm">5 minutos · Cierre Multimodal</div></div>
+      <div class="cs sp" id="est3">Pendiente</div>
+    </div>
+    <div class="cb" id="body3">
+      <div class="paso">
+        <div class="pn">Anclaje multisensorial del Yo</div>
+        <h3>Sella este momento de reencuentro contigo</h3>
+        <div class="pi">
+          🌬️ 3 respiraciones del Yo Esencial (4-4-6).<br><br>
+          🖐️ Coloca una mano sobre el corazón. Siente el latido. Di internamente:<br>
+          <em>"Soy suficiente. Me cuido. Soy mi prioridad."</em><br><br>
+          🌟 Evoca tu ancla espiritual. Mantenla 30 segundos con toda su fuerza sensorial.<br><br>
+          📋 <strong>Intención para la semana:</strong><br>
+          <em>"Esta semana voy a cuidar mi Yo haciendo…"</em>
+        </div>
+      </div>
+      <!-- VIDEO CIERRE -->
+      <div style="background:linear-gradient(135deg,#3D2A5E 0%,var(--v) 100%);border-radius:12px;padding:20px;margin-top:16px;text-align:center;color:#fff;">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:17px;margin-bottom:10px;">🎬 Resumen de cierre · El Neurodiseño del Bienestar</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:15px;font-style:italic;color:var(--dc);line-height:1.6;margin-bottom:16px;padding:12px;border:1px solid rgba(201,168,76,0.3);border-radius:8px;">
+          "El Neurodiseño del Bienestar Integral Preventivo no trata enfermedades. Diseña equilibrio. Y el equilibrio, una vez diseñado, se convierte en el estado natural del ser."
+        </div>
+        <div style="position:relative;padding-bottom:56.25%;height:0;border-radius:10px;overflow:hidden;background:#000;margin-bottom:12px;">
+          <iframe src="https://www.youtube.com/embed/si3JtMGs2pg" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <p style="font-size:12px;color:rgba(255,255,255,0.6);">Ver antes de cerrar la sesión</p>
+      </div>
+      <div class="tb">
+        <div class="tl">Tiempo de la etapa</div>
+        <div class="td" id="timer3">05:00</div>
+        <div class="tbar"><div class="tbf" id="barra3"></div></div>
+        <div class="tbs">
+          <button class="btn bi" onclick="ini(3,300)">▶ Iniciar</button>
+          <button class="btn bp" onclick="pau(3)">⏸ Pausar</button>
+          <button class="btn br" onclick="rei(3,300)">↺</button>
+        </div>
+      </div>
+      <div class="cl">
+        <div class="ct">Confirma tu cierre</div>
+        <div class="ci2" onclick="mk(this)"><div class="cb2"></div><div class="ct2">Realicé las 3 respiraciones y el toque consciente</div></div>
+        <div class="ci2" onclick="mk(this)"><div class="cb2"></div><div class="ct2">Evoqué mi ancla espiritual y formulé mi intención semanal</div></div>
+        <div class="ci2" onclick="mk(this)"><div class="cb2"></div><div class="ct2">Vi el video de cierre de la Semana 1</div></div>
+      </div>
+      <button class="bcmp" onclick="comp(3)">🌱 Completar Sesión 1 · ¡El Yo despierta!</button>
+    </div>
+  </div>
+
+  <div class="fin" id="fin">
+    <div style="font-size:42px;margin-bottom:12px;">🌱</div>
+    <h2>¡Sesión 1 completada!</h2>
+    <p>Has dado el primer paso para rescatar tu Yo Fundamental. Tu cuerpo, mente y espíritu te lo agradecen.</p>
+    <div class="prox"><strong>📅 Próxima sesión — Semana 2</strong>Restaurar el equilibrio interno — Yo Emocional y Profesional</div>
+  </div>
+</main>
+<script>
+  const dur={1:1200,2:900,3:300},tr={1:1200,2:900,3:300},iv={},run={1:false,2:false,3:false},done={1:false,2:false,3:false};
+  function tog(n){document.getElementById('body'+n).classList.toggle('vis');document.getElementById('card'+n).classList.toggle('open');}
+  function ini(n,d){if(run[n])return;run[n]=true;const t=dur[n];iv[n]=setInterval(()=>{tr[n]--;if(tr[n]<=0){tr[n]=0;clearInterval(iv[n]);run[n]=false;document.getElementById('timer'+n).style.color='#C9A84C';}upT(n,t);},1000);}
+  function pau(n){clearInterval(iv[n]);run[n]=false;}
+  function rei(n,d){clearInterval(iv[n]);run[n]=false;tr[n]=d;document.getElementById('timer'+n).style.color='';upT(n,d);}
+  function upT(n,t){const v=tr[n];document.getElementById('timer'+n).textContent=String(Math.floor(v/60)).padStart(2,'0')+':'+String(v%60).padStart(2,'0');document.getElementById('barra'+n).style.width=((v/t)*100)+'%';}
+  function mk(el){el.classList.toggle('mk');}
+  function comp(n){done[n]=true;const e=document.getElementById('est'+n);e.textContent='✓ Completada';e.className='cs sl';document.getElementById('body'+n).classList.remove('vis');document.getElementById('card'+n).classList.remove('open');if(n<3){const s=n+1;document.getElementById('est'+s).textContent='En curso';document.getElementById('est'+s).className='cs sa';document.getElementById('body'+s).classList.add('vis');document.getElementById('card'+s).classList.add('open');document.getElementById('card'+s).scrollIntoView({behavior:'smooth',block:'start'});}if(n===3){document.getElementById('fin').classList.add('vis');document.getElementById('fin').scrollIntoView({behavior:'smooth'});}upG();}
+  function upG(){const c=Object.values(done).filter(Boolean).length,p=Math.round(c/3*100);document.getElementById('barraGlobal').style.width=p+'%';document.getElementById('pctLabel').textContent=p+'%';document.getElementById('tiempoTotal').textContent=(c===1?20:c===2?35:40)+' / 60 min';}
+  document.addEventListener("contextmenu",function(e){e.preventDefault();});
+  document.addEventListener("keydown",function(e){if((e.ctrlKey||e.metaKey)&&["c","a","p","s","u"].includes(e.key))e.preventDefault();});
+  document.addEventListener("copy",function(e){e.preventDefault();});
+  document.addEventListener("dragstart",function(e){e.preventDefault();});
+</script>
+</body>
+</html>
