@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MIELSY · Portal del Paciente</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --v: #6B5B8E; --vc: #8B7BB0; --vs: #EDE8F5; --d: #C9A84C; --dc: #F0DFA0;
+  --cr: #FAF8FC; --g: #6B7280; --tx: #2A1F3D; --b: #FFFFFF;
+  --gn: #3fb950; --yw: #d29922; --rd: #f85149;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'DM Sans', sans-serif; background: var(--cr); color: var(--tx); min-height: 100vh; }
+
+/* LOGIN */
+#login-screen { position: fixed; inset: 0; background: linear-gradient(135deg, #2A1F3D 0%, var(--v) 100%); z-index: 200; display: flex; align-items: center; justify-content: center; }
+.login-box { background: rgba(255,255,255,0.05); border: 1px solid rgba(201,168,76,0.2); border-radius: 24px; padding: 48px 36px; width: 340px; text-align: center; backdrop-filter: blur(10px); }
+.login-logo { font-family: 'Cormorant Garamond', serif; font-size: 48px; color: var(--d); margin-bottom: 8px; }
+.login-title { font-family: 'Cormorant Garamond', serif; font-size: 22px; color: var(--dc); margin-bottom: 4px; }
+.login-sub { font-size: 12px; color: rgba(255,255,255,0.5); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 32px; }
+.login-input { width: 100%; background: rgba(255,255,255,0.08); border: 1px solid rgba(201,168,76,0.3); border-radius: 12px; padding: 14px 18px; color: #fff; font-family: 'DM Sans', sans-serif; font-size: 16px; outline: none; text-align: center; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 12px; }
+.login-input::placeholder { letter-spacing: 1px; text-transform: none; color: rgba(255,255,255,0.35); font-size: 14px; }
+.login-input:focus { border-color: var(--d); }
+.login-btn { width: 100%; background: linear-gradient(135deg, #8b6d3a, var(--d)); color: #fff; border: none; border-radius: 12px; padding: 14px; font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600; cursor: pointer; transition: opacity 0.2s; }
+.login-btn:hover { opacity: 0.9; }
+.login-err { font-size: 13px; color: var(--rd); margin-top: 12px; min-height: 20px; }
+.login-hint { font-size: 11px; color: rgba(255,255,255,0.35); margin-top: 20px; line-height: 1.5; }
+
+/* PORTAL */
+#portal { display: none; min-height: 100vh; }
+header { background: var(--v); color: #fff; padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 50; box-shadow: 0 2px 12px rgba(0,0,0,0.15); }
+.h-logo { font-family: 'Cormorant Garamond', serif; font-size: 20px; color: var(--dc); }
+.h-user { display: flex; align-items: center; gap: 10px; }
+.h-codigo { font-size: 12px; background: rgba(201,168,76,0.15); border: 1px solid rgba(201,168,76,0.3); padding: 4px 12px; border-radius: 20px; color: var(--dc); letter-spacing: 1px; }
+.h-out { background: transparent; border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.6); padding: 6px 12px; border-radius: 8px; font-size: 12px; cursor: pointer; }
+
+main { max-width: 680px; margin: 0 auto; padding: 28px 18px 80px; }
+
+/* PERFIL */
+.perfil-card { background: linear-gradient(135deg, var(--v) 0%, #3D2A5E 100%); border-radius: 20px; padding: 28px 24px; color: #fff; margin-bottom: 24px; }
+.perfil-nombre { font-family: 'Cormorant Garamond', serif; font-size: 24px; margin-bottom: 4px; }
+.perfil-codigo { font-size: 12px; color: var(--dc); letter-spacing: 2px; margin-bottom: 20px; }
+.semaforo { display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 20px; font-size: 13px; font-weight: 600; margin-bottom: 20px; }
+.sem-gn { background: rgba(63,185,80,0.2); color: var(--gn); border: 1px solid rgba(63,185,80,0.3); }
+.sem-yw { background: rgba(210,153,34,0.2); color: var(--yw); border: 1px solid rgba(210,153,34,0.3); }
+.sem-rd { background: rgba(248,81,73,0.2); color: var(--rd); border: 1px solid rgba(248,81,73,0.3); }
+
+/* BARRAS DIMENSIONES */
+.dims-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 20px; }
+@media(max-width:500px){ .dims-grid { grid-template-columns: 1fr; } }
+.dim-item { background: rgba(255,255,255,0.08); border-radius: 8px; padding: 8px 12px; }
+.dim-label { font-size: 11px; color: rgba(255,255,255,0.6); margin-bottom: 4px; }
+.dim-bar { height: 6px; background: rgba(255,255,255,0.15); border-radius: 3px; overflow: hidden; }
+.dim-fill { height: 100%; border-radius: 3px; transition: width 0.8s ease; }
+.dim-score { font-size: 12px; color: var(--dc); font-weight: 600; float: right; margin-top: -18px; }
+
+/* PROGRESO PLAN */
+.progreso-card { background: var(--b); border-radius: 16px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.06); }
+.prog-titulo { font-family: 'Cormorant Garamond', serif; font-size: 18px; color: var(--v); margin-bottom: 4px; }
+.prog-sub { font-size: 12px; color: var(--g); margin-bottom: 16px; }
+.prog-barra { height: 10px; background: var(--vs); border-radius: 5px; overflow: hidden; margin-bottom: 8px; }
+.prog-fill { height: 100%; background: linear-gradient(90deg, var(--v), var(--vc)); border-radius: 5px; transition: width 0.8s ease; }
+.prog-info { display: flex; justify-content: space-between; font-size: 12px; color: var(--g); }
+.dias-grid { display: grid; grid-template-columns: repeat(10,1fr); gap: 4px; margin-top: 14px; }
+.dia-dot { width: 100%; aspect-ratio: 1; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 600; }
+.dia-ok { background: var(--v); color: #fff; }
+.dia-hoy { background: var(--d); color: var(--tx); }
+.dia-fut { background: var(--vs); color: var(--g); }
+
+/* SESIONES */
+.sesiones-titulo { font-family: 'Cormorant Garamond', serif; font-size: 20px; color: var(--tx); margin-bottom: 16px; }
+.sesion-card { background: var(--b); border-radius: 16px; padding: 20px; margin-bottom: 14px; box-shadow: 0 2px 10px rgba(0,0,0,0.06); display: flex; align-items: center; gap: 16px; transition: all 0.2s; }
+.sesion-card.disponible { cursor: pointer; }
+.sesion-card.disponible:hover { box-shadow: 0 4px 20px rgba(107,91,142,0.15); transform: translateY(-1px); }
+.sesion-card.bloqueada { opacity: 0.5; }
+.sesion-icono { width: 52px; height: 52px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
+.ic-disp { background: var(--vs); }
+.ic-comp { background: #DCFCE7; }
+.ic-bloq { background: #F3F4F6; }
+.sesion-info { flex: 1; }
+.sesion-nombre { font-family: 'Cormorant Garamond', serif; font-size: 17px; color: var(--tx); margin-bottom: 3px; }
+.sesion-meta { font-size: 12px; color: var(--g); }
+.sesion-badge { font-size: 11px; padding: 4px 10px; border-radius: 10px; font-weight: 600; white-space: nowrap; }
+.badge-disp { background: var(--vs); color: var(--v); }
+.badge-comp { background: #DCFCE7; color: #166534; }
+.badge-bloq { background: #F3F4F6; color: var(--g); }
+.badge-prox { background: #FEF3C7; color: #92400E; }
+
+/* LOADING */
+#loading-portal { text-align: center; padding: 60px; color: var(--g); }
+.sp { width: 28px; height: 28px; border: 3px solid var(--vs); border-top-color: var(--v); border-radius: 50%; margin: 0 auto 14px; animation: spin .8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.empty { text-align: center; padding: 40px; color: var(--g); font-size: 14px; }
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login-screen">
+  <div class="login-box">
+    <div class="login-logo">M</div>
+    <div class="login-title">Portal MIELSY</div>
+    <div class="login-sub">Programa de Bienestar · Dra. Columbié</div>
+    <input class="login-input" id="codigo-input" type="text" placeholder="Tu código MIELSY" maxlength="10"
+      oninput="this.value=this.value.toUpperCase()"
+      onkeydown="if(event.key==='Enter')entrar()"/>
+    <button class="login-btn" onclick="entrar()">Acceder a mi plan</button>
+    <div class="login-err" id="login-err"></div>
+    <div class="login-hint">Ingresa el código que aparece en tus correos MIELSY<br>Ejemplo: M-0112</div>
+  </div>
+</div>
+
+<!-- PORTAL -->
+<div id="portal">
+  <header>
+    <div class="h-logo">MIELSY®</div>
+    <div class="h-user">
+      <span class="h-codigo" id="h-codigo">—</span>
+      <button class="h-out" onclick="salir()">Salir</button>
+    </div>
+  </header>
+
+  <main>
+    <div id="loading-portal"><div class="sp"></div>Cargando tu plan...</div>
+    <div id="contenido" style="display:none"></div>
+  </main>
+</div>
+
+<script>
+const API_URL   = 'https://script.google.com/macros/s/AKfycbxIj1jou20RFx-5RFHJofM3kQaDOa1TCEOKAk9O6lTQJYUh08M2qTgRvCwiC6y7Hqsc1Q/exec';
+const API_TOKEN = 'mielsy-dashboard-2026';
+const BASE_URL  = 'https://ecosistema-mielsy.github.io/app/';
+
+const DN = ['','Física','Mental','Emocional','Espiritual','Creativa',
+  'Profesional','Económica','Familiar','Amor/Pareja','Social','Cultural','Medioambiental','Digital'];
+
+const PLANES = {
+  'A':   { nombre:'Plan A — Yo Fundamental',          sesiones:['sesion1_vara','sesion2_vara','sesion3_vara','sesion4_vara'] },
+  'B':   { nombre:'Plan B — Interacción y Entorno',    sesiones:['sesion1_varb','sesion2_varb','sesion3_varb','sesion4_varb'] },
+  'C':   { nombre:'Plan C — Contexto Moderno',         sesiones:['sesion1_varc','sesion2_varc','sesion3_varc','sesion4_varc'] },
+  'AB':  { nombre:'Plan AB — Yo y Vínculos',           sesiones:['sesion1_varab','sesion2_varab','sesion3_varab','sesion4_varab'] },
+  'AC':  { nombre:'Plan AC — Yo y Contexto',           sesiones:['sesion1_varac','sesion2_varac','sesion3_varac','sesion4_varac'] },
+  'BC':  { nombre:'Plan BC — Vínculos y Contexto',     sesiones:['sesion1_varbc','sesion2_varbc','sesion3_varbc','sesion4_varbc'] },
+  'ABC': { nombre:'Plan ABC — Integral',               sesiones:['sesion1_varabc','sesion2_varabc','sesion3_varabc','sesion4_varabc'] },
+};
+
+const TITULOS_SESION = {
+  1: ['Rescate', 'Semana 1'],
+  2: ['Restaurar', 'Semana 2'],
+  3: ['Consolidar', 'Semana 3'],
+  4: ['Autonomía', 'Semana 4'],
+};
+
+let datosPaciente = null;
+let datosPlan     = null;
+
+async function entrar() {
+  const codigo = document.getElementById('codigo-input').value.trim().toUpperCase();
+  const err    = document.getElementById('login-err');
+  if (!codigo) { err.textContent = 'Por favor ingresa tu código MIELSY.'; return; }
+
+  err.textContent = 'Verificando...';
+
+  try {
+    const res  = await fetch(`${API_URL}?token=${API_TOKEN}`);
+    const data = await res.json();
+    if (!data.ok) throw new Error(data.error);
+
+    // Buscar paciente en datos IEBI
+    const paciente = data.rows.find(r => (r.codigo || '').toUpperCase() === codigo);
+
+    // Buscar en PLAN_MIELSY
+    const planRes  = await fetch(`${API_URL}?token=${API_TOKEN}&action=getPlan&codigo=${encodeURIComponent(codigo)}`);
+    const planData = await planRes.json();
+
+    if (!paciente && (!planData.ok || !planData.plan)) {
+      err.textContent = 'Código no encontrado. Verifica que sea exactamente como aparece en tu correo.';
+      return;
+    }
+
+    datosPaciente = paciente || null;
+    datosPlan     = planData.ok ? planData.plan : null;
+
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('portal').style.display = 'block';
+    document.getElementById('h-codigo').textContent = codigo;
+    renderPortal(codigo);
+
+  } catch(e) {
+    err.textContent = 'Error de conexión. Intenta de nuevo.';
+  }
+}
+
+function salir() {
+  document.getElementById('login-screen').style.display = 'flex';
+  document.getElementById('portal').style.display = 'none';
+  document.getElementById('codigo-input').value = '';
+  document.getElementById('login-err').textContent = '';
+  datosPaciente = null; datosPlan = null;
+}
+
+function renderPortal(codigo) {
+  document.getElementById('loading-portal').style.display = 'none';
+  const cont = document.getElementById('contenido');
+  cont.style.display = 'block';
+  cont.innerHTML = '';
+
+  // ── PERFIL IEBI ──────────────────────────────────────────────
+  if (datosPaciente) {
+    const p = datosPaciente;
+    const niveles = [
+      { cls:'sem-gn', txt:'🟢 Bienestar Consolidado' },
+      { cls:'sem-yw', txt:'🟡 Desequilibrio Sistémico' },
+      { cls:'sem-rd', txt:'🔴 Colapso del Bienestar' }
+    ];
+    const niv = niveles[p.nivel] || niveles[1];
+
+    // Dimensiones
+    const dimsHTML = Array.from({length:13}, (_,i) => {
+      const d = i+1;
+      const s = p.ds[d] || 0;
+      const pct = Math.round((s-4)/16*100);
+      const color = pct < 44 ? '#3fb950' : pct < 72 ? '#d29922' : '#f85149';
+      return `<div class="dim-item">
+        <div class="dim-label">D${d}. ${DN[d]}</div>
+        <div class="dim-score">${s}</div>
+        <div class="dim-bar"><div class="dim-fill" style="width:${pct}%;background:${color}"></div></div>
+      </div>`;
+    }).join('');
+
+    cont.innerHTML += `
+      <div class="perfil-card">
+        <div class="perfil-nombre">${p.nombre || 'Participante'}</div>
+        <div class="perfil-codigo">${codigo} · Score DD: ${p.gDD}</div>
+        <span class="semaforo ${niv.cls}">${niv.txt}</span>
+        <div class="dims-grid">${dimsHTML}</div>
+      </div>`;
+  }
+
+  // ── PROGRESO DEL PLAN ─────────────────────────────────────────
+  if (datosPlan) {
+    const plan = datosPlan;
+    const diaActual = parseInt(plan.diaActual) || 1;
+    const pct = Math.round(diaActual / 30 * 100);
+    const semanaActual = Math.ceil(diaActual / 7);
+
+    const diasHTML = Array.from({length:30}, (_,i) => {
+      const d = i+1;
+      const cls = d < diaActual ? 'dia-ok' : d === diaActual ? 'dia-hoy' : 'dia-fut';
+      return `<div class="dia-dot ${cls}">${d}</div>`;
+    }).join('');
+
+    const planInfo = PLANES[plan.plan] || { nombre: 'Plan MIELSY' };
+
+    cont.innerHTML += `
+      <div class="progreso-card">
+        <div class="prog-titulo">${planInfo.nombre}</div>
+        <div class="prog-sub">Día ${diaActual} de 30 · Semana ${semanaActual} de 4</div>
+        <div class="prog-barra"><div class="prog-fill" style="width:${pct}%"></div></div>
+        <div class="prog-info"><span>${pct}% completado</span><span>${30-diaActual} días restantes</span></div>
+        <div class="dias-grid">${diasHTML}</div>
+      </div>`;
+
+    // ── SESIONES ──────────────────────────────────────────────────
+    const planConf = PLANES[plan.plan];
+    if (planConf) {
+      cont.innerHTML += `<div class="sesiones-titulo">Mis sesiones terapéuticas</div>`;
+
+      planConf.sesiones.forEach((archivo, idx) => {
+        const numSesion = idx + 1;
+        const semanaReq = numSesion; // Sesión 1 = Semana 1, etc.
+        const disponible = semanaActual >= semanaReq;
+        const completada = semanaActual > semanaReq;
+        const esSiguiente = semanaActual + 1 === semanaReq;
+
+        const tit = TITULOS_SESION[numSesion];
+        const icono = completada ? '✓' : disponible ? '▶' : '🔒';
+        const icCls = completada ? 'ic-comp' : disponible ? 'ic-disp' : 'ic-bloq';
+        const badgeTxt = completada ? '✓ Completada' : disponible ? 'Disponible ahora' : esSiguiente ? `Disponible en Semana ${semanaReq}` : `Semana ${semanaReq}`;
+        const badgeCls = completada ? 'badge-comp' : disponible ? 'badge-disp' : esSiguiente ? 'badge-prox' : 'badge-bloq';
+        const cardCls = disponible ? 'disponible' : 'bloqueada';
+        const onclick = disponible ? `onclick="abrirSesion('${archivo}')"` : '';
+
+        cont.innerHTML += `
+          <div class="sesion-card ${cardCls}" ${onclick}>
+            <div class="sesion-icono ${icCls}">${icono}</div>
+            <div class="sesion-info">
+              <div class="sesion-nombre">Sesión ${numSesion} · ${tit[0]}</div>
+              <div class="sesion-meta">${tit[1]} · 60 minutos · Regulación · Reescritura · Anclaje</div>
+            </div>
+            <span class="sesion-badge ${badgeCls}">${badgeTxt}</span>
+          </div>`;
+      });
+    }
+
+  } else {
+    // Solo tiene datos IEBI pero no plan asignado aún
+    cont.innerHTML += `
+      <div class="progreso-card">
+        <div class="prog-titulo">Plan de intervención</div>
+        <div class="prog-sub">Aún no tienes un plan asignado</div>
+        <p style="font-size:14px;color:var(--g);margin-top:8px;">Cuando la Dra. Columbié te asigne un plan, aparecerá aquí con tus sesiones disponibles.</p>
+      </div>`;
+  }
+}
+
+function abrirSesion(archivo) {
+  window.open(BASE_URL + archivo + '.html', '_blank');
+}
+</script>
+</body>
+</html>
