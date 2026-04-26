@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MIELSY · Seguimiento de Planes</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0d1117; --sf:#161b22; --sf2:#1c2128; --sf3:#21262d;
+  --bd:rgba(200,169,110,.15); --bd2:rgba(200,169,110,.07);
+  --gold:#c8a96e; --gdim:rgba(200,169,110,.45);
+  --cr:#f0e6d3; --tx:#cdd3da; --txd:rgba(205,211,218,.45);
+  --gn:#3fb950; --yw:#d29922; --rd:#f85149; --lav:#b8a8d8;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html,body { background: var(--bg); color: var(--tx); font-family: 'DM Sans', sans-serif; font-size: 13px; min-height: 100vh; }
+
+/* LOGIN */
+#login-screen { position: fixed; inset: 0; background: var(--bg); z-index: 200; display: flex; align-items: center; justify-content: center; }
+.login-box { background: var(--sf); border: 1px solid var(--bd); border-radius: 20px; padding: 40px 36px; width: 320px; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,.5); }
+.login-title { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 700; color: var(--gold); margin-bottom: 4px; }
+.login-sub { font-size: .68rem; color: var(--txd); letter-spacing: .1em; text-transform: uppercase; margin-bottom: 28px; }
+.login-input { width: 100%; background: var(--sf2); border: 1px solid var(--bd); border-radius: 10px; padding: 12px 16px; color: var(--cr); font-family: 'DM Sans', sans-serif; font-size: .9rem; outline: none; text-align: center; letter-spacing: .1em; margin-bottom: 10px; }
+.login-input:focus { border-color: var(--gold); }
+.login-btn { width: 100%; background: linear-gradient(135deg,#8b6d3a,var(--gold)); color: #0d1117; border: none; border-radius: 10px; padding: 13px; font-family: 'DM Sans', sans-serif; font-size: .88rem; font-weight: 700; cursor: pointer; }
+.login-err { font-size: .73rem; color: var(--rd); margin-top: 8px; min-height: 18px; }
+
+/* LAYOUT */
+#app { display: none; min-height: 100vh; }
+.topbar { display: flex; align-items: center; gap: 10px; padding: 12px 20px; background: var(--sf); border-bottom: 1px solid var(--bd); position: sticky; top: 0; z-index: 50; flex-wrap: wrap; }
+.topbar-title { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 700; color: var(--gold); }
+.topbar-sub { font-size: .62rem; color: var(--txd); }
+.topbar-info { flex: 1; }
+.topbar-btns { display: flex; gap: 6px; flex-wrap: wrap; }
+.btn-sm { background: rgba(200,169,110,.1); border: 1px solid var(--bd); border-radius: 7px; color: var(--gold); padding: 6px 12px; font-size: .72rem; cursor: pointer; font-family: 'DM Sans', sans-serif; font-weight: 600; white-space: nowrap; text-decoration: none; display: inline-block; }
+.btn-sm:hover { background: rgba(200,169,110,.2); }
+.btn-danger { background: transparent; border: 1px solid rgba(248,81,73,.2); color: rgba(248,81,73,.6); }
+
+/* KPIs */
+.main { padding: 20px; max-width: 1400px; margin: 0 auto; }
+.kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px,1fr)); gap: 10px; margin-bottom: 20px; }
+.kpi { background: var(--sf); border: 1px solid var(--bd); border-radius: 12px; padding: 14px 16px; text-align: center; }
+.kpi-num { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 700; line-height: 1; }
+.kpi-lbl { font-size: .62rem; color: var(--txd); text-transform: uppercase; letter-spacing: .08em; margin-top: 4px; }
+.c-gold .kpi-num { color: var(--gold); }
+.c-gn .kpi-num { color: var(--gn); }
+.c-yw .kpi-num { color: var(--yw); }
+.c-rd .kpi-num { color: var(--rd); }
+.c-lav .kpi-num { color: var(--lav); }
+
+/* FILTROS */
+.filtros { background: var(--sf2); border: 1px solid var(--bd2); border-radius: 12px; padding: 12px 16px; margin-bottom: 16px; display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.filtros select { background: var(--sf); border: 1px solid var(--bd); border-radius: 7px; color: var(--tx); padding: 5px 9px; font-family: 'DM Sans', sans-serif; font-size: .72rem; outline: none; cursor: pointer; height: 28px; }
+.filtros select:focus { border-color: var(--gold); }
+.fil-label { font-size: .62rem; color: var(--gdim); text-transform: uppercase; letter-spacing: .09em; }
+.btn-reset { background: transparent; border: 1px solid rgba(248,81,73,.25); border-radius: 7px; color: rgba(248,81,73,.6); padding: 5px 10px; font-size: .7rem; cursor: pointer; height: 28px; }
+
+/* TABLA */
+.table-card { background: var(--sf); border: 1px solid var(--bd); border-radius: 14px; overflow: hidden; }
+.table-hdr { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; border-bottom: 1px solid var(--bd2); flex-wrap: wrap; gap: 8px; }
+.table-title { font-family: 'Cormorant Garamond', serif; font-size: .95rem; color: var(--cr); }
+.table-info { font-size: .67rem; color: var(--txd); }
+.table-wrap { overflow-x: auto; max-height: 600px; overflow-y: auto; }
+table { width: 100%; border-collapse: collapse; }
+th { background: var(--sf2); color: var(--gdim); font-size: .62rem; font-weight: 600; text-transform: uppercase; letter-spacing: .07em; padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--bd2); white-space: nowrap; position: sticky; top: 0; z-index: 5; }
+td { padding: 10px 12px; border-bottom: 1px solid rgba(255,255,255,.03); font-size: .78rem; color: var(--tx); white-space: nowrap; }
+tr:hover td { background: rgba(200,169,110,.04); }
+
+/* BADGES */
+.badge { display: inline-block; font-size: .6rem; font-weight: 700; padding: 3px 8px; border-radius: 20px; }
+.bg-gn { background: rgba(63,185,80,.12); color: var(--gn); }
+.bg-yw { background: rgba(210,153,34,.12); color: var(--yw); }
+.bg-rd { background: rgba(248,81,73,.12); color: var(--rd); }
+.bg-lav { background: rgba(184,168,216,.12); color: var(--lav); }
+.bg-tx { background: rgba(205,211,218,.08); color: var(--txd); }
+
+/* BARRA DE PROGRESO */
+.prog-wrap { display: flex; align-items: center; gap: 8px; min-width: 140px; }
+.prog-bar { flex: 1; height: 6px; background: var(--sf3); border-radius: 3px; overflow: hidden; }
+.prog-fill { height: 100%; border-radius: 3px; transition: width .3s; }
+.prog-pct { font-size: .65rem; color: var(--txd); min-width: 28px; text-align: right; }
+
+/* DÍAS GRID mini */
+.dias-mini { display: flex; gap: 2px; flex-wrap: wrap; max-width: 160px; }
+.d-dot { width: 8px; height: 8px; border-radius: 2px; }
+.d-ok { background: var(--gn); }
+.d-hoy { background: var(--gold); }
+.d-fut { background: var(--sf3); }
+
+/* LOADING */
+#loading { text-align: center; padding: 60px; color: var(--txd); }
+.sp { width: 28px; height: 28px; border: 3px solid var(--bd); border-top-color: var(--gold); border-radius: 50%; margin: 0 auto 14px; animation: spin .8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.empty-msg { text-align: center; padding: 30px; color: var(--txd); font-size: .8rem; }
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login-screen">
+  <div class="login-box">
+    <div class="login-title">MIELSY</div>
+    <div class="login-sub">Seguimiento de Planes · Dra. Columbié</div>
+    <input class="login-input" id="pwd-input" type="password" placeholder="Contraseña"
+      onkeydown="if(event.key==='Enter')tryLogin()"/>
+    <button class="login-btn" onclick="tryLogin()">Acceder</button>
+    <div class="login-err" id="login-err"></div>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <div class="topbar">
+    <div class="topbar-info">
+      <div class="topbar-title">Seguimiento de Planes MIELSY</div>
+      <div class="topbar-sub">PLAN_MIELSY · Actualizado: <span id="last-update">—</span></div>
+    </div>
+    <div class="topbar-btns">
+      <button class="btn-sm" onclick="cargarDatos()">↻ Actualizar</button>
+      <a class="btn-sm" href="MIELSY_Dashboard_Dra.html">← Dashboard</a>
+      <button class="btn-sm btn-danger" onclick="logout()">Salir</button>
+    </div>
+  </div>
+
+  <div class="main">
+    <div id="loading"><div class="sp"></div>Cargando planes...</div>
+    <div id="contenido" style="display:none">
+
+      <!-- KPIs -->
+      <div class="kpis">
+        <div class="kpi c-gold"><div class="kpi-num" id="k-total">—</div><div class="kpi-lbl">Total pacientes</div></div>
+        <div class="kpi c-gn"><div class="kpi-num" id="k-activos">—</div><div class="kpi-lbl">Activos</div></div>
+        <div class="kpi c-lav"><div class="kpi-num" id="k-al-dia">—</div><div class="kpi-lbl">Al día</div></div>
+        <div class="kpi c-yw"><div class="kpi-num" id="k-sin-envio">—</div><div class="kpi-lbl">Sin envíos</div></div>
+        <div class="kpi c-rd"><div class="kpi-num" id="k-completados">—</div><div class="kpi-lbl">Completados</div></div>
+      </div>
+
+      <!-- FILTROS -->
+      <div class="filtros">
+        <span class="fil-label">Filtrar:</span>
+        <select id="fil-plan" onchange="filtrar()">
+          <option value="">Todos los planes</option>
+          <option value="A">Plan A</option>
+          <option value="B">Plan B</option>
+          <option value="C">Plan C</option>
+          <option value="AB">Plan AB</option>
+          <option value="AC">Plan AC</option>
+          <option value="BC">Plan BC</option>
+          <option value="ABC">Plan ABC</option>
+        </select>
+        <select id="fil-estado" onchange="filtrar()">
+          <option value="">Todos los estados</option>
+          <option value="aldía">Al día</option>
+          <option value="sinenvio">Sin envíos</option>
+          <option value="completado">Completados</option>
+        </select>
+        <select id="fil-semana" onchange="filtrar()">
+          <option value="">Todas las semanas</option>
+          <option value="1">Semana 1</option>
+          <option value="2">Semana 2</option>
+          <option value="3">Semana 3</option>
+          <option value="4">Semana 4</option>
+        </select>
+        <button class="btn-reset" onclick="resetFiltros()">✕ Limpiar</button>
+      </div>
+
+      <!-- TABLA -->
+      <div class="table-card">
+        <div class="table-hdr">
+          <div class="table-title">Pacientes en Plan</div>
+          <div class="table-info" id="table-info">— registros</div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr>
+              <th>Código</th>
+              <th>Nombre</th>
+              <th>Plan</th>
+              <th>Inicio</th>
+              <th>Semana</th>
+              <th>Día</th>
+              <th>Progreso</th>
+              <th>Días completados</th>
+              <th>Último envío</th>
+              <th>Estado envíos</th>
+              <th>Estado plan</th>
+            </tr></thead>
+            <tbody id="tabla-body"></tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+const PASSWORD  = 'mielsy2026';
+const API_URL   = 'https://script.google.com/macros/s/AKfycbxIj1jou20RFx-5RFHJofM3kQaDOa1TCEOKAk9O6lTQJYUh08M2qTgRvCwiC6y7Hqsc1Q/exec';
+const API_TOKEN = 'mielsy-dashboard-2026';
+
+let todosLosPacientes = [];
+let pacientesFiltrados = [];
+
+// ── AUTH ──────────────────────────────────────────────────────────────────
+function tryLogin() {
+  const v = document.getElementById('pwd-input').value;
+  if (v === PASSWORD) {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('app').style.display = 'block';
+    cargarDatos();
+  } else {
+    document.getElementById('login-err').textContent = 'Contraseña incorrecta';
+    document.getElementById('pwd-input').value = '';
+  }
+}
+
+function logout() {
+  document.getElementById('login-screen').style.display = 'flex';
+  document.getElementById('app').style.display = 'none';
+  document.getElementById('pwd-input').value = '';
+  todosLosPacientes = [];
+}
+
+// ── CARGA ─────────────────────────────────────────────────────────────────
+async function cargarDatos() {
+  document.getElementById('loading').style.display = 'block';
+  document.getElementById('contenido').style.display = 'none';
+  try {
+    const res  = await fetch(`${API_URL}?token=${API_TOKEN}&action=getAllPlanes`);
+    const data = await res.json();
+    if (!data.ok) throw new Error(data.error || 'Error de API');
+    todosLosPacientes = data.planes || [];
+    document.getElementById('last-update').textContent =
+      new Date().toLocaleTimeString('es-GT', { hour:'2-digit', minute:'2-digit' });
+    renderKPIs();
+    filtrar();
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('contenido').style.display = 'block';
+  } catch(e) {
+    document.getElementById('loading').innerHTML =
+      `<div class="empty-msg">⚠ Error al cargar: ${e.message}<br><small>Verifique que el Apps Script esté actualizado.</small></div>`;
+  }
+}
+
+// ── KPIs ──────────────────────────────────────────────────────────────────
+function renderKPIs() {
+  const total      = todosLosPacientes.length;
+  const activos    = todosLosPacientes.filter(p => p.estado === 'Activo').length;
+  const alDia      = todosLosPacientes.filter(p => p.cumplimiento === 'aldía').length;
+  const sinEnvio   = todosLosPacientes.filter(p => p.cumplimiento === 'sinenvio').length;
+  const completados= todosLosPacientes.filter(p => p.diaActual >= 30).length;
+  document.getElementById('k-total').textContent      = total;
+  document.getElementById('k-activos').textContent    = activos;
+  document.getElementById('k-al-dia').textContent     = alDia;
+  document.getElementById('k-sin-envio').textContent  = sinEnvio;
+  document.getElementById('k-completados').textContent= completados;
+}
+
+// ── FILTROS ───────────────────────────────────────────────────────────────
+function filtrar() {
+  const plan   = document.getElementById('fil-plan').value;
+  const estado = document.getElementById('fil-estado').value;
+  const semana = document.getElementById('fil-semana').value;
+
+  pacientesFiltrados = todosLosPacientes.filter(p => {
+    if (plan   && p.plan !== plan)                   return false;
+    if (estado && p.cumplimiento !== estado)          return false;
+    if (semana && String(p.semanaActual) !== semana) return false;
+    return true;
+  });
+  renderTabla();
+}
+
+function resetFiltros() {
+  ['fil-plan','fil-estado','fil-semana'].forEach(id => document.getElementById(id).value = '');
+  filtrar();
+}
+
+// ── TABLA ─────────────────────────────────────────────────────────────────
+function renderTabla() {
+  document.getElementById('table-info').textContent = `${pacientesFiltrados.length} registros`;
+  const tbody = document.getElementById('tabla-body');
+
+  if (!pacientesFiltrados.length) {
+    tbody.innerHTML = '<tr><td colspan="11" class="empty-msg">Sin registros para los filtros seleccionados.</td></tr>';
+    return;
+  }
+
+  tbody.innerHTML = pacientesFiltrados.map(p => {
+    const dia   = parseInt(p.diaActual) || 1;
+    const pct   = Math.min(Math.round(dia / 30 * 100), 100);
+    const color = pct >= 80 ? '#3fb950' : pct >= 40 ? '#c8a96e' : '#d29922';
+
+    // Días mini
+    const diasHTML = Array.from({length:30}, (_,i) => {
+      const d = i+1;
+      const cls = d < dia ? 'd-ok' : d === dia ? 'd-hoy' : 'd-fut';
+      return `<div class="d-dot ${cls}" title="Día ${d}"></div>`;
+    }).join('');
+
+    // Badges
+    const planBadge = `<span class="badge bg-lav">${p.plan}</span>`;
+
+    const cumplBadge = {
+      'aldía':    '<span class="badge bg-gn">✓ Al día</span>',
+      'sinenvio': '<span class="badge bg-yw">⚠ Sin envíos</span>',
+      'completado':'<span class="badge bg-gn">✓ Completado</span>',
+    }[p.cumplimiento] || '<span class="badge bg-tx">—</span>';
+
+    const estadoBadge = p.estado === 'Activo'
+      ? '<span class="badge bg-gn">Activo</span>'
+      : '<span class="badge bg-tx">Inactivo</span>';
+
+    const semBadge = p.semanaActual
+      ? `<span class="badge bg-lav">Semana ${p.semanaActual}</span>`
+      : '—';
+
+    return `<tr>
+      <td><strong style="color:var(--gold)">${p.codigo || '—'}</strong></td>
+      <td>${(p.nombre || '—').slice(0,24)}</td>
+      <td>${planBadge}</td>
+      <td>${p.fechaInicio || '—'}</td>
+      <td>${semBadge}</td>
+      <td><strong style="color:var(--gold)">${dia}</strong><span style="color:var(--txd)">/30</span></td>
+      <td>
+        <div class="prog-wrap">
+          <div class="prog-bar"><div class="prog-fill" style="width:${pct}%;background:${color}"></div></div>
+          <span class="prog-pct">${pct}%</span>
+        </div>
+      </td>
+      <td><div class="dias-mini">${diasHTML}</div></td>
+      <td style="font-size:.7rem;color:var(--txd)">${p.ultimoEnvio || '—'}</td>
+      <td>${cumplBadge}</td>
+      <td>${estadoBadge}</td>
+    </tr>`;
+  }).join('');
+}
+</script>
+</body>
+</html>
