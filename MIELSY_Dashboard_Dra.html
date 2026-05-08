@@ -68,6 +68,15 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .plan-msg.ok{color:var(--gn);}
 .plan-msg.err{color:var(--rd);}
 
+/* BUSCADOR */
+.buscador-wrap{display:flex;align-items:center;gap:6px;background:var(--sf);border:1px solid var(--gold);border-radius:8px;padding:4px 10px;min-width:240px;transition:box-shadow .2s;}
+.buscador-wrap:focus-within{box-shadow:0 0 0 2px rgba(200,169,110,.25);}
+.buscador-input{background:transparent;border:none;color:var(--cr);font-family:'DM Sans',sans-serif;font-size:.75rem;outline:none;width:100%;}
+.buscador-input::placeholder{color:var(--txd);}
+.buscador-icon{color:var(--gold);font-size:.85rem;flex-shrink:0;}
+.buscador-clear{background:none;border:none;color:var(--txd);cursor:pointer;font-size:.75rem;padding:0 2px;line-height:1;}
+.buscador-clear:hover{color:var(--gold);}
+
 /* FILTROS */
 .filtros-panel{background:var(--sf2);border-bottom:1px solid var(--bd2);padding:12px 20px;}
 .filtros-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:8px;}
@@ -135,6 +144,9 @@ tr.selected-row td{background:rgba(155,143,192,.12);}
 .btn-enviar-plan{background:rgba(155,143,192,.2);border:1px solid rgba(155,143,192,.4);border-radius:6px;color:var(--lav);padding:3px 9px;font-size:.65rem;cursor:pointer;white-space:nowrap;}
 .btn-enviar-plan:hover{background:rgba(155,143,192,.35);}
 
+/* HIGHLIGHT búsqueda */
+.highlight{background:rgba(200,169,110,.25);color:var(--gold);border-radius:2px;padding:0 1px;}
+
 #loading{text-align:center;padding:60px;color:var(--txd);}
 .sp{width:30px;height:30px;border:3px solid var(--bd);border-top-color:var(--gold);border-radius:50%;margin:0 auto 14px;animation:spin .8s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg);}}
@@ -159,7 +171,7 @@ tr.selected-row td{background:rgba(155,143,192,.12);}
 <!-- LOGIN -->
 <div id="login-screen">
   <div class="login-box">
-    <div class="login-logo"><img src="https://ecosistema-mielsy.github.io/app/MIELSY_App_Dra.html" onerror="this.style.display='none'" alt="M" style="display:none"><span style="font-family:serif;font-size:1.4rem;color:#c8a96e;font-weight:700">M</span></div>
+    <div class="login-logo"><span style="font-family:serif;font-size:1.4rem;color:#c8a96e;font-weight:700">M</span></div>
     <div class="login-title">MIELSY</div>
     <div class="login-sub">Dashboard Clínico · Dra. Columbié</div>
     <input class="login-input" id="pwd-input" type="password" placeholder="Contraseña" onkeydown="if(event.key==='Enter')tryLogin()"/>
@@ -251,6 +263,21 @@ tr.selected-row td{background:rgba(155,143,192,.12);}
 
   <!-- FILTROS -->
   <div class="filtros-panel">
+    <!-- BUSCADOR -->
+    <div class="filtros-row">
+      <span class="fil-label">Buscar</span>
+      <div class="fil-group">
+        <div class="buscador-wrap">
+          <span class="buscador-icon">🔍</span>
+          <input class="buscador-input" id="fil-buscar" type="text"
+            placeholder="Nombre o código M-0001..."
+            oninput="aplicarFiltros()"
+            onkeydown="if(event.key==='Escape'){this.value='';aplicarFiltros();}"/>
+          <button class="buscador-clear" onclick="document.getElementById('fil-buscar').value='';aplicarFiltros();" title="Limpiar">✕</button>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;font-size:.68rem;color:var(--txd);margin-left:4px;" id="buscar-resultado"></div>
+      </div>
+    </div>
     <div class="filtros-row">
       <span class="fil-label">General</span>
       <div class="fil-group">
@@ -514,11 +541,21 @@ function llenarSelect(id,opciones,placeholder){
   sel.innerHTML=`<option value="">${placeholder}</option>`;
   opciones.forEach(o=>{const opt=document.createElement('option');opt.value=o;opt.textContent=o;sel.appendChild(opt);});
 }
+
 function aplicarFiltros(){
   const g=id=>document.getElementById(id).value;
+  const buscar=(document.getElementById('fil-buscar')?.value||'').toLowerCase().trim();
   const ddMin=parseInt(g('fil-dd-min'))||0;
   const ddMax=parseInt(g('fil-dd-max'))||999;
+
   filteredRows=allRows.filter(r=>{
+    // Buscador por nombre y código
+    if(buscar){
+      const nombre=(r.nombre||'').toLowerCase();
+      const codigo=(r.codigo||'').toLowerCase();
+      const email=(r.email||'').toLowerCase();
+      if(!nombre.includes(buscar)&&!codigo.includes(buscar)&&!email.includes(buscar))return false;
+    }
     if(g('fil-nivel')!==''&&r.nivel!==parseInt(g('fil-nivel')))return false;
     if(g('fil-sexo')!==''&&r.sexo!==g('fil-sexo'))return false;
     if(g('fil-pais')!==''&&r.pais!==g('fil-pais'))return false;
@@ -535,14 +572,29 @@ function aplicarFiltros(){
     if(ddMax<999&&r.gDD>ddMax)return false;
     return true;
   });
+
+  // Mostrar resultado de búsqueda
+  const resEl=document.getElementById('buscar-resultado');
+  if(buscar&&resEl){
+    resEl.textContent=filteredRows.length===0
+      ? '❌ Sin resultados'
+      : `✓ ${filteredRows.length} resultado${filteredRows.length!==1?'s':''}`;
+    resEl.style.color=filteredRows.length===0?'var(--rd)':'var(--gn)';
+  } else if(resEl){
+    resEl.textContent='';
+  }
+
   renderDashboard();
   renderGrafDinamica();
 }
+
 function resetFiltros(){
   ['fil-nivel','fil-sexo','fil-pais','fil-formacion','fil-laboral','fil-rango-edad',
    'fil-anio','fil-mes','fil-semana','fil-varA','fil-varB','fil-varC'].forEach(id=>document.getElementById(id).value='');
   document.getElementById('fil-dd-min').value='';
   document.getElementById('fil-dd-max').value='';
+  const b=document.getElementById('fil-buscar');if(b)b.value='';
+  const r=document.getElementById('buscar-resultado');if(r)r.textContent='';
   aplicarFiltros();
 }
 
@@ -669,9 +721,19 @@ function renderCruce(rows){
 }
 
 function renderTabla(rows){
+  const buscar=(document.getElementById('fil-buscar')?.value||'').toLowerCase().trim();
   document.getElementById('table-info').innerHTML=`${rows.length} registros · <span style="color:var(--lav);font-size:.65rem">Haga clic en una fila para asignar plan</span>`;
   const tbody=document.getElementById('tabla-body');
   if(!rows.length){tbody.innerHTML='<tr><td colspan="26" class="empty-msg">Sin registros para los filtros seleccionados.</td></tr>';return;}
+
+  // Función para resaltar término buscado
+  function hl(text){
+    if(!buscar||!text)return text||'—';
+    const idx=text.toLowerCase().indexOf(buscar);
+    if(idx===-1)return text;
+    return text.slice(0,idx)+'<span class="highlight">'+text.slice(idx,idx+buscar.length)+'</span>'+text.slice(idx+buscar.length);
+  }
+
   const MAX_ROWS=500;
   const visibles=rows.slice(0,MAX_ROWS);
   tbody.innerHTML=visibles.map((r,idx)=>{
@@ -681,10 +743,11 @@ function renderTabla(rows){
       const c=['#3fb950','#d29922','#f85149'][sm];
       return`<td><span class="dim-dot" style="background:${c}"></span>${s}</td>`;
     }).join('');
+    const nombreMostrar=(r.nombre||'—').slice(0,22);
     return`<tr onclick="seleccionarFila(this,${idx})" style="cursor:pointer">
       <td><button class="btn-enviar-plan" onclick="event.stopPropagation();abrirPlanDesdeTabla(${idx})">＋ Plan</button></td>
-      <td><strong style="color:var(--gold)">${r.codigo||'—'}</strong></td>
-      <td>${(r.nombre||'—').slice(0,22)}</td>
+      <td><strong style="color:var(--gold)">${hl(r.codigo||'—')}</strong></td>
+      <td>${hl(nombreMostrar)}</td>
       <td>${r.fecha||'—'}</td><td>${r.sexo||'—'}</td><td>${r.edad||'—'}</td><td>${r.pais||'—'}</td>
       <td><span class="badge ${niv.cls}">${niv.l}</span></td>
       <td><strong>${r.gDD}</strong></td>
