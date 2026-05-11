@@ -105,7 +105,14 @@ html,body{background:var(--bg);color:var(--tx);font-family:'DM Sans',sans-serif;
 .modal-btn-cerrar:hover{border-color:var(--azul-dim);color:var(--azul);}
 .modal-guardado{font-size:.72rem;color:var(--verde);display:none;align-items:center;}
 .modal-guardado.vis{display:flex;}
-.footer{text-align:center;padding:24px 20px;font-size:.62rem;color:var(--txs);line-height:1.8;border-top:1px solid var(--bd2);}</style>
+.footer{text-align:center;padding:24px 20px;font-size:.62rem;color:var(--txs);line-height:1.8;border-top:1px solid var(--bd2);}
+.plan-banner{margin:14px 16px 0;border-radius:14px;padding:14px 18px;display:flex;align-items:center;gap:12px;border:1px solid var(--bd);}
+.plan-banner-ico{font-size:1.6rem;flex-shrink:0;}
+.plan-banner-body{flex:1;}
+.plan-banner-label{font-size:.6rem;text-transform:uppercase;letter-spacing:.1em;color:var(--azul-dim);font-weight:600;margin-bottom:2px;}
+.plan-banner-nombre{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:700;color:var(--azul);line-height:1.2;}
+.plan-banner-sub{font-size:.68rem;color:var(--txd);margin-top:2px;}
+</style>
 </head>
 <body>
 
@@ -145,6 +152,16 @@ html,body{background:var(--bg);color:var(--tx);font-family:'DM Sans',sans-serif;
       <div class="topbar-sub" id="topbar-sub">—</div>
     </div>
     <div class="topbar-badge" id="topbar-badge">Día —</div>
+  </div>
+
+  <!-- BANDA DEL PLAN ASIGNADO -->
+  <div class="plan-banner" id="plan-banner" style="background:var(--azul-bg);">
+    <div class="plan-banner-ico" id="plan-banner-ico">🌿</div>
+    <div class="plan-banner-body">
+      <div class="plan-banner-label">Tu plan terapéutico asignado</div>
+      <div class="plan-banner-nombre" id="plan-banner-nombre">—</div>
+      <div class="plan-banner-sub" id="plan-banner-sub">—</div>
+    </div>
   </div>
 
   <div class="hero" id="hero" style="display:none">
@@ -503,6 +520,13 @@ function renderApp(){
   const esManana=turnoActual==='ma';
   document.getElementById('topbar-sub').textContent=`${codigo} · ${info.nombre}`;
   document.getElementById('topbar-badge').textContent=`Día ${diaActual} de 30`;
+  // Llenar banda del plan
+  const iconosPlan={C:'🌿',A:'⚡',B:'⚖️',AB:'🔄',AC:'🌊',BC:'🌸',ABC:'🌟'};
+  document.getElementById('plan-banner-ico').textContent=iconosPlan[plan]||'🌿';
+  document.getElementById('plan-banner-nombre').textContent=info.nombre;
+  const semanaActual=Math.ceil(diaActual/7);
+  const faseSemana=info.semanas[semanaActual-1]||'';
+  document.getElementById('plan-banner-sub').textContent=`Semana ${semanaActual} · ${faseSemana}`;
   const cont=datos[diaActual];
   if(cont){
     const t=cont[turnoActual];
