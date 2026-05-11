@@ -4,12 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="MIELSY">
 <meta name="theme-color" content="#f5f0eb">
-<title>MIELSY · Mi Espacio</title>
+<title>Instituto MIELSY · Mi Espacio</title>
 <link rel="manifest" href="#" id="mlink">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#f5f0eb;--bg2:#ede7df;--sf:#ffffff;--sf2:#f9f5f0;
@@ -17,83 +17,96 @@
   --azul:#3A7CA5;--azul-dim:rgba(58,124,165,.6);--azul-bg:rgba(58,124,165,.08);
   --verde:#5C8A3C;--verde-bg:rgba(92,138,60,.1);
   --gold:#C8A96E;--gold-bg:rgba(200,169,110,.12);
-  --lila:#9b8fc0;--lila-bg:rgba(155,143,192,.1);
-  --tx:#2c3e50;--txd:rgba(44,62,80,.5);--txs:rgba(44,62,80,.3);
+  --lila:#9b8fc0;--lila-bg:rgba(155,143,192,.12);
+  --tx:#2c3e50;--txd:rgba(44,62,80,.55);--txs:rgba(44,62,80,.3);
 }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-html,body{background:var(--bg);color:var(--tx);font-family:'DM Sans',sans-serif;font-size:15px;overflow-x:hidden;}
+html,body{background:var(--bg);color:var(--tx);font-family:'DM Sans',sans-serif;font-size:15px;overflow-x:hidden;min-height:100vh;}
 body::before{content:'';position:fixed;inset:0;
-  background:radial-gradient(ellipse 70% 40% at 50% 0%,rgba(58,124,165,.06) 0%,transparent 55%),
-    radial-gradient(ellipse 40% 30% at 85% 80%,rgba(92,138,60,.05) 0%,transparent 50%);
+  background:radial-gradient(ellipse 70% 40% at 50% 0%,rgba(58,124,165,.07) 0%,transparent 55%),
+    radial-gradient(ellipse 50% 35% at 85% 85%,rgba(92,138,60,.05) 0%,transparent 50%),
+    radial-gradient(ellipse 40% 30% at 10% 80%,rgba(200,169,110,.04) 0%,transparent 50%);
   pointer-events:none;z-index:0;}
-.wrap{position:relative;z-index:1;max-width:480px;margin:0 auto;padding:0 0 52px;}
+.wrap{position:relative;z-index:1;max-width:480px;margin:0 auto;padding:0 0 60px;}
 
 /* HEADER */
-.hdr{padding:50px 24px 22px;text-align:center;}
-.logo-ring{width:104px;height:104px;border-radius:50%;background:#fff;margin:0 auto 16px;
+.hdr{padding:44px 24px 24px;text-align:center;}
+.logo-ring{width:110px;height:110px;border-radius:50%;background:#fff;margin:0 auto 18px;
   display:flex;align-items:center;justify-content:center;overflow:hidden;
-  box-shadow:0 0 0 2px rgba(58,124,165,.2),0 0 0 5px rgba(58,124,165,.07),0 8px 32px rgba(58,124,165,.15);
+  box-shadow:0 0 0 3px rgba(58,124,165,.15),0 0 0 7px rgba(58,124,165,.05),0 10px 36px rgba(58,124,165,.15);
   animation:float 5s ease-in-out infinite;}
-@keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-5px);}}
-.logo-img{width:96px;height:96px;object-fit:contain;}
-.hdr h1{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:700;color:var(--azul);letter-spacing:.04em;}
-.hdr .sub{font-size:.68rem;color:var(--azul-dim);letter-spacing:.14em;text-transform:uppercase;margin-top:4px;}
-.hdr .dra{font-size:.78rem;color:var(--txd);margin-top:8px;}
+@keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);}}
+.logo-img{width:100px;height:100px;object-fit:contain;}
+.hdr-instituto{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700;
+  color:var(--azul);letter-spacing:.02em;line-height:1.2;margin-bottom:4px;}
+.hdr-sub{font-size:.68rem;color:var(--azul-dim);letter-spacing:.1em;text-transform:uppercase;
+  line-height:1.6;margin-bottom:6px;}
+.hdr-lema{font-family:'Cormorant Garamond',serif;font-size:1rem;font-style:italic;
+  color:var(--gold);margin-top:6px;}
 
-/* SALUDO */
-.saludo-bar{display:flex;align-items:center;justify-content:center;gap:8px;margin:0 18px 24px;
-  padding:12px 16px;background:var(--sf);border:1px solid var(--bd);border-radius:12px;
-  font-size:.75rem;color:var(--txd);box-shadow:0 2px 10px rgba(58,124,165,.06);}
+/* BARRA LIVE */
+.live-bar{display:flex;align-items:center;justify-content:center;gap:8px;margin:0 18px 22px;
+  padding:10px 16px;background:var(--sf);border:1px solid var(--bd);border-radius:12px;
+  font-size:.71rem;color:var(--txd);box-shadow:0 2px 10px rgba(58,124,165,.06);}
 .dot-live{width:7px;height:7px;border-radius:50%;background:var(--verde);
   box-shadow:0 0 6px var(--verde);animation:blink 2s infinite;}
 @keyframes blink{0%,100%{opacity:1;}50%{opacity:.3;}}
 
 /* SECCIÓN */
 .sec-lbl{font-size:.62rem;text-transform:uppercase;letter-spacing:.12em;
-  color:var(--azul-dim);padding:0 18px;margin-bottom:10px;}
+  color:var(--azul-dim);padding:0 18px;margin-bottom:10px;font-weight:600;}
 
 /* MÓDULOS */
-.mods{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 14px;margin-bottom:12px;}
-.mod{background:var(--sf);border:1px solid var(--bd);border-radius:18px;padding:20px 16px;
-  cursor:pointer;text-decoration:none;display:flex;flex-direction:column;gap:8px;
-  transition:transform .18s,box-shadow .18s,border-color .18s;
-  box-shadow:0 2px 12px rgba(58,124,165,.07);
+.mods{padding:0 14px;margin-bottom:14px;display:flex;flex-direction:column;gap:10px;}
+
+.mod{background:var(--sf);border:1px solid var(--bd);border-radius:18px;
+  cursor:pointer;text-decoration:none;display:flex;align-items:center;gap:16px;padding:20px 20px;
+  transition:transform .18s,box-shadow .18s,border-color .2s;
+  box-shadow:0 2px 14px rgba(58,124,165,.07);
   animation:fadeUp .4s ease both;position:relative;overflow:hidden;}
-.mod::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:18px 18px 0 0;}
-.mod.c-azul::before{background:linear-gradient(90deg,var(--azul),rgba(58,124,165,.2));}
-.mod.c-verde::before{background:linear-gradient(90deg,var(--verde),rgba(92,138,60,.2));}
-.mod.c-gold::before{background:linear-gradient(90deg,var(--gold),rgba(200,169,110,.2));}
-.mod.c-lila::before{background:linear-gradient(90deg,var(--lila),rgba(155,143,192,.2));}
-.mod:hover,.mod:active{transform:translateY(-3px);box-shadow:0 10px 28px rgba(58,124,165,.14);border-color:var(--bd);}
-.mod:active{transform:scale(.97);}
-.mod.full{grid-column:span 2;flex-direction:row;align-items:center;gap:16px;padding:22px 20px;}
-.mod-icon{font-size:1.7rem;line-height:1;}
-.mod.full .mod-icon{font-size:2rem;flex-shrink:0;}
+.mod::before{content:'';position:absolute;top:0;left:0;bottom:0;width:4px;border-radius:18px 0 0 18px;}
+.mod.c-azul::before{background:var(--azul);}
+.mod.c-verde::before{background:var(--verde);}
+.mod.c-gold::before{background:var(--gold);}
+.mod.c-lila::before{background:var(--lila);}
+.mod:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(58,124,165,.14);}
+.mod:active{transform:scale(.98);}
+
+.mod-num{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:700;flex-shrink:0;margin-left:4px;}
+.mod.c-azul .mod-num{background:var(--azul-bg);color:var(--azul);}
+.mod.c-verde .mod-num{background:var(--verde-bg);color:var(--verde);}
+.mod.c-gold .mod-num{background:var(--gold-bg);color:#8b6d2a;}
+.mod.c-lila .mod-num{background:var(--lila-bg);color:var(--lila);}
+
+.mod-icon{font-size:1.6rem;flex-shrink:0;}
 .mod-body{flex:1;}
-.mod-name{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:700;
+.mod-name{font-family:'Cormorant Garamond',serif;font-size:1.12rem;font-weight:700;
   color:var(--tx);line-height:1.2;margin-bottom:4px;}
-.mod.full .mod-name{font-size:1.2rem;}
-.mod-desc{font-size:.67rem;color:var(--txd);line-height:1.55;}
+.mod-desc{font-size:.68rem;color:var(--txd);line-height:1.55;}
 .mod-badge{display:inline-block;font-size:.56rem;font-weight:600;letter-spacing:.07em;
   text-transform:uppercase;padding:2px 8px;border-radius:20px;margin-top:6px;}
 .bg-azul{background:var(--azul-bg);color:var(--azul);}
 .bg-verde{background:var(--verde-bg);color:var(--verde);}
 .bg-gold{background:var(--gold-bg);color:#8b6d2a;}
 .bg-lila{background:var(--lila-bg);color:var(--lila);}
-.mod-arr{font-size:1rem;color:var(--azul-dim);flex-shrink:0;}
+.mod-arr{font-size:1.1rem;color:var(--bd);flex-shrink:0;}
 
 @keyframes fadeUp{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+.mod:nth-child(1){animation-delay:.05s;}
+.mod:nth-child(2){animation-delay:.12s;}
+.mod:nth-child(3){animation-delay:.19s;}
 
-/* FRASE */
-.frase-card{margin:6px 14px 16px;background:var(--gold-bg);border:1px solid rgba(200,169,110,.25);
-  border-radius:14px;padding:18px 20px;text-align:center;}
-.frase-texto{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-style:italic;
-  color:#7a5c1e;line-height:1.7;}
-.frase-autor{font-size:.65rem;color:var(--txd);margin-top:8px;}
+/* NOTA INFORMATIVA */
+.nota-card{margin:0 14px 16px;background:rgba(200,169,110,.08);border:1px solid rgba(200,169,110,.25);
+  border-radius:14px;padding:16px 18px;}
+.nota-titulo{font-size:.7rem;font-weight:600;color:#8b6d2a;text-transform:uppercase;
+  letter-spacing:.08em;margin-bottom:6px;}
+.nota-texto{font-size:.75rem;color:var(--txd);line-height:1.7;}
 
 /* INSTALAR */
 .inst-card{margin:6px 14px 26px;background:var(--sf);border:1px solid var(--bd);border-radius:16px;
-  padding:20px;box-shadow:0 2px 12px rgba(58,124,165,.07);}
+  padding:20px;box-shadow:0 2px 12px rgba(58,124,165,.06);}
 .inst-card h3{font-family:'Cormorant Garamond',serif;font-size:.98rem;color:var(--azul);margin-bottom:12px;}
 .tabs-i{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap;}
 .ti{background:var(--sf2);border:1px solid var(--bd);border-radius:8px;padding:6px 12px;
@@ -105,7 +118,8 @@ body::before{content:'';position:fixed;inset:0;
   font-size:.65rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
 .ist{font-size:.73rem;color:var(--tx);line-height:1.6;}.ist b{color:var(--azul);font-weight:600;}
 
-.ftr{text-align:center;padding:0 24px 16px;font-size:.64rem;color:var(--txd);line-height:1.9;}
+.ftr{text-align:center;padding:0 24px 16px;font-size:.64rem;color:var(--txd);line-height:1.9;
+  border-top:1px solid var(--bd2);padding-top:20px;}
 .ftr strong{color:var(--azul-dim);}
 .ftr .sep{margin:0 5px;opacity:.3;}
 </style>
@@ -113,62 +127,73 @@ body::before{content:'';position:fixed;inset:0;
 <body>
 <div class="wrap">
 
+<!-- HEADER -->
 <div class="hdr">
   <div class="logo-ring">
-    <img class="logo-img" src="https://ecosistema-mielsy.github.io/app/logo_mielsy.png" alt="MIELSY" onerror="this.style.display='none'">
+    <img class="logo-img"
+      src="https://ecosistema-mielsy.github.io/app/Logo_Marca_Mielsy_03.png"
+      onerror="this.src='https://ecosistema-mielsy.github.io/app/logo_mielsy.png'"
+      alt="MIELSY">
   </div>
-  <h1>MIELSY</h1>
-  <div class="sub">Mi Espacio de Bienestar</div>
-  <div class="dra">Dra. C. Miday Columbié · Ecosistema MIELSY®</div>
+  <div class="hdr-instituto">Instituto MIELSY</div>
+  <div class="hdr-sub">Neurodiseño del Bienestar Integral Preventivo</div>
+  <div class="hdr-lema">"Mi Equilibrio Lo Siento Ya"</div>
 </div>
 
-<div class="saludo-bar">
+<!-- BARRA LIVE -->
+<div class="live-bar">
   <div class="dot-live"></div>
   <span id="fl">Cargando...</span>
 </div>
 
-<!-- FRASE DEL DÍA -->
-<div class="frase-card">
-  <div class="frase-texto" id="frase-txt">"Mi Equilibrio Lo Siento Ya."</div>
-  <div class="frase-autor">— Ecosistema MIELSY®</div>
+<!-- NOTA INFORMATIVA -->
+<div class="nota-card">
+  <div class="nota-titulo">🌿 Tu camino de bienestar</div>
+  <div class="nota-texto">Sigue los tres pasos en orden: primero completa tu evaluación, luego accede a tus sesiones terapéuticas semanales y finalmente a tus micromomentos diarios. Cada paso potencia el siguiente.</div>
 </div>
 
-<!-- MÓDULOS PRINCIPALES -->
-<div class="sec-lbl">Mi programa terapéutico</div>
+<!-- MÓDULOS -->
+<div class="sec-lbl">Tu programa personalizado</div>
 <div class="mods">
 
-  <a class="mod full c-azul" href="https://ecosistema-mielsy.github.io/app/micromomentos.html" target="_blank">
-    <div class="mod-icon">🌿</div>
-    <div class="mod-body">
-      <div class="mod-name">Mis Micromomentos</div>
-      <div class="mod-desc">30 días · Mañana y noche · Decretos y reflexiones diarias</div>
-      <span class="mod-badge bg-azul">Plan 30 días</span>
-    </div>
-    <div class="mod-arr">›</div>
-  </a>
-
-  <a class="mod full c-verde" href="https://ecosistema-mielsy.github.io/app/portal_paciente.html" target="_blank">
-    <div class="mod-icon">🧠</div>
-    <div class="mod-body">
-      <div class="mod-name">Mis Sesiones Terapéuticas</div>
-      <div class="mod-desc">4 sesiones de 60 minutos · Guiadas por la Dra. Columbié</div>
-      <span class="mod-badge bg-verde">Sesiones guiadas</span>
-    </div>
-    <div class="mod-arr">›</div>
-  </a>
-
-</div>
-
-<!-- CUESTIONARIO -->
-<div class="sec-lbl" style="margin-top:4px">Evaluación inicial</div>
-<div class="mods">
-
-  <a class="mod full c-gold" href="https://ecosistema-mielsy.github.io/app/MIELSY_App_Paciente.html" target="_blank">
+  <!-- 1. CUESTIONARIO -->
+  <a class="mod c-azul"
+     href="https://docs.google.com/forms/d/e/1FAIpQLSc5OEMAM2T_KYcHorehRyyubrVxSp7by20BSPs9Joztm9zFkw/viewform?usp=header"
+     target="_blank">
+    <div class="mod-num">1</div>
     <div class="mod-icon">📝</div>
     <div class="mod-body">
-      <div class="mod-name">Cuestionario IEBI-M13</div>
-      <div class="mod-desc">Evaluación de Bienestar Integral · 52 ítems · 13 dimensiones · Resultado inmediato</div>
-      <span class="mod-badge bg-gold">Diagnóstico</span>
+      <div class="mod-name">Evaluación IEBI-M13</div>
+      <div class="mod-desc">Cuestionario de Bienestar Integral · 52 ítems · 13 dimensiones · Recibirás tu resultado por correo</div>
+      <span class="mod-badge bg-azul">Paso 1 · Diagnóstico</span>
+    </div>
+    <div class="mod-arr">›</div>
+  </a>
+
+  <!-- 2. SESIONES -->
+  <a class="mod c-verde"
+     href="https://ecosistema-mielsy.github.io/app/portal_paciente.html"
+     target="_blank">
+    <div class="mod-num">2</div>
+    <div class="mod-icon">🧠</div>
+    <div class="mod-body">
+      <div class="mod-name">Sesiones Terapéuticas</div>
+      <div class="mod-desc">4 sesiones guiadas de 60 minutos · Auriculoterapia · Su Jok · Narrativa terapéutica</div>
+      <span class="mod-badge bg-verde">Paso 2 · Sesiones</span>
+    </div>
+    <div class="mod-arr">›</div>
+  </a>
+
+  <!-- 3. MICROMOMENTOS -->
+  <a class="mod c-gold"
+     href="https://ecosistema-mielsy.github.io/app/micromomentos.html"
+     target="_blank">
+    <div class="mod-num">3</div>
+    <div class="mod-icon">🌿</div>
+    <div class="mod-body">
+      <div class="mod-name">Micromomentos Diarios</div>
+      <div class="mod-desc">30 días · Mañana y noche · Decretos terapéuticos · Reflexiones personales</div>
+      <span class="mod-badge bg-gold">Paso 3 · Diario</span>
     </div>
     <div class="mod-arr">›</div>
   </a>
@@ -176,7 +201,7 @@ body::before{content:'';position:fixed;inset:0;
 </div>
 
 <!-- INSTALAR -->
-<div class="sec-lbl" style="margin-top:4px">Instalar en tu dispositivo</div>
+<div class="sec-lbl">Instalar en tu dispositivo</div>
 <div class="inst-card">
   <h3>📲 Agregar a pantalla de inicio</h3>
   <div class="tabs-i">
@@ -200,33 +225,18 @@ body::before{content:'';position:fixed;inset:0;
 </div>
 
 <div class="ftr">
-  <strong>Ecosistema MIELSY®</strong><br>
-  Guatemala 2026<span class="sep">·</span>Dra. C. Miday Columbié Pileta<span class="sep">·</span>academy@mielsy.org
+  <strong>Instituto MIELSY · Neurodiseño del Bienestar Integral Preventivo</strong><br>
+  Ecosistema MIELSY® · Guatemala 2026<span class="sep">·</span>academy@mielsy.org<br>
+  Dra. C. Miday Columbié Pileta
 </div>
 </div>
 
 <script>
-const FRASES = [
-  '"Mi Equilibrio Lo Siento Ya."',
-  '"Apago el ruido exterior para escuchar lo que realmente importa."',
-  '"Cada respiración es una oportunidad de volver a mi centro."',
-  '"Mi cuerpo sabe cómo sanar. Le doy permiso."',
-  '"Pertenezco a la naturaleza y ella me pertenece."',
-  '"Mis límites no son muros — son puertas que yo decido abrir."',
-  '"Tengo propósito. Mi creatividad no murió — solo descansa."',
-  '"Consolido lo aprendido. Lo nuevo ya es mío."',
-  '"Soy soberano/a de mi equilibrio."',
-  '"Hoy elijo una cosa diferente. Una sola. Y esa cuenta."',
-];
-
 function actualizarFecha(){
   const d=new Date();
   document.getElementById('fl').textContent=
     d.toLocaleDateString('es-GT',{weekday:'long',month:'long',day:'numeric'})+
     ' · '+d.toLocaleTimeString('es-GT',{hour:'2-digit',minute:'2-digit'});
-  // Frase del día según el día del año
-  const doy=Math.floor((d-new Date(d.getFullYear(),0,0))/(1000*60*60*24));
-  document.getElementById('frase-txt').textContent=FRASES[doy%FRASES.length];
 }
 actualizarFecha();setInterval(actualizarFecha,30000);
 
@@ -235,7 +245,8 @@ function si(id,el){
   document.querySelectorAll('.ti').forEach(t=>t.classList.remove('on'));
   document.getElementById('ii-'+id).classList.add('on');el.classList.add('on');
 }
-const m={name:'MIELSY · Mi Espacio',short_name:'MIELSY',start_url:location.href,display:'standalone',background_color:'#f5f0eb',theme_color:'#f5f0eb'};
+const m={name:'Instituto MIELSY',short_name:'MIELSY',start_url:location.href,
+  display:'standalone',background_color:'#f5f0eb',theme_color:'#f5f0eb'};
 const b=new Blob([JSON.stringify(m)],{type:'application/json'});
 document.getElementById('mlink').href=URL.createObjectURL(b);
 </script>
