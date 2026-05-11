@@ -155,7 +155,7 @@ body::before{content:'';position:fixed;inset:0;
 
 <!-- HEADER -->
 <div class="hdr">
-  <div class="logo-ring" id="logo-ring">
+  <div class="logo-ring">
     <img class="logo-img" id="logo-img"
       src="https://ecosistema-mielsy.github.io/app/logo_mielsy.png"
       alt="MIELSY">
@@ -332,7 +332,7 @@ const m = {
   name: 'Instituto MIELSY', short_name: 'MIELSY',
   start_url: location.href, display: 'standalone',
   background_color: '#f8f7ff', theme_color: '#f8f7ff',
-  icons: [{src:'https://ecosistema-mielsy.github.io/app/Logo_Marca_Mielsy_03.png',sizes:'192x192',type:'image/png'}]
+  icons: [{src:'https://ecosistema-mielsy.github.io/app/logo_mielsy.png',sizes:'192x192',type:'image/png'}]
 };
 const b = new Blob([JSON.stringify(m)], {type:'application/json'});
 document.getElementById('mlink').href = URL.createObjectURL(b);
