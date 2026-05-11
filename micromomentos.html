@@ -12,7 +12,7 @@
   --azul:#3A7CA5;--azul-dim:rgba(58,124,165,.6);--azul-bg:rgba(58,124,165,.08);
   --verde:#5C8A3C;--verde-bg:rgba(92,138,60,.08);
   --gold:#C8A96E;--gold-bg:rgba(200,169,110,.12);
-  --lila:#9b8fc0;--lila-bg:rgba(155,143,192,.1);
+  --lila:#9b8fc0;
   --tx:#2c3e50;--txd:rgba(44,62,80,.5);--txs:rgba(44,62,80,.35);--rd:#e05c5c;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -24,8 +24,8 @@ html,body{background:var(--bg);color:var(--tx);font-family:'DM Sans',sans-serif;
 .login-logo{width:80px;height:80px;margin:0 auto 16px;}
 .login-logo img{width:80px;height:80px;object-fit:contain;}
 .login-title{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:700;color:var(--azul);margin-bottom:4px;}
-.login-plan{font-size:.72rem;color:var(--gold);text-transform:uppercase;letter-spacing:.12em;margin-bottom:28px;}
-.login-field{margin-bottom:14px;text-align:left;}
+.login-plan{font-size:.72rem;color:var(--gold);text-transform:uppercase;letter-spacing:.12em;margin-bottom:24px;}
+.login-field{margin-bottom:12px;text-align:left;}
 .login-label{display:block;font-size:.68rem;color:var(--azul-dim);text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px;font-weight:500;}
 .login-input{width:100%;background:var(--sf2);border:1px solid var(--bd);border-radius:10px;padding:11px 14px;color:var(--tx);font-family:'DM Sans',sans-serif;font-size:.9rem;outline:none;}
 .login-input:focus{border-color:var(--azul);}
@@ -33,7 +33,6 @@ html,body{background:var(--bg);color:var(--tx);font-family:'DM Sans',sans-serif;
 .login-btn:hover{opacity:.92;}
 .login-err{font-size:.72rem;color:var(--rd);margin-top:10px;min-height:18px;}
 .login-footer{font-size:.62rem;color:var(--txs);margin-top:20px;line-height:1.6;}
-.login-loading{font-size:.8rem;color:var(--azul-dim);margin-top:12px;display:none;}
 
 /* APP */
 #app{display:none;min-height:100vh;}
@@ -54,16 +53,15 @@ html,body{background:var(--bg);color:var(--tx);font-family:'DM Sans',sans-serif;
 .hero-texto{font-size:.95rem;line-height:1.9;color:var(--tx);margin-bottom:16px;}
 .hero-decreto{background:var(--gold-bg);border-left:3px solid var(--gold);border-radius:0 10px 10px 0;padding:14px 16px;font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-style:italic;color:#7a5c1e;line-height:1.6;margin-bottom:16px;}
 .reflexion-wrap{margin-top:16px;padding-top:16px;border-top:1px solid var(--bd2);}
-.reflexion-label{font-size:.68rem;color:var(--azul-dim);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;font-weight:500;display:flex;align-items:center;gap:6px;}
-.reflexion-label::before{content:'✏️';font-size:.8rem;}
+.reflexion-label{font-size:.68rem;color:var(--azul-dim);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;font-weight:500;}
+.reflexion-label::before{content:'✏️ ';}
 .reflexion-textarea{width:100%;background:var(--sf2);border:1px solid var(--bd);border-radius:10px;padding:12px 14px;font-family:'DM Sans',sans-serif;font-size:.88rem;color:var(--tx);resize:vertical;min-height:90px;outline:none;line-height:1.7;}
 .reflexion-textarea:focus{border-color:var(--azul);}
 .reflexion-textarea::placeholder{color:var(--txs);}
 .reflexion-acciones{display:flex;gap:8px;margin-top:8px;align-items:center;}
 .btn-guardar{background:var(--azul);color:#fff;border:none;border-radius:8px;padding:8px 18px;font-family:'DM Sans',sans-serif;font-size:.78rem;font-weight:600;cursor:pointer;}
-.btn-guardar:hover{opacity:.9;}
 .btn-limpiar{background:none;border:1px solid var(--bd);border-radius:8px;padding:8px 14px;font-family:'DM Sans',sans-serif;font-size:.78rem;color:var(--txd);cursor:pointer;}
-.reflexion-guardado{font-size:.72rem;color:var(--verde);display:none;align-items:center;gap:4px;}
+.reflexion-guardado{font-size:.72rem;color:var(--verde);display:none;align-items:center;}
 .reflexion-guardado.vis{display:flex;}
 .progreso-wrap{margin-top:16px;padding-top:14px;border-top:1px solid var(--bd2);display:flex;align-items:center;gap:10px;}
 .progreso-bar{flex:1;height:5px;background:var(--bg2);border-radius:5px;overflow:hidden;}
@@ -76,7 +74,6 @@ html,body{background:var(--bg);color:var(--tx);font-family:'DM Sans',sans-serif;
 .semana-badge{font-size:.6rem;background:var(--azul-bg);border:1px solid var(--bd);border-radius:20px;padding:2px 10px;color:var(--azul);font-family:'DM Sans',sans-serif;font-weight:500;}
 .dias-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
 @media(max-width:480px){.dias-grid{grid-template-columns:1fr;}}
-
 .dia-card{background:var(--sf);border:1px solid var(--bd);border-radius:14px;overflow:hidden;cursor:pointer;transition:box-shadow .2s,border-color .2s;}
 .dia-card:hover{box-shadow:0 4px 16px rgba(58,124,165,.12);border-color:var(--azul-dim);}
 .dia-card.activo{border-color:var(--azul);border-width:2px;}
@@ -96,7 +93,7 @@ html,body{background:var(--bg);color:var(--tx);font-family:'DM Sans',sans-serif;
 .dia-reflexion-dot.vis{display:block;}
 
 /* MODAL */
-#modal{display:none;position:fixed;inset:0;z-index:200;background:rgba(44,62,80,.5);align-items:flex-end;justify-content:center;padding:0;}
+#modal{display:none;position:fixed;inset:0;z-index:200;background:rgba(44,62,80,.5);align-items:flex-end;justify-content:center;}
 @media(min-width:600px){#modal{align-items:center;padding:20px;}}
 #modal.vis{display:flex;}
 .modal-box{background:var(--sf);border-radius:24px 24px 0 0;width:100%;max-width:520px;max-height:90vh;overflow-y:auto;padding:28px 24px;position:relative;}
@@ -109,19 +106,18 @@ html,body{background:var(--bg);color:var(--tx);font-family:'DM Sans',sans-serif;
 .modal-texto{font-size:.92rem;line-height:1.9;color:var(--tx);margin-bottom:14px;}
 .modal-decreto{background:var(--gold-bg);border-left:3px solid var(--gold);border-radius:0 10px 10px 0;padding:14px 16px;font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-style:italic;color:#7a5c1e;line-height:1.6;margin-bottom:18px;}
 .modal-tabs{display:flex;gap:6px;margin-bottom:16px;}
-.modal-tab{background:var(--sf2);border:1px solid var(--bd);border-radius:8px;padding:6px 14px;font-size:.75rem;cursor:pointer;color:var(--txd);transition:all .15s;}
+.modal-tab{background:var(--sf2);border:1px solid var(--bd);border-radius:8px;padding:6px 14px;font-size:.75rem;cursor:pointer;color:var(--txd);}
 .modal-tab.active{background:var(--azul-bg);border-color:var(--azul);color:var(--azul);font-weight:600;}
-.modal-reflexion-label{font-size:.68rem;color:var(--azul-dim);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;font-weight:500;display:flex;align-items:center;gap:6px;}
-.modal-reflexion-label::before{content:'✏️';font-size:.8rem;}
+.modal-reflexion-label{font-size:.68rem;color:var(--azul-dim);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;font-weight:500;}
+.modal-reflexion-label::before{content:'✏️ ';}
 .modal-textarea{width:100%;background:var(--sf2);border:1px solid var(--bd);border-radius:10px;padding:12px 14px;font-family:'DM Sans',sans-serif;font-size:.88rem;color:var(--tx);resize:vertical;min-height:80px;outline:none;line-height:1.7;margin-bottom:10px;}
 .modal-textarea:focus{border-color:var(--azul);}
 .modal-textarea::placeholder{color:var(--txs);}
 .modal-acciones{display:flex;gap:8px;margin-bottom:16px;align-items:center;}
 .modal-btn-guardar{background:var(--azul);color:#fff;border:none;border-radius:8px;padding:9px 20px;font-family:'DM Sans',sans-serif;font-size:.8rem;font-weight:600;cursor:pointer;}
-.modal-btn-guardar:hover{opacity:.9;}
-.modal-btn-cerrar{width:100%;background:var(--sf2);border:1px solid var(--bd);border-radius:10px;padding:11px;color:var(--txd);font-family:'DM Sans',sans-serif;font-size:.85rem;cursor:pointer;}
+.modal-btn-cerrar{width:100%;background:var(--sf2);border:1px solid var(--bd);border-radius:10px;padding:11px;color:var(--txd);font-family:'DM Sans',sans-serif;font-size:.85rem;cursor:pointer;margin-top:4px;}
 .modal-btn-cerrar:hover{border-color:var(--azul-dim);color:var(--azul);}
-.modal-guardado{font-size:.72rem;color:var(--verde);display:none;align-items:center;gap:4px;}
+.modal-guardado{font-size:.72rem;color:var(--verde);display:none;align-items:center;}
 .modal-guardado.vis{display:flex;}
 
 .footer{text-align:center;padding:24px 20px;font-size:.62rem;color:var(--txs);line-height:1.8;border-top:1px solid var(--bd2);}
@@ -129,25 +125,41 @@ html,body{background:var(--bg);color:var(--tx);font-family:'DM Sans',sans-serif;
 </head>
 <body>
 
+<!-- LOGIN -->
 <div id="login-screen">
   <div class="login-box">
     <div class="login-logo">
-      <img src="https://ecosistema-mielsy.github.io/app/logo_mielsy.png" onerror="this.style.display='none'" alt="MIELSY">
+      <img src="https://ecosistema-mielsy.github.io/app/logo_mielsy.png" onerror="this.style.display='none'" alt="M">
     </div>
     <div class="login-title">Micromomentos</div>
     <div class="login-plan">Ecosistema MIELSY® · Plan Personal 30 días</div>
     <div class="login-field">
       <label class="login-label">Tu código MIELSY</label>
-      <input class="login-input" id="inp-codigo" type="text" placeholder="M-0001" maxlength="10"
-        onkeydown="if(event.key==='Enter')iniciar()"/>
+      <input class="login-input" id="inp-codigo" type="text" placeholder="M-0001" maxlength="10"/>
+    </div>
+    <div class="login-field">
+      <label class="login-label">Fecha de inicio de tu plan</label>
+      <input class="login-input" id="inp-fecha" type="date"/>
+    </div>
+    <div class="login-field">
+      <label class="login-label">Tu plan asignado</label>
+      <select class="login-input" id="inp-plan">
+        <option value="C">Plan C · Desajuste Evolutivo</option>
+        <option value="A">Plan A · Crisis Endógena</option>
+        <option value="B">Plan B · Conflicto de Estructura</option>
+        <option value="AB">Plan AB · Colapso Sistémico</option>
+        <option value="AC">Plan AC · Crisis + Desajuste</option>
+        <option value="BC">Plan BC · Sobrecarga Ambiental</option>
+        <option value="ABC">Plan ABC · Agotamiento Total</option>
+      </select>
     </div>
     <button class="login-btn" onclick="iniciar()">Ingresar a mis micromomentos</button>
     <div class="login-err" id="login-err"></div>
-    <div class="login-loading" id="login-loading">⟳ Cargando tu plan...</div>
     <div class="login-footer">Ecosistema MIELSY® · Guatemala<br>Dra. C. Miday Columbié Pileta</div>
   </div>
 </div>
 
+<!-- APP -->
 <div id="app">
   <div class="topbar">
     <div class="topbar-logo">
@@ -185,6 +197,7 @@ html,body{background:var(--bg);color:var(--tx);font-family:'DM Sans',sans-serif;
   <div class="footer">Ecosistema MIELSY® · Guatemala · 2026<br>Dra. C. Miday Columbié Pileta · academy@mielsy.org</div>
 </div>
 
+<!-- MODAL -->
 <div id="modal">
   <div class="modal-box">
     <div class="modal-handle"></div>
@@ -204,10 +217,6 @@ html,body{background:var(--bg);color:var(--tx);font-family:'DM Sans',sans-serif;
 </div>
 
 <script>
-// ── API ───────────────────────────────────────────────────────────────────
-const API_URL = 'https://script.google.com/macros/s/AKfycbyqLCoYxftkNcH3G5yY-QbIlwwmZouipC7S3eFjCHeWbdiMl5XRUlYfPXdSrWScTLk6Fg/exec';
-const API_TOKEN = 'mielsy-dashboard-2026';
-
 // ── PLANES ────────────────────────────────────────────────────────────────
 const PLANES_INFO = {
   C:  {nombre:'Plan C · Desajuste Evolutivo',    semanas:['Rescate — Apago el ruido','Regulación — Restauro mis ritmos','Consolidación — Lo que aprendí, lo anclo','Mantenimiento — Soy soberano/a']},
@@ -219,312 +228,57 @@ const PLANES_INFO = {
   ABC:{nombre:'Plan ABC · Agotamiento Total',     semanas:['Rescate Máximo — Solo lo esencial','Regulación Triple — Mente, vínculos, naturaleza','Reconstrucción — Propósito, trabajo, cultura','Integración Total A+B+C']},
 };
 
-// ── CONTENIDO DE LOS 7 PLANES ─────────────────────────────────────────────
-const DATOS = {
 
-C:{
-  1:{ma:{t:'Hoy empieza tu Plan MIELSY. Tu primera sesión está lista. Busca 60 minutos tranquilos hoy.',d:'Mi equilibrio comienza hoy. Doy el primer paso.'},no:{t:'¿Cómo te fue en la sesión? Escribe una palabra que describa cómo te sientes ahora.',d:null}},
-  2:{ma:{t:'Antes de abrir el teléfono: siéntate en el borde de la cama. Pon los pies en el suelo. Tres respiraciones profundas — inhala 4 seg, exhala 8 seg.',d:'Hoy yo decido cómo empieza mi día.'},no:{t:'Deja el teléfono fuera del cuarto o boca abajo. Pregúntate: ¿Qué momento de hoy fue real — no digital? Escríbelo en una palabra.',d:null}},
-  3:{ma:{t:'Respiración de tierra: pon una mano en el abdomen, otra en el pecho. Inhala 4 seg — el abdomen sube. Exhala 8 seg — el abdomen baja. Repite 5 veces.',d:'Mi cuerpo sabe cómo calmarse. Le doy permiso.'},no:{t:'Gratitud analógica: escribe tres cosas que viviste hoy que no tienen pantalla. Un olor, una conversación, el aire, una comida.',d:null}},
-  4:{ma:{t:'Ancla del olor: abre la lavanda o cualquier aroma. Inhala 3 veces lento. Cierra los ojos. Recuerda el momento de calma de la primera sesión.',d:'Vuelvo a mi centro. Tengo todo lo que necesito.'},no:{t:'Masaje auricular antes de dormir: youtube.com/watch?v=Ow0-mkeozyY — 5 minutos. Después directo a dormir, sin teléfono en la mano.',d:null}},
-  5:{ma:{t:'Sal 5 minutos afuera — balcón, jardín, calle. Sin teléfono. Solo observa: ¿Qué ves? ¿Qué escuchas? ¿Qué hueles?',d:'La naturaleza me restaura.'},no:{t:'Diario de semana: ¿Qué fue lo más difícil? ¿Lo más fácil? ¿Qué sorpresa te dio tu cuerpo o mente?',d:null}},
-  6:{ma:{t:'Ritual de intención: pon agua tibia en tus manos. Siente el calor. Inhala. Esta semana eliges una cosa diferente. Una sola. Y esa cuenta.',d:'Esta semana elijo una cosa diferente. Una sola. Y esa cuenta.'},no:{t:'Decreto de cierre: lee en voz alta — "Soy dueño/a de mi atención. Cuando apago el ruido exterior, escucho lo que realmente importa. Mi mente merece silencio."',d:'Soy dueño/a de mi atención. Mi mente merece silencio.'}},
-  7:{ma:{t:'Revisión breve: abre tu diario. Lee lo que escribiste el día 2. ¿Cambió algo? ¿Qué notaste esta semana que antes no notabas? Escribe solo una frase.',d:null},no:{t:'Esta noche pon el teléfono a cargar fuera del cuarto. Duerme sin pantalla cerca. Mañana empieza la Semana 2 — Regulación.',d:null}},
-  8:{ma:{t:'Hoy es tu Sesión 2 — Regulación. Busca 60 minutos para ti.',d:'Restauro mis ritmos. Me reconecto con mi entorno.'},no:{t:'¿Qué fue lo más significativo de la Sesión 2?',d:null}},
-  9:{ma:{t:'Sal 5 min afuera. Si no puedes, abre la ventana y mira el cielo 5 min. Sin teléfono. Inhala el aire tres veces.',d:'El mundo real me restaura.'},no:{t:'Escribe en el diario: ¿Qué elemento de tu cultura (comida, música, idioma, tradición) extrañas o hace tiempo no practicas?',d:null}},
-  10:{ma:{t:'Desayuna sin pantallas. Aunque sea 5 minutos. Solo la comida, el olor, el sabor.',d:'Estoy presente en este momento.'},no:{t:'Masaje auricular (youtube.com/watch?v=Ow0-mkeozyY). Después escribe: ¿Qué sonido natural te relaja? Esta semana búscalo.',d:null}},
-  11:{ma:{t:'Respiración 4-7-8: Inhala 4 seg → Retén 7 seg → Exhala 8 seg. Repite 4 ciclos.',d:'Mi mente es clara. Aprendo a mi ritmo.'},no:{t:'¿Qué elemento de la naturaleza tienes cerca y no aprovechas? Planifica tocarlo mañana.',d:null}},
-  12:{ma:{t:'Toca algo de la naturaleza antes de abrir el teléfono — una planta, tierra, agua, madera. Cinco respiraciones sosteniendo ese contacto.',d:null},no:{t:'Historia nueva: escribe — "Cuando me conecto con la naturaleza, yo soy..." Completa libremente.',d:null}},
-  13:{ma:{t:'Lee el decreto de la Semana 2 en voz alta: "Pertenezco a la naturaleza y ella me pertenece. Cuando me reconecto con el entorno, me reconecto conmigo mismo/a."',d:'Pertenezco a la naturaleza y ella me pertenece.'},no:{t:'Revisión: ¿Qué momento de contacto con la naturaleza o la cultura viviste esta semana? ¿Cómo te sentiste?',d:null}},
-  14:{ma:{t:'Sin instrucción estructurada hoy. Solo siéntate 5 min con tu aroma favorito de las últimas dos semanas. Observa cómo te sientes comparado con el Día 1.',d:null},no:{t:'Escribe una sola intención para la Semana 3: ¿Qué quieres consolidar? ¿Qué nuevo hábito quieres que se quede contigo para siempre?',d:null}},
-  15:{ma:{t:'Hoy es tu Sesión 3 — Consolidación. Lo que aprendiste, hoy lo anclas.',d:'Lo que aprendí, lo anclo. Es mío para siempre.'},no:{t:'¿Qué patrón nuevo en ti notaste en la Sesión 3?',d:null}},
-  16:{ma:{t:'Di frente al espejo con tu nombre: "[Tu nombre], tu mente merece silencio."',d:null},no:{t:'¿Qué emoción fue más fácil de manejar esta semana comparado con hace tres semanas? Escríbelo.',d:null}},
-  17:{ma:{t:'Toca algo de tu cultura antes de empezar el día — una tela, un objeto, una comida, una canción.',d:'Mi identidad cultural es una fuente de equilibrio.'},no:{t:'Historia nueva: escribe cómo quieres que sea tu relación con el teléfono en 3 meses.',d:null}},
-  18:{ma:{t:'Respiración 4-7-8. Cuatro ciclos.',d:'Consolido lo aprendido. Lo nuevo ya es mío.'},no:{t:'Escribe una cosa que aprendiste de ti mismo/a en estas tres semanas que no sabías antes.',d:null}},
-  19:{ma:{t:'Masaje auricular + di el decreto mientras lo haces.',d:'Consolido lo que aprendí. Es mío para siempre.'},no:{t:'Cuéntale a alguien de confianza algo que cambiaste. Escribe cómo te sentiste al contarlo.',d:null}},
-  20:{ma:{t:'Sal 5 min afuera. Sin teléfono. Observa 3 cosas que nunca habías notado antes.',d:null},no:{t:'Revisa tu diario desde el Día 1. ¿Qué frase o respuesta te sorprende ahora?',d:null}},
-  21:{ma:{t:'Sin instrucción. Solo 5 minutos con tu aroma favorito del plan. Escucha cómo te sientes.',d:null},no:{t:'Prepara la última semana: ¿Qué quieres que permanezca para siempre? Escribe tres cosas.',d:null}},
-  22:{ma:{t:'Hoy es tu Sesión 4 — Mantenimiento. Tu última sesión guiada. Ahora eres tú quien lidera.',d:'Soy soberano/a de mi equilibrio.'},no:{t:'¿Cómo te sientes sabiendo que ya tienes todas las herramientas?',d:null}},
-  23:{ma:{t:'Tu ritual de mañana. Tú decides qué necesitas hoy.',d:null},no:{t:'Lee tu Manifiesto Personal MIELSY en voz alta.',d:null}},
-  24:{ma:{t:'5 min de naturaleza. Sin teléfono. Tu elección.',d:null},no:{t:'¿Qué dimensión de tu bienestar sientes más fuerte hoy?',d:null}},
-  25:{ma:{t:'Tu decreto personal, en voz alta, mirándote al espejo.',d:null},no:{t:'Masaje auricular + tu aroma favorito. Tu Kit de Emergencia personal.',d:null}},
-  26:{ma:{t:'Respiración 4-7-8. Cuatro ciclos. Sin instrucción adicional.',d:null},no:{t:'¿Cómo quieres que sea tu vida en 6 meses? Una sola frase.',d:null}},
-  27:{ma:{t:'Toca algo de tu cultura. Conéctate con una raíz — comida, música, idioma.',d:null},no:{t:'Escribe a alguien que quieras: una frase de gratitud real.',d:null}},
-  28:{ma:{t:'Sin instrucción. Escucha lo que tu cuerpo necesita hoy.',d:null},no:{t:'Lee todo tu diario MIELSY desde el Día 1 hasta hoy.',d:null}},
-  29:{ma:{t:'Elige una herramienta del plan para usar el resto de tu vida. Solo una. La más tuya.',d:null},no:{t:'Escribe por qué elegiste esa herramienta. Eso es tu plan de mantenimiento personal.',d:null}},
-  30:{ma:{t:'Última mañana. Tu ritual. Tu aroma. Tu decreto. Tu equilibrio.',d:'Mi Equilibrio Lo Siento Ya.'},no:{t:'Escribe la última frase de tu historia MIELSY. Que empiece con: "Hoy sé que..."',d:null}},
-},
-
-A:{
-  1:{ma:{t:'Hoy empieza tu Plan MIELSY. Tu primera sesión está lista. Busca 60 minutos tranquilos hoy.',d:'Mi cuerpo merece descanso. El agotamiento no es mi identidad — es una señal que ahora escucho.'},no:{t:'¿Cómo te fue en la sesión? Escribe cómo sientes tu cuerpo ahora mismo — tres sensaciones.',d:null}},
-  2:{ma:{t:'Antes de levantarte: pon las manos en el abdomen. Siente el calor. Tres respiraciones. Di: "Estoy aquí. Mi cuerpo me sostiene."',d:null},no:{t:'Masaje auricular (youtube.com/watch?v=Ow0-mkeozyY). Escribe: ¿Qué parte de tu cuerpo pide atención hoy?',d:null}},
-  3:{ma:{t:'Respiración 4-7-8. Cuatro ciclos. Di: "Mi mente puede descansar. No tengo que resolver todo ahora."',d:null},no:{t:'Escribe en el diario: ¿Qué pensamiento repetitivo te agota más? Solo nómbralo, no lo analices.',d:null}},
-  4:{ma:{t:'Lavanda en muñecas. 4-7-8 x4. Di: "Mi cuerpo merece descanso. Hoy elijo una cosa que me cuide."',d:null},no:{t:'Historia nueva: escribe cómo sería tu día si te permitieras descansar de verdad. No el día perfecto — el día posible.',d:null}},
-  5:{ma:{t:'Toca algo suave — manta, algodón, lino. Cinco respiraciones sintiendo esa textura. Di: "Estoy a salvo aquí."',d:null},no:{t:'Escribe: ¿Qué emoción llevas hoy que necesita ser vista y no analizada?',d:null}},
-  6:{ma:{t:'Masaje auricular + bergamota. Di: "Mi sistema nervioso aprende a descansar. Cada hora de sueño es medicina."',d:null},no:{t:'¿Qué hábito del sueño puedes mejorar esta semana? Solo uno.',d:null}},
-  7:{ma:{t:'Sin instrucción estructurada. Solo 5 min con tu aroma favorito. Observa cómo te sientes comparado al Día 1.',d:null},no:{t:'Prepara la Semana 2: ¿Qué necesita tu mente? ¿Qué necesita tu alma esta semana?',d:null}},
-  8:{ma:{t:'Hoy es tu Sesión 2 — Restauración Interna. Busca 60 minutos para ti.',d:'Tengo propósito. Mi creatividad no murió — solo descansa.'},no:{t:'¿Qué fue lo más significativo de la Sesión 2?',d:null}},
-  9:{ma:{t:'Di: "Hoy elijo una cosa con sentido. Una sola." Identifícala antes de empezar el día.',d:null},no:{t:'Escribe: ¿La hiciste? Si no, ¿qué la impidió? Sin juicio — solo honestidad.',d:null}},
-  10:{ma:{t:'Sostén algo que te guste — un objeto, una tela, una planta. Cinco respiraciones. Di: "Soy más que mi productividad."',d:null},no:{t:'Historia nueva: escribe cómo se vería tu vida si te permitieras crear sin presión.',d:null}},
-  11:{ma:{t:'Bergamota en muñecas. 4-7-8 x4. Di: "Mi mente puede clarear. Le doy espacio y tiempo."',d:null},no:{t:'Escribe: ¿Qué actividad creativa extrañas? ¿Cuándo fue la última vez que la hiciste?',d:null}},
-  12:{ma:{t:'Shen Men auricular 3 min + incienso. Di: "Tengo propósito aunque no lo vea claro ahora."',d:null},no:{t:'Historia nueva: escribe cómo sería tu vida si tuvieras claridad sobre tu propósito.',d:null}},
-  13:{ma:{t:'Di el decreto de la semana: "Tengo propósito. Mi creatividad no murió — solo descansa."',d:'Tengo propósito. Mi creatividad no murió — solo descansa.'},no:{t:'Revisa lo que escribiste el Día 9. ¿Cambió algo? ¿Qué notas diferente?',d:null}},
-  14:{ma:{t:'Sin instrucción. Solo observa cómo te sientes. Escribe una palabra que describa esta semana.',d:null},no:{t:'Prepara la Semana 3: ¿Qué parte de tu identidad quieres consolidar?',d:null}},
-  15:{ma:{t:'Hoy es tu Sesión 3 — Consolidación del Yo. Lo que sobrevivió estas semanas, hoy lo anclas.',d:'Me anclo en quien soy más allá del agotamiento.'},no:{t:'¿Qué patrón nuevo notaste en la Sesión 3?',d:null}},
-  16:{ma:{t:'Di frente al espejo: "Soy más que mi agotamiento." Aunque no lo creas del todo. Solo dilo.',d:null},no:{t:'Escribe: ¿Qué emoción esta semana fue más fácil de manejar que hace tres semanas?',d:null}},
-  17:{ma:{t:'Su Jok en zona emocional (Punto Cero auricular). Bergamota. Di: "Mis emociones son información, no enemigos."',d:null},no:{t:'Historia nueva: escribe cómo sería tu relación contigo mismo/a en 6 meses.',d:null}},
-  18:{ma:{t:'Respiración 4-7-8. Cuatro ciclos. Di: "Consolido lo que aprendí. Es mío para siempre."',d:'Consolido lo que aprendí de mí mismo/a. Es mío para siempre.'},no:{t:'Escribe una cosa que aprendiste de ti mismo/a en estas semanas que no sabías antes.',d:null}},
-  19:{ma:{t:'Masaje auricular + di el decreto mientras lo haces.',d:null},no:{t:'Cuéntale a alguien de confianza algo que cambió en ti. Escribe cómo te sentiste al contarlo.',d:null}},
-  20:{ma:{t:'Toca el terciopelo o algo suave. Cinco respiraciones. Di: "Me permito ser vulnerable y también fuerte."',d:null},no:{t:'Revisa tu diario desde el Día 1. ¿Qué frase te sorprende ahora?',d:null}},
-  21:{ma:{t:'Sin instrucción. Solo 5 min de silencio. Escucha lo que tu cuerpo necesita hoy.',d:null},no:{t:'Escribe tres cosas que quieres que permanezcan para siempre de este plan.',d:null}},
-  22:{ma:{t:'Hoy es tu Sesión 4 — Mantenimiento. Tu última sesión guiada. Ahora tú lideras tu Yo Fundamental.',d:'Soy soberano/a de mi Yo Fundamental.'},no:{t:'¿Cómo es la historia que ahora te cuentas sobre ti mismo/a? ¿En qué se diferencia de la del Día 1?',d:null}},
-  23:{ma:{t:'Tu ritual de mañana. Tú decides.',d:null},no:{t:'Lee tu Manifiesto Personal en voz alta.',d:null}},
-  24:{ma:{t:'Su Jok favorito. Sin instrucción adicional.',d:null},no:{t:'¿Qué dimensión de tu Variable A sientes más fuerte hoy?',d:null}},
-  25:{ma:{t:'Decreto personal frente al espejo.',d:null},no:{t:'Masaje auricular + aroma favorito.',d:null}},
-  26:{ma:{t:'Respiración 4-7-8.',d:null},no:{t:'¿Cómo quieres que sea tu vida en 6 meses? Una frase.',d:null}},
-  27:{ma:{t:'Toca tu textura favorita. Cinco respiraciones.',d:null},no:{t:'Escribe a alguien de confianza algo que aprendiste de ti mismo/a.',d:null}},
-  28:{ma:{t:'Sin instrucción. Escucha tu cuerpo.',d:null},no:{t:'Lee todo tu diario desde el Día 1.',d:null}},
-  29:{ma:{t:'Elige una herramienta para usar el resto de tu vida.',d:null},no:{t:'Escribe por qué la elegiste.',d:null}},
-  30:{ma:{t:'Tu ritual. Tu aroma. Tu decreto. Tu equilibrio.',d:'Mi Equilibrio Lo Siento Ya.'},no:{t:'Escribe: Hoy sé que...',d:null}},
-},
-
-B:{
-  1:{ma:{t:'Hoy empieza tu Plan MIELSY. Tu primera sesión está lista. Busca 60 minutos tranquilos hoy.',d:'Mis límites no son muros — son puertas que yo decido abrir o cerrar. Merezco vínculos que me nutran.'},no:{t:'¿Qué relación o situación de tu entorno te genera más estrés ahora mismo? Nómbrala sin analizarla.',d:null}},
-  2:{ma:{t:'Di: "Mis vínculos me nutren — o los renuevo." Identifica un vínculo nutritivo hoy.',d:null},no:{t:'Escribe: ¿Qué vínculo te drena más? No tienes que hacer nada todavía — solo nómbralo.',d:null}},
-  3:{ma:{t:'Vainilla en muñecas. Respiración. Di: "Comunico mis necesidades con claridad y amor."',d:null},no:{t:'Historia nueva: escribe cómo comunicarías hoy una necesidad que llevas tiempo guardando.',d:null}},
-  4:{ma:{t:'Masaje auricular + calor en trapecios (botella tibia). Di: "Mi trabajo tiene valor. Yo tengo valor."',d:null},no:{t:'Escribe: ¿Qué situación laboral o académica te está costando más energía esta semana?',d:null}},
-  5:{ma:{t:'Sostén algo de algodón suave. Respiración. Di: "Mi familia puede tener conflictos y seguir siendo mi raíz."',d:null},no:{t:'Escribe una cosa que valoras de tu entorno familiar o social — aunque haya tensión.',d:null}},
-  6:{ma:{t:'Di el decreto en voz alta: "Mis límites son puertas que yo decido abrir o cerrar."',d:'Mis límites son puertas que yo decido abrir o cerrar.'},no:{t:'¿Pusiste algún límite esta semana? Aunque sea pequeño. Escribe qué pasó.',d:null}},
-  7:{ma:{t:'Sin instrucción. Solo 5 min con tu aroma favorito. Observa cómo te sientes.',d:null},no:{t:'Prepara la Semana 2: ¿Qué área necesita más atención — laboral, económica o afectiva?',d:null}},
-  8:{ma:{t:'Hoy es tu Sesión 2 — Regulación. Busca 60 minutos para ti.',d:'Restauro mi autoeficacia y mis vínculos afectivos.'},no:{t:'¿Qué fue lo más significativo de la Sesión 2?',d:null}},
-  9:{ma:{t:'Di: "Enfrento mis finanzas con calma. Tengo lo que necesito para avanzar."',d:null},no:{t:'Escribe: ¿Qué gasto puedes reducir esta semana sin sacrificar tu bienestar?',d:null}},
-  10:{ma:{t:'Sostén una moneda o metal frío. Respiración. Di: "La abundancia es mi estado natural."',d:null},no:{t:'Historia nueva: escribe cómo sería tu situación económica si te sintieras seguro/a.',d:null}},
-  11:{ma:{t:'Pluma en cuello o manos. Di: "Merezco amor real. Merezco ser visto/a."',d:null},no:{t:'Escribe: ¿Qué necesitas de tus vínculos afectivos que no has pedido?',d:null}},
-  12:{ma:{t:'Masaje auricular + pachulí. Di: "Mis vínculos pueden renovarse con intención."',d:null},no:{t:'Historia nueva: escribe cómo quieres que sea tu vínculo afectivo más importante en 3 meses.',d:null}},
-  13:{ma:{t:'Di el decreto de la semana en voz alta. Escucha cómo se siente en el cuerpo.',d:null},no:{t:'Revisa lo que escribiste el Día 9. ¿Cambió algo en tu relación con el dinero o los vínculos?',d:null}},
-  14:{ma:{t:'Sin instrucción. Solo observa. Escribe una palabra que describa esta semana.',d:null},no:{t:'Prepara la Semana 3: ¿Qué vínculo social o familiar necesita atención ahora?',d:null}},
-  15:{ma:{t:'Hoy es tu Sesión 3 — Consolidación Social. Lo aprendido, hoy lo anclas.',d:'Me conecto desde la autenticidad. Mis límites sanos son amor.'},no:{t:'¿Qué patrón nuevo en tus relaciones notaste en la Sesión 3?',d:null}},
-  16:{ma:{t:'Di: "Me conecto desde la autenticidad. Mis límites son amor, no rechazo."',d:null},no:{t:'¿Qué vínculo social se siente más liviano esta semana? ¿Por qué?',d:null}},
-  17:{ma:{t:'Sostén lino en manos. Respiración. Di: "Pertenezco. Soy parte de algo mayor."',d:null},no:{t:'Escribe una carta breve a alguien con quien tienes tensión. No tienes que enviarla.',d:null}},
-  18:{ma:{t:'Masaje auricular + pino o benjuí. Di: "Me comunico con claridad y amor."',d:null},no:{t:'Historia nueva: escribe cómo quieres que sea tu vida social en 6 meses.',d:null}},
-  19:{ma:{t:'Respiración 4-7-8. Di: "Mi familia puede ser imperfecta y seguir siendo mi sostén."',d:null},no:{t:'Escribe algo que valoras de cada vínculo importante — aunque haya conflicto.',d:null}},
-  20:{ma:{t:'Di tu decreto de consolidación en voz alta.',d:null},no:{t:'Revisa tu diario. ¿Qué límite todavía no has podido poner? ¿Qué te lo impide?',d:null}},
-  21:{ma:{t:'Sin instrucción. Cinco minutos de silencio. Escucha tu entorno con otros oídos.',d:null},no:{t:'Escribe tres cosas de tus relaciones que quieres que permanezcan para siempre.',d:null}},
-  22:{ma:{t:'Hoy es tu Sesión 4 — Mantenimiento. Tu última sesión guiada. Ahora eres arquitecto/a de tus vínculos.',d:'Soy soberano/a de mis vínculos.'},no:{t:'¿Cuál es la historia que ahora te cuentas sobre tus relaciones? ¿En qué se diferencia de la del Día 1?',d:null}},
-  23:{ma:{t:'Tu ritual. Tú decides.',d:null},no:{t:'Lee tu Manifiesto Vincular en voz alta.',d:null}},
-  24:{ma:{t:'Su Jok favorito. Sin instrucción.',d:null},no:{t:'¿Qué vínculo de tu Variable B sientes más sano hoy?',d:null}},
-  25:{ma:{t:'Decreto personal frente al espejo.',d:null},no:{t:'Masaje auricular + aroma favorito.',d:null}},
-  26:{ma:{t:'Respiración 4-7-8.',d:null},no:{t:'¿Cómo quieres que sean tus vínculos en 6 meses? Una frase.',d:null}},
-  27:{ma:{t:'Toca tu textura favorita. Cinco respiraciones.',d:null},no:{t:'Escribe a alguien de confianza algo que aprendiste de tus relaciones.',d:null}},
-  28:{ma:{t:'Sin instrucción. Escucha tu entorno.',d:null},no:{t:'Lee todo tu diario desde el Día 1.',d:null}},
-  29:{ma:{t:'Elige una herramienta vincular para usar siempre.',d:null},no:{t:'Escribe por qué la elegiste.',d:null}},
-  30:{ma:{t:'Tu ritual. Tu aroma. Tu decreto. Tu equilibrio.',d:'Mi Equilibrio Lo Siento Ya.'},no:{t:'Escribe: Hoy sé que...',d:null}},
-},
-
-AB:{
-  1:{ma:{t:'Hoy empieza tu Plan MIELSY. Tu primera sesión está lista. Busca 60 minutos tranquilos hoy.',d:'No tengo que resolver todo hoy. Solo necesito estar presente en este momento. Mi cuerpo sabe cómo comenzar a sanar.'},no:{t:'¿Cómo está tu cuerpo ahora mismo — físicamente? ¿Y emocionalmente? Tres sensaciones de cada uno.',d:null}},
-  2:{ma:{t:'Antes de levantarte: manos en el abdomen. Tres respiraciones. Di: "Estoy aquí. Primero el cuerpo."',d:null},no:{t:'Masaje auricular + lavanda. Escribe: ¿Qué situación de hoy te agotó más — interna o externa?',d:null}},
-  3:{ma:{t:'Respiración 4-7-8 x4. Di: "No tengo que resolver todo. Solo respirar bien es suficiente ahora."',d:null},no:{t:'Escribe: ¿Qué emoción llevas hoy que no es tuya — que la tomaste prestada del entorno?',d:null}},
-  4:{ma:{t:'Bergamota en muñecas. Respiración. Di: "Mis vínculos pueden esperar mientras yo me estabilizo."',d:null},no:{t:'Historia mínima: escribe una sola oración sobre lo que más necesitas esta semana.',d:null}},
-  5:{ma:{t:'Toca algo suave — manta, algodón. Cinco respiraciones. Di: "Estoy a salvo aquí."',d:null},no:{t:'Escribe: ¿Qué límite necesitas poner urgentemente — en tu entorno o en tu propio ritmo?',d:null}},
-  6:{ma:{t:'Di el decreto en voz alta: "No tengo que resolver todo hoy. Solo estar presente."',d:'No tengo que resolver todo hoy. Solo estar presente.'},no:{t:'¿Hubo un momento esta semana donde te sentiste más estable, aunque fuera por minutos? Escríbelo.',d:null}},
-  7:{ma:{t:'Sin instrucción. Solo 5 min de silencio o con tu aroma. Observa sin juzgar.',d:null},no:{t:'Prepara Semana 2: ¿Qué necesita más atención — tu mente, tu trabajo o tu vínculo afectivo?',d:null}},
-  8:{ma:{t:'Hoy es tu Sesión 2 — Regulación Dual. Busca 60 minutos para ti.',d:'Soy eficaz Y me cuido. No son opuestos.'},no:{t:'¿Qué fue lo más significativo de la Sesión 2?',d:null}},
-  9:{ma:{t:'Di: "Soy eficaz Y me cuido. No son opuestos." Elige una tarea académica o laboral manejable hoy.',d:null},no:{t:'¿Pusiste algún límite laboral o académico hoy? Aunque sea pequeño. Escribe qué pasó.',d:null}},
-  10:{ma:{t:'Metal frío en sienes 2 min. Respiración. Di: "Mi mente se aclara cuando le doy espacio."',d:null},no:{t:'Historia nueva: escribe cómo sería tu semana académica o laboral si pudieras manejarla a tu ritmo.',d:null}},
-  11:{ma:{t:'Menta en muñecas. 4-7-8 x4. Di: "Puedo concentrarme. Mi mente es capaz y descansada."',d:null},no:{t:'Escribe: ¿Qué vínculo afectivo necesita atención esta semana? ¿Qué una cosa podrías hacer?',d:null}},
-  12:{ma:{t:'Masaje auricular + romero. Di: "Mis relaciones pueden esperar que yo esté bien para darles lo mejor."',d:null},no:{t:'Historia vincular: escribe cómo quieres que sea tu relación afectiva más importante en 3 meses.',d:null}},
-  13:{ma:{t:'Di el decreto de la semana. Escucha cómo resuena en tu cuerpo ahora.',d:null},no:{t:'Revisa lo que escribiste el Día 9. ¿Qué cambió — aunque sea poco?',d:null}},
-  14:{ma:{t:'Sin instrucción. Observa. Escribe una palabra que describa esta semana.',d:null},no:{t:'Prepara la Semana 3: ¿Qué área — propósito, economía o vida social — necesita atención?',d:null}},
-  15:{ma:{t:'Hoy es tu Sesión 3 — Reconstrucción. Propósito, seguridad y comunidad.',d:'Tengo propósito. Tengo recursos. Pertenezco.'},no:{t:'¿Qué patrón nuevo notaste en la Sesión 3?',d:null}},
-  16:{ma:{t:'Di: "Tengo propósito. Tengo recursos. Pertenezco." Elige uno de los tres para trabajar hoy.',d:null},no:{t:'¿Cuál de las tres intenciones avanzaste? ¿Cuál cuesta más?',d:null}},
-  17:{ma:{t:'Incienso o pachulí. Respiración. Di: "Me permito recibir apoyo — económico, social, espiritual."',d:null},no:{t:'Historia nueva: escribe cómo sería tu vida si sintieras apoyo real en las tres áreas.',d:null}},
-  18:{ma:{t:'4-7-8 x4. Di: "Mi propósito no depende de mis circunstancias. Existe aunque no lo vea."',d:null},no:{t:'Escribe: ¿Qué actividad social restauradora puedes hacer esta semana?',d:null}},
-  19:{ma:{t:'Masaje auricular + pino. Di: "Pertenezco a una comunidad que me valora."',d:null},no:{t:'Cuéntale a alguien de confianza algo que aprendiste de ti mismo/a en estas semanas.',d:null}},
-  20:{ma:{t:'Di el decreto de consolidación. Nota cómo resuena diferente que la Semana 1.',d:null},no:{t:'Revisa tu diario. ¿Qué cambió en las tres dimensiones — propósito, economía, social?',d:null}},
-  21:{ma:{t:'Sin instrucción. Observa tu entorno con otros ojos. ¿Qué ves diferente?',d:null},no:{t:'Escribe tres cosas que quieres que permanezcan de este plan en tu vida.',d:null}},
-  22:{ma:{t:'Hoy es tu Sesión 4 — Integración A+B. Ahora eres un sistema unificado.',d:'Soy un sistema unificado. Por dentro y por fuera.'},no:{t:'¿Cuál es la historia que ahora te cuentas sobre ti mismo/a y tu entorno? ¿En qué se diferencia del Día 1?',d:null}},
-  23:{ma:{t:'Tu ritual A+B combinado. Tú decides.',d:null},no:{t:'Lee tu Manifiesto Integrado en voz alta.',d:null}},
-  24:{ma:{t:'Su Jok de A o de B — según lo que sientas hoy.',d:null},no:{t:'¿Qué dimensión — interna o externa — sientes más restaurada hoy?',d:null}},
-  25:{ma:{t:'Decreto personal frente al espejo.',d:null},no:{t:'Masaje auricular + combinación de aromas.',d:null}},
-  26:{ma:{t:'Respiración 4-7-8.',d:null},no:{t:'¿Cómo quieres que sea tu sistema A+B en 6 meses? Una frase.',d:null}},
-  27:{ma:{t:'Toca tus texturas favoritas de A y B.',d:null},no:{t:'Escribe algo que aprendiste sobre cómo tu entorno afecta tu interior — y viceversa.',d:null}},
-  28:{ma:{t:'Sin instrucción. Observa tu sistema completo.',d:null},no:{t:'Lee todo tu diario desde el Día 1.',d:null}},
-  29:{ma:{t:'Elige una herramienta de A y una de B para usar siempre.',d:null},no:{t:'¿Por qué elegiste esas dos?',d:null}},
-  30:{ma:{t:'Tu ritual. Tu aroma. Tu decreto. Tu equilibrio integrado.',d:'Mi Equilibrio Lo Siento Ya — por dentro y por fuera.'},no:{t:'Escribe: Hoy sé que...',d:null}},
-},
-
-AC:{
-  1:{ma:{t:'Hoy empieza tu Plan MIELSY. Tu primera sesión está lista. Busca 60 minutos tranquilos hoy.',d:'Apago el ruido exterior para encender mi centro interior. Mi cuerpo necesita silencio digital para sanar.'},no:{t:'¿Cuántas horas al día estás frente a pantallas? Describe tres efectos físicos del exceso digital.',d:null}},
-  2:{ma:{t:'Sin teléfono los primeros 10 min del día. Tres respiraciones. Di: "Hoy decido cómo empieza mi día."',d:null},no:{t:'Masaje auricular + lavanda. Escribe: ¿Cuántas veces miraste el teléfono sin razón hoy?',d:null}},
-  3:{ma:{t:'Toca algo natural antes de abrir el teléfono. Cinco respiraciones. Di: "El mundo real me nutre."',d:null},no:{t:'Escribe: ¿Qué emoción cargaste hoy que vino de las redes sociales o las noticias?',d:null}},
-  4:{ma:{t:'Lavanda. 4-7-8 x4. Di: "Mi cuerpo merece descanso. Mi mente merece silencio."',d:null},no:{t:'Historia nueva: escribe tu relación ideal con la tecnología en una frase.',d:null}},
-  5:{ma:{t:'Sal 5 min afuera sin teléfono. Observa 3 cosas. Di: "La naturaleza me restaura."',d:null},no:{t:'¿Hubo un momento hoy donde te sentiste más presente que ayer? Escríbelo.',d:null}},
-  6:{ma:{t:'Di tu decreto en voz alta: "[Tu nombre], apago el ruido para encontrarme."',d:null},no:{t:'Escribe: ¿Qué te da más identidad — lo que publicas o lo que vives sin cámara?',d:null}},
-  7:{ma:{t:'Sin instrucción. 5 min de silencio o naturaleza.',d:null},no:{t:'Prepara S2: ¿Qué necesita más tu mente — claridad, descanso o propósito?',d:null}},
-  8:{ma:{t:'Hoy es tu Sesión 2 — Restauración Interna. Busca 60 minutos para ti.',d:'Mi mente se aclara cuando reduzco el ruido digital.'},no:{t:'¿Qué fue lo más significativo de la Sesión 2?',d:null}},
-  9:{ma:{t:'Respiración 4-7-8. Di: "Mi mente se aclara cuando reduzco el ruido digital."',d:null},no:{t:'Escribe: ¿Qué frecuencia o sonido natural te relaja más?',d:null}},
-  10:{ma:{t:'Toca musgo, corteza o una planta. Di: "La naturaleza también soy yo."',d:null},no:{t:'Historia: escribe tu entorno ideal de estudio — sin pantallas como foco principal.',d:null}},
-  11:{ma:{t:'Incienso o cedro. 5 respiraciones. Di: "Tengo propósito más allá de mis notificaciones."',d:null},no:{t:'Escribe: ¿Qué actividad espiritual, meditativa o contemplativa extrañas?',d:null}},
-  12:{ma:{t:'Masaje auricular + cedro. Di: "Me reconecto con lo que soy antes de las pantallas."',d:null},no:{t:'Escribe: ¿Qué parte de tu creatividad dejó de expresarse por el exceso digital?',d:null}},
-  13:{ma:{t:'Di el decreto A+C en voz alta. Respira después de cada frase.',d:null},no:{t:'Revisa tu diario. ¿Qué cambió en tu relación con las pantallas y con tu cuerpo?',d:null}},
-  14:{ma:{t:'Sin instrucción. Observa tu sistema.',d:null},no:{t:'Prepara S3: ¿Qué necesita más — tu creatividad, tu cultura o tus emociones?',d:null}},
-  15:{ma:{t:'Hoy es tu Sesión 3 — Consolidación A+C. Creatividad, cultura y emoción.',d:'La presencia auténtica es mi herramienta más poderosa.'},no:{t:'¿Qué patrón nuevo notaste en la Sesión 3?',d:null}},
-  16:{ma:{t:'Di: "[Tu nombre], apago el ruido para encontrarme." Luego tres respiraciones en silencio.',d:null},no:{t:'¿Qué actividad creativa analog hiciste esta semana? ¿Cómo te sentiste?',d:null}},
-  17:{ma:{t:'Toca algo de tu cultura. Di: "Mi identidad es más profunda que mis pantallas."',d:null},no:{t:'Historia: escribe cómo quieres que sea tu vida digital en 3 meses.',d:null}},
-  18:{ma:{t:'Respiración 4-7-8. Di: "Consolido mi presencia. Lo nuevo ya es mío."',d:null},no:{t:'Escribe algo que aprendiste sobre ti mismo/a sin pantallas estas semanas.',d:null}},
-  19:{ma:{t:'Masaje auricular + di el decreto mientras lo haces.',d:null},no:{t:'Cuéntale a alguien algo que cambió en tu relación con la tecnología.',d:null}},
-  20:{ma:{t:'Sal 5 min. Observa algo natural que nunca habías notado.',d:null},no:{t:'Revisa tu diario. ¿Qué frase te sorprende ahora?',d:null}},
-  21:{ma:{t:'Sin instrucción. Escucha lo que tu sistema A+C necesita hoy.',d:null},no:{t:'Escribe tres cosas que quieres que permanezcan de este plan.',d:null}},
-  22:{ma:{t:'Hoy es tu Sesión 4 — Integración A+C. Ahora eres soberano/a de tu atención y de tu Yo.',d:'Soy soberano/a de mi atención y de mi Yo Fundamental.'},no:{t:'¿Cómo es la historia que ahora te cuentas sobre ti y las pantallas?',d:null}},
-  23:{ma:{t:'Tu ritual A+C. Tú decides.',d:null},no:{t:'Lee tu Manifiesto A+C.',d:null}},
-  24:{ma:{t:'Su Jok de A o C — según lo que sientas.',d:null},no:{t:'¿Qué dimensión sientes más restaurada?',d:null}},
-  25:{ma:{t:'Decreto personal frente al espejo.',d:null},no:{t:'Masaje auricular + combinación de aromas.',d:null}},
-  26:{ma:{t:'Respiración 4-7-8.',d:null},no:{t:'¿Cómo quieres que sea tu A+C en 6 meses?',d:null}},
-  27:{ma:{t:'Toca algo natural Y algo creativo hoy.',d:null},no:{t:'Escribe lo que aprendiste sobre la relación entre pantallas y bienestar interno.',d:null}},
-  28:{ma:{t:'Sin instrucción. Observa tu sistema A+C.',d:null},no:{t:'Lee todo tu diario.',d:null}},
-  29:{ma:{t:'Elige una herramienta de A y una de C.',d:null},no:{t:'¿Por qué esas dos?',d:null}},
-  30:{ma:{t:'Tu ritual. Tu aroma. Tu decreto.',d:'Mi Equilibrio Lo Siento Ya — dentro y en el mundo digital.'},no:{t:'Escribe: Hoy sé que...',d:null}},
-},
-
-BC:{
-  1:{ma:{t:'Hoy empieza tu Plan MIELSY. Tu primera sesión está lista. Busca 60 minutos tranquilos hoy.',d:'Me protejo del bombardeo externo. Crear mi refugio sensorial no es egoísmo — es supervivencia del sistema nervioso.'},no:{t:'¿De dónde vienen los estímulos que más te agotan — redes, personas, entorno físico? Identifica los tres más tóxicos.',d:null}},
-  2:{ma:{t:'Sin redes sociales los primeros 10 min. Naturaleza o silencio. Di: "Me protejo de lo que me drena."',d:null},no:{t:'Masaje auricular + cedro. Escribe: ¿Qué red social o contacto te genera más ansiedad hoy?',d:null}},
-  3:{ma:{t:'Toca musgo o corteza. Respiración. Di: "El entorno natural me protege y me restaura."',d:null},no:{t:'Escribe: ¿Qué límite social pusiste hoy — aunque sea pequeño? ¿Cómo te sentiste?',d:null}},
-  4:{ma:{t:'Pino en muñecas. 4-7-8 x4. Di: "Pertenezco — pero elijo con quién y cuánto."',d:null},no:{t:'Historia nueva: escribe cómo sería tu vida social si eliminaras los vínculos más tóxicos.',d:null}},
-  5:{ma:{t:'Sal 5 min afuera. Sin teléfono. Di: "La naturaleza no tiene agenda. Tampoco necesito tenerla yo ahora."',d:null},no:{t:'Escribe: ¿Qué elemento natural — agua, tierra, plantas, viento — te restaura más?',d:null}},
-  6:{ma:{t:'Di el decreto B+C en voz alta: "Me protejo. Creo mi refugio. Elijo a qué y a quién abro la puerta."',d:'Me protejo. Creo mi refugio. Elijo a qué y a quién abro la puerta.'},no:{t:'¿Redujiste algún estímulo tóxico esta semana — digital o social? Escribe cómo fue.',d:null}},
-  7:{ma:{t:'Sin instrucción. 5 min en tu espacio de refugio favorito — real o mental.',d:null},no:{t:'Prepara S2: ¿Qué vínculo relacional necesita un límite urgente?',d:null}},
-  8:{ma:{t:'Hoy es tu Sesión 2 — Regulación Vincular. Busca 60 minutos para ti.',d:'Comunico mis límites con amor y firmeza.'},no:{t:'¿Qué fue lo más significativo de la Sesión 2?',d:null}},
-  9:{ma:{t:'Vainilla o benjuí. Respiración. Di: "Comunico mis límites con amor y firmeza."',d:null},no:{t:'Escribe: ¿Qué límite laboral o familiar necesitas poner urgentemente esta semana?',d:null}},
-  10:{ma:{t:'Algodón en abdomen. Calor. Di: "Mi familia puede ser imperfecta y yo puedo estar bien."',d:null},no:{t:'Historia: escribe cómo sería tu vida laboral/familiar con límites reales y respetados.',d:null}},
-  11:{ma:{t:'Sándalo. 4-7-8. Di: "Mis raíces culturales me anclan cuando el entorno es caótico."',d:null},no:{t:'Escribe: ¿Qué elemento de tu cultura te da identidad y estabilidad?',d:null}},
-  12:{ma:{t:'Masaje auricular + romero. Di: "Soy eficaz Y me protejo. Mi trabajo no puede consumirme entero/a."',d:null},no:{t:'¿Pusiste algún límite laboral esta semana? Escribe qué pasó — aunque fuera pequeño.',d:null}},
-  13:{ma:{t:'Di el decreto de S2 en voz alta. Nota cómo resuena diferente que la S1.',d:null},no:{t:'Revisa tu diario. ¿Qué cambió en tu entorno — digital, social, laboral — en estas dos semanas?',d:null}},
-  14:{ma:{t:'Sin instrucción. Observa tu escudo. ¿Sigue en pie?',d:null},no:{t:'Prepara S3: ¿Qué necesita más — tus vínculos íntimos, tu economía o la naturaleza?',d:null}},
-  15:{ma:{t:'Hoy es tu Sesión 3 — Consolidación B+C. Vínculos íntimos, economía y naturaleza.',d:'Construyo vínculos nutritivos y protejo mi entorno consciente.'},no:{t:'¿Qué patrón nuevo notaste en la Sesión 3?',d:null}},
-  16:{ma:{t:'Di: "Mis límites sanos no alejan a las personas que me quieren. Las acercan de verdad."',d:null},no:{t:'¿Qué vínculo se siente más sano esta semana? ¿Por qué?',d:null}},
-  17:{ma:{t:'Toca algo natural + algo que te recuerde un vínculo sano. Cinco respiraciones.',d:null},no:{t:'Historia: escribe cómo quieres que sea tu vida social y tu entorno en 6 meses.',d:null}},
-  18:{ma:{t:'Masaje auricular + aromas favoritos. Di: "Me comunico y me protejo."',d:null},no:{t:'Escribe algo que aprendiste sobre proteger tu entorno externo.',d:null}},
-  19:{ma:{t:'4-7-8 x4. Di: "Protejo mi entorno con amor y consciencia."',d:null},no:{t:'Cuéntale a alguien algo que cambió en tus límites.',d:null}},
-  20:{ma:{t:'Sal 5 min. Observa tu entorno con otros ojos.',d:null},no:{t:'Revisa tu diario. ¿Qué límite fue el más transformador?',d:null}},
-  21:{ma:{t:'Sin instrucción. Escucha tu sistema B+C.',d:null},no:{t:'Escribe tres cosas que quieres que permanezcan de este plan.',d:null}},
-  22:{ma:{t:'Hoy es tu Sesión 4 — Integración B+C. Ahora eres arquitecto/a de tu entorno.',d:'Soy soberano/a de mi entorno y mis vínculos.'},no:{t:'¿Cómo era tu entorno el Día 1? ¿Y hoy?',d:null}},
-  23:{ma:{t:'Tu ritual B+C. Tú decides.',d:null},no:{t:'Lee tu Manifiesto B+C.',d:null}},
-  24:{ma:{t:'Su Jok de B o C — según lo que sientas.',d:null},no:{t:'¿Qué dimensión B o C sientes más restaurada?',d:null}},
-  25:{ma:{t:'Decreto personal frente al espejo.',d:null},no:{t:'Masaje auricular + aromas favoritos.',d:null}},
-  26:{ma:{t:'Respiración 4-7-8.',d:null},no:{t:'¿Cómo quieres que sea tu B+C en 6 meses?',d:null}},
-  27:{ma:{t:'Toca algo natural Y algo que te recuerde un vínculo sano.',d:null},no:{t:'Escribe lo que aprendiste sobre proteger tu entorno externo.',d:null}},
-  28:{ma:{t:'Sin instrucción. Observa tu escudo B+C.',d:null},no:{t:'Lee todo tu diario.',d:null}},
-  29:{ma:{t:'Elige una herramienta de B y una de C para siempre.',d:null},no:{t:'¿Por qué esas dos?',d:null}},
-  30:{ma:{t:'Tu ritual. Tu aroma. Tu decreto.',d:'Mi Equilibrio Lo Siento Ya — en mi entorno y en mis vínculos.'},no:{t:'Escribe: Hoy sé que...',d:null}},
-},
-
-ABC:{
-  1:{ma:{t:'Hoy empieza tu Plan MIELSY. Tu primera sesión está lista. Busca 60 minutos tranquilos hoy.',d:'No tengo que resolver todo. Solo necesito estar presente un momento a la vez. Eso es suficiente.'},no:{t:'Solo una pregunta: ¿Qué necesita tu cuerpo ahora mismo? No tu mente. No tus relaciones. Escribe tres palabras.',d:null}},
-  2:{ma:{t:'Solo tres respiraciones profundas antes de levantarte. Di: "Estoy aquí. Eso es suficiente."',d:null},no:{t:'Masaje auricular (youtube.com/watch?v=Ow0-mkeozyY). Di: "Mañana es suficiente con haber llegado a hoy."',d:null}},
-  3:{ma:{t:'Sin teléfono los primeros 10 min. Lavanda en muñecas. Solo observa cómo te sientes.',d:null},no:{t:'Escribe una sola palabra que describa cómo estás hoy. Sin explicación.',d:null}},
-  4:{ma:{t:'4-7-8 x4. Di: "No tengo que estar bien. Solo tengo que estar presente."',d:null},no:{t:'Escribe: ¿Qué emoción llevas hoy que quisiera soltar? Solo nómbrala.',d:null}},
-  5:{ma:{t:'Toca algo suave — manta, algodón. Respira. Di: "Mi cuerpo merece gentileza."',d:null},no:{t:'¿Hubo un momento hoy donde te sentiste un poco más liviano/a? Aunque sea un segundo. Escríbelo.',d:null}},
-  6:{ma:{t:'Di tu decreto muy despacio: "No tengo que resolver todo. Solo necesito estar presente. Eso es suficiente."',d:'No tengo que resolver todo. Solo necesito estar presente. Eso es suficiente.'},no:{t:'Escribe: ¿Qué fue lo más difícil de esta semana? Solo nómbralo — no lo analices.',d:null}},
-  7:{ma:{t:'Sin instrucción. Solo 5 min donde tu cuerpo quiera estar.',d:null},no:{t:'Prepara S2: ¿Qué necesita más tu mente para empezar a clarear?',d:null}},
-  8:{ma:{t:'Hoy es tu Sesión 2 — Regulación Triple. Busca 60 minutos para ti.',d:'El mundo real me sostiene. Un vínculo seguro me ancla.'},no:{t:'¿Qué fue lo más significativo de la Sesión 2?',d:null}},
-  9:{ma:{t:'Toca algo natural antes de abrir el teléfono. Di: "El mundo real me sostiene."',d:null},no:{t:'Escribe: ¿Qué vínculo familiar o de amistad te da más seguridad ahora mismo?',d:null}},
-  10:{ma:{t:'Cedro o menta. 4-7-8 x4. Di: "Mi mente puede clarear un poco más cada día."',d:null},no:{t:'Historia mínima: escribe cómo sería tu semana si la mente tuviera 20% menos de ruido.',d:null}},
-  11:{ma:{t:'Shen Men auricular 2 min. Di: "Aprendo a mi ritmo. No tengo que ser perfecto/a."',d:null},no:{t:'Escribe: ¿Qué vínculo cercano podrías fortalecer con una sola acción pequeña esta semana?',d:null}},
-  12:{ma:{t:'Masaje auricular + cedro. Sal 5 min afuera. Di: "La naturaleza siempre está disponible."',d:null},no:{t:'Escribe: ¿Qué elemento natural puedes incorporar a tu rutina diaria?',d:null}},
-  13:{ma:{t:'Di el decreto de S2 en voz alta. Escucha cómo el cuerpo responde diferente que hace una semana.',d:null},no:{t:'Revisa tu diario. ¿Qué cambió — aunque sea un 10%?',d:null}},
-  14:{ma:{t:'Sin instrucción. Solo observa cómo estás — sin juzgar lo que ves.',d:null},no:{t:'Prepara S3: ¿Qué necesita más — tu propósito, tu trabajo o tu identidad cultural?',d:null}},
-  15:{ma:{t:'Hoy es tu Sesión 3 — Reconstrucción. Propósito, trabajo, cultura.',d:'Tengo propósito. Tengo valor. Tengo raíces.'},no:{t:'¿Qué patrón nuevo notaste en la Sesión 3?',d:null}},
-  16:{ma:{t:'Di: "Tengo propósito. Tengo valor. Tengo raíces." Una frase para empezar el día.',d:null},no:{t:'Escribe: ¿Cuál de las tres anclas (propósito, trabajo, cultura) avanzaste hoy?',d:null}},
-  17:{ma:{t:'Incienso o sándalo. Di: "Mi propósito existe aunque no lo vea claro hoy."',d:null},no:{t:'Historia: escribe una versión de ti mismo/a que tiene propósito, trabajo significativo e identidad cultural.',d:null}},
-  18:{ma:{t:'Masaje auricular + romero. Di: "Lo que hago tiene valor. Yo tengo valor."',d:null},no:{t:'Escribe: ¿Qué elemento de tu cultura te da más identidad?',d:null}},
-  19:{ma:{t:'4-7-8 x4. Di: "Consolido lo que sobrevivió. Es mío para siempre."',d:null},no:{t:'Cuéntale a alguien de confianza una cosa que aprendiste de ti mismo/a en estas semanas.',d:null}},
-  20:{ma:{t:'Di el decreto de consolidación A+B+C en voz alta. Escucha cómo suena diferente al Día 1.',d:null},no:{t:'Revisa tu diario completo. ¿Qué cambió en las tres variables — aunque sea un poco?',d:null}},
-  21:{ma:{t:'Sin instrucción. Solo observa todo lo que sobrevivió y lo que cambió.',d:null},no:{t:'Escribe tres cosas que quieres que permanezcan de este plan para siempre.',d:null}},
-  22:{ma:{t:'Hoy es tu Sesión 4 — Integración Total A+B+C. Ahora tú lideras tu sistema completo.',d:'Soy soberano/a de mi sistema completo — Yo, vínculos y entorno.'},no:{t:'¿Cuál es la historia que ahora te cuentas sobre ti, tu entorno y el mundo? ¿En qué se diferencia del Día 1?',d:null}},
-  23:{ma:{t:'Tu ritual A+B+C. La secuencia C→B→A. Tú decides el contenido.',d:null},no:{t:'Lee tu Manifiesto de Recuperación en voz alta.',d:null}},
-  24:{ma:{t:'Su Jok de la variable que más necesita hoy.',d:null},no:{t:'¿Qué dimensión — A, B o C — sientes más restaurada hoy?',d:null}},
-  25:{ma:{t:'Decreto personal frente al espejo.',d:null},no:{t:'Masaje auricular + combinación de aromas.',d:null}},
-  26:{ma:{t:'Respiración 4-7-8.',d:null},no:{t:'¿Cómo quieres que sea tu A+B+C en 6 meses? Una frase por variable.',d:null}},
-  27:{ma:{t:'Toca algo de cada variable: algo tuyo (A), algo de un vínculo (B), algo natural (C).',d:null},no:{t:'Escribe lo que aprendiste sobre cómo A, B y C se afectan mutuamente.',d:null}},
-  28:{ma:{t:'Sin instrucción. Observa tu sistema completo A+B+C.',d:null},no:{t:'Lee todo tu diario desde el Día 1.',d:null}},
-  29:{ma:{t:'Elige una herramienta de A, una de B y una de C para usar el resto de tu vida.',d:null},no:{t:'¿Por qué elegiste esas tres?',d:null}},
-  30:{ma:{t:'Tu ritual. Tus aromas. Tu decreto. Tu equilibrio completo.',d:'Mi Equilibrio Lo Siento Ya — en todo mi sistema.'},no:{t:'Escribe: Hoy sé que...',d:null}},
-},
-
-};
 
 // ── ESTADO ────────────────────────────────────────────────────────────────
 let estado = {codigo:'',plan:'',diaActual:0,turnoActual:'ma',modalDia:0,modalTurno:'ma'};
-
 function claveStorage(dia,turno){return `mielsy_${estado.codigo}_d${dia}_${turno}`;}
 
 // ── LOGIN ─────────────────────────────────────────────────────────────────
-async function iniciar(){
+function iniciar(){
   const codigo=document.getElementById('inp-codigo').value.trim().toUpperCase();
+  const fechaStr=document.getElementById('inp-fecha').value;
+  const plan=document.getElementById('inp-plan').value;
   const err=document.getElementById('login-err');
-  const loading=document.getElementById('login-loading');
-
   if(!codigo.match(/^M-\d{4}$/)){err.textContent='Ingresa tu código MIELSY (ej: M-0001)';return;}
-
-  err.textContent='';
-  loading.style.display='block';
-
-  try {
-    // Consultar la API para obtener el plan y fecha del paciente
-    const res = await fetch(`${API_URL}?token=${API_TOKEN}&action=getPlan&codigo=${codigo}`);
-    const data = await res.json();
-
-    loading.style.display='none';
-
-    if(!data.ok || !data.plan){
-      err.textContent='Código no encontrado. Verifica con tu terapeuta.';
-      return;
-    }
-
-    const plan = data.plan.toUpperCase();
-    const fechaStr = data.fechaInicio; // dd/MM/yyyy
-    const partes = fechaStr.split('/');
-    const fechaInicio = new Date(parseInt(partes[2]), parseInt(partes[1])-1, parseInt(partes[0]));
-    const ahora = new Date();
-    const diffDias = Math.floor((ahora-fechaInicio)/(1000*60*60*24));
-    const diaActual = Math.min(Math.max(diffDias+1,1),30);
-    const turnoActual = ahora.getHours()<14?'ma':'no';
-
-    estado={codigo,plan,diaActual,turnoActual,modalDia:0,modalTurno:'ma'};
-
-    try{localStorage.setItem('mielsy_codigo',codigo);}catch(e){}
-
-    document.getElementById('login-screen').style.display='none';
-    document.getElementById('app').style.display='block';
-    renderApp();
-
-  } catch(e) {
-    loading.style.display='none';
-    // Fallback: pedir fecha manualmente si la API falla
-    err.textContent='No se pudo conectar. Intenta de nuevo o contacta a tu terapeuta.';
-  }
+  if(!fechaStr){err.textContent='Selecciona la fecha de inicio de tu plan';return;}
+  const fechaInicio=new Date(fechaStr+'T00:00:00');
+  const ahora=new Date();
+  const diffDias=Math.floor((ahora-fechaInicio)/(1000*60*60*24));
+  const diaActual=Math.min(Math.max(diffDias+1,1),30);
+  const turnoActual=ahora.getHours()<14?'ma':'no';
+  estado={codigo,plan,diaActual,turnoActual,modalDia:0,modalTurno:'ma'};
+  try{
+    localStorage.setItem('mielsy_codigo',codigo);
+    localStorage.setItem('mielsy_fecha',fechaStr);
+    localStorage.setItem('mielsy_plan_'+codigo,plan);
+  }catch(e){}
+  document.getElementById('login-screen').style.display='none';
+  document.getElementById('app').style.display='block';
+  renderApp();
 }
 
 window.addEventListener('load',()=>{
   try{
     const codigo=localStorage.getItem('mielsy_codigo');
-    if(codigo)document.getElementById('inp-codigo').value=codigo;
+    const fecha=localStorage.getItem('mielsy_fecha');
+    if(codigo){document.getElementById('inp-codigo').value=codigo;}
+    if(fecha){document.getElementById('inp-fecha').value=fecha;}
+    if(codigo){
+      const plan=localStorage.getItem('mielsy_plan_'+codigo)||'';
+      if(plan){document.getElementById('inp-plan').value=plan;}
+    }
   }catch(e){}
 });
 
 // ── RENDER APP ────────────────────────────────────────────────────────────
 function renderApp(){
   const {codigo,plan,diaActual,turnoActual}=estado;
-  const info=PLANES_INFO[plan]||{nombre:'Plan MIELSY',semanas:[]};
+  const info=PLANES_INFO[plan]||{nombre:'Plan MIELSY',semanas:['S1','S2','S3','S4']};
   const datos=DATOS[plan]||{};
   const esManana=turnoActual==='ma';
-
   document.getElementById('topbar-sub').textContent=`${codigo} · ${info.nombre}`;
   document.getElementById('topbar-badge').textContent=`Día ${diaActual} de 30`;
-
-  // Hero
   const cont=datos[diaActual];
   if(cont){
     const t=cont[turnoActual];
@@ -540,7 +294,6 @@ function renderApp(){
     document.getElementById('progreso-txt').textContent=`${pct}% completado`;
     document.getElementById('hero').style.display='block';
   }
-
   renderSemanas();
 }
 
@@ -548,9 +301,8 @@ function guardarHero(){
   const texto=document.getElementById('hero-textarea').value.trim();
   const clave=claveStorage(estado.diaActual,estado.turnoActual);
   try{if(texto)localStorage.setItem(clave,texto);else localStorage.removeItem(clave);}catch(e){}
-  const g=document.getElementById('hero-guardado');
-  g.classList.add('vis');setTimeout(()=>g.classList.remove('vis'),2000);
-  renderSemanas();
+  const g=document.getElementById('hero-guardado');g.classList.add('vis');
+  setTimeout(()=>g.classList.remove('vis'),2000);renderSemanas();
 }
 function limpiarHero(){
   document.getElementById('hero-textarea').value='';
@@ -561,52 +313,40 @@ function limpiarHero(){
 // ── SEMANAS ───────────────────────────────────────────────────────────────
 function renderSemanas(){
   const {plan,diaActual,turnoActual}=estado;
-  const info=PLANES_INFO[plan]||{semanas:['S1','S2','S3','S4']};
+  const info=PLANES_INFO[plan]||{semanas:['Rescate','Regulación','Consolidación','Mantenimiento']};
   const datos=DATOS[plan]||{};
   const container=document.getElementById('semanas');
   container.innerHTML='';
-
   const semanasData=[
-    {titulo:`Semana 1 — ${info.semanas[0]||'Rescate'}`,dias:[1,2,3,4,5,6,7]},
-    {titulo:`Semana 2 — ${info.semanas[1]||'Regulación'}`,dias:[8,9,10,11,12,13,14]},
-    {titulo:`Semana 3 — ${info.semanas[2]||'Consolidación'}`,dias:[15,16,17,18,19,20,21]},
-    {titulo:`Semana 4 — ${info.semanas[3]||'Mantenimiento'}`,dias:[22,23,24,25,26,27,28,29,30]},
+    {titulo:`Semana 1`,sub:info.semanas[0]||'Rescate',dias:[1,2,3,4,5,6,7]},
+    {titulo:`Semana 2`,sub:info.semanas[1]||'Regulación',dias:[8,9,10,11,12,13,14]},
+    {titulo:`Semana 3`,sub:info.semanas[2]||'Consolidación',dias:[15,16,17,18,19,20,21]},
+    {titulo:`Semana 4`,sub:info.semanas[3]||'Mantenimiento',dias:[22,23,24,25,26,27,28,29,30]},
   ];
-
   semanasData.forEach(sem=>{
     const sec=document.createElement('div');
     const tit=document.createElement('div');
     tit.className='semana-title';
-    tit.textContent=sem.titulo;
+    tit.innerHTML=`${sem.titulo} <span class="semana-badge">${sem.sub}</span>`;
     sec.appendChild(tit);
-
     const grid=document.createElement('div');
     grid.className='dias-grid';
-
     sem.dias.forEach(dia=>{
-      const cont=datos[dia];
-      if(!cont)return;
-      const card=document.createElement('div');
-      card.className='dia-card';
+      const cont=datos[dia];if(!cont)return;
+      const card=document.createElement('div');card.className='dia-card';
       let est='';
       if(dia<diaActual){card.classList.add('completado');est='✓';}
       else if(dia===diaActual){card.classList.add('activo');est='●';}
       else{card.classList.add('bloqueado');est='🔒';}
-
-      const header=document.createElement('div');
-      header.className='dia-header';
+      const header=document.createElement('div');header.className='dia-header';
       header.innerHTML=`<span class="dia-num">Día ${dia}</span><span class="dia-estado">${est}</span>`;
       card.appendChild(header);
-
-      const turnos=document.createElement('div');
-      turnos.className='dia-turnos';
+      const turnos=document.createElement('div');turnos.className='dia-turnos';
       ['ma','no'].forEach(t=>{
         const d=cont[t];if(!d)return;
-        const div=document.createElement('div');
-        div.className='dia-turno';
+        const div=document.createElement('div');div.className='dia-turno';
         if(dia===diaActual&&t===turnoActual)div.classList.add('activo-turno');
-        let tieneRef=false;
-        try{tieneRef=!!localStorage.getItem(claveStorage(dia,t));}catch(e){}
+        let tieneRef=false;try{tieneRef=!!localStorage.getItem(claveStorage(dia,t));}catch(e){}
         const preview=d.t.length>50?d.t.slice(0,50)+'…':d.t;
         div.innerHTML=`<span class="dia-turno-ico">${t==='ma'?'🌅':'🌙'}</span><span class="dia-turno-txt">${preview}</span><span class="dia-reflexion-dot ${tieneRef?'vis':''}"></span>`;
         turnos.appendChild(div);
@@ -615,9 +355,7 @@ function renderSemanas(){
       if(dia<=diaActual)card.addEventListener('click',()=>abrirModal(dia));
       grid.appendChild(card);
     });
-
-    sec.appendChild(grid);
-    container.appendChild(sec);
+    sec.appendChild(grid);container.appendChild(sec);
   });
 }
 
@@ -625,39 +363,27 @@ function renderSemanas(){
 function abrirModal(dia){
   estado.modalDia=dia;
   estado.modalTurno=(dia===estado.diaActual)?estado.turnoActual:'ma';
-  renderModal();
-  document.getElementById('modal').classList.add('vis');
+  renderModal();document.getElementById('modal').classList.add('vis');
 }
-
 function renderModal(){
   const {modalDia,modalTurno,plan}=estado;
   const datos=DATOS[plan]||{};
   const cont=datos[modalDia];if(!cont)return;
-  const t=cont[modalTurno];
-  const esManana=modalTurno==='ma';
-
+  const t=cont[modalTurno];const esManana=modalTurno==='ma';
   document.getElementById('modal-label').textContent=`Día ${modalDia}`;
   document.getElementById('modal-titulo').textContent=`${esManana?'🌅 Mañana':'🌙 Noche'}`;
   document.getElementById('modal-texto').textContent=t.t;
   const decEl=document.getElementById('modal-decreto');
-  if(t.d){decEl.textContent=`"${t.d}"`;decEl.style.display='block';}
-  else{decEl.style.display='none';}
-
-  const tabs=document.getElementById('modal-tabs');
-  tabs.innerHTML='';
+  if(t.d){decEl.textContent=`"${t.d}"`;decEl.style.display='block';}else{decEl.style.display='none';}
+  const tabs=document.getElementById('modal-tabs');tabs.innerHTML='';
   ['ma','no'].forEach(turno=>{
-    const tab=document.createElement('button');
-    tab.className='modal-tab'+(turno===modalTurno?' active':'');
+    const tab=document.createElement('button');tab.className='modal-tab'+(turno===modalTurno?' active':'');
     tab.textContent=turno==='ma'?'🌅 Mañana':'🌙 Noche';
-    tab.onclick=()=>{estado.modalTurno=turno;renderModal();};
-    tabs.appendChild(tab);
+    tab.onclick=()=>{estado.modalTurno=turno;renderModal();};tabs.appendChild(tab);
   });
-
-  try{const saved=localStorage.getItem(claveStorage(modalDia,modalTurno));document.getElementById('modal-textarea').value=saved||'';}
-  catch(e){document.getElementById('modal-textarea').value='';}
+  try{const saved=localStorage.getItem(claveStorage(modalDia,modalTurno));document.getElementById('modal-textarea').value=saved||'';}catch(e){document.getElementById('modal-textarea').value='';}
   document.getElementById('modal-guardado').classList.remove('vis');
 }
-
 function guardarModal(){
   const texto=document.getElementById('modal-textarea').value.trim();
   const clave=claveStorage(estado.modalDia,estado.modalTurno);
@@ -666,7 +392,6 @@ function guardarModal(){
   setTimeout(()=>document.getElementById('modal-guardado').classList.remove('vis'),2000);
   renderSemanas();
 }
-
 function cerrarModal(){document.getElementById('modal').classList.remove('vis');renderSemanas();}
 document.getElementById('modal').addEventListener('click',function(e){if(e.target===this)cerrarModal();});
 </script>
