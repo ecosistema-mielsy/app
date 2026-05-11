@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MIELSY · Micromomentos · Plan C</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0d1117;
+  --sf: #161b22;
+  --sf2: #1c2128;
+  --bd: rgba(200,169,110,.15);
+  --gold: #c8a96e;
+  --gdim: rgba(200,169,110,.45);
+  --cr: #f0e6d3;
+  --tx: #cdd3da;
+  --txd: rgba(205,211,218,.45);
+  --gn: #3fb950;
+  --yw: #d29922;
+  --rd: #f85149;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html, body { background:var(--bg); color:var(--tx); font-family:'DM Sans',sans-serif; min-height:100vh; }
+
+body::before {
+  content:'';
+  position:fixed;
+  inset:0;
+  background:radial-gradient(ellipse 60% 40% at 50% 0%, rgba(200,169,110,.07) 0%, transparent 60%);
+  pointer-events:none;
+  z-index:0;
+}
+
+/* LOGIN */
+#login-screen {
+  position:fixed; inset:0; z-index:100;
+  display:flex; align-items:center; justify-content:center;
+  background:var(--bg);
+}
+.login-box {
+  background:var(--sf);
+  border:1px solid var(--bd);
+  border-radius:20px;
+  padding:40px 36px;
+  width:340px;
+  text-align:center;
+}
+.login-logo {
+  font-family:'Cormorant Garamond',serif;
+  font-size:2.5rem;
+  font-weight:700;
+  color:var(--gold);
+  margin-bottom:8px;
+}
+.login-title {
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.2rem;
+  color:var(--cr);
+  margin-bottom:4px;
+}
+.login-sub {
+  font-size:.7rem;
+  color:var(--txd);
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  margin-bottom:28px;
+}
+.login-label {
+  display:block;
+  font-size:.68rem;
+  color:var(--gdim);
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  margin-bottom:6px;
+  text-align:left;
+}
+.login-input {
+  width:100%;
+  background:var(--sf2);
+  border:1px solid var(--bd);
+  border-radius:10px;
+  padding:11px 14px;
+  color:var(--cr);
+  font-family:'DM Sans',sans-serif;
+  font-size:.9rem;
+  outline:none;
+  margin-bottom:12px;
+  letter-spacing:.05em;
+}
+.login-input:focus { border-color:var(--gold); }
+.login-btn {
+  width:100%;
+  background:linear-gradient(135deg,#8b6d3a,var(--gold));
+  color:#0d1117;
+  border:none;
+  border-radius:10px;
+  padding:13px;
+  font-family:'DM Sans',sans-serif;
+  font-size:.88rem;
+  font-weight:600;
+  cursor:pointer;
+  margin-top:4px;
+}
+.login-btn:hover { opacity:.9; }
+.login-err {
+  font-size:.72rem;
+  color:var(--rd);
+  margin-top:10px;
+  min-height:18px;
+}
+
+/* APP */
+#app { display:none; position:relative; z-index:1; min-height:100vh; }
+
+/* HEADER */
+.topbar {
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:14px 20px;
+  background:var(--sf);
+  border-bottom:1px solid var(--bd);
+  position:sticky;
+  top:0;
+  z-index:50;
+}
+.topbar-logo {
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.4rem;
+  font-weight:700;
+  color:var(--gold);
+}
+.topbar-info { flex:1; }
+.topbar-title {
+  font-family:'Cormorant Garamond',serif;
+  font-size:1rem;
+  color:var(--cr);
+}
+.topbar-sub { font-size:.65rem; color:var(--txd); }
+.topbar-badge {
+  background:rgba(200,169,110,.12);
+  border:1px solid var(--bd);
+  border-radius:20px;
+  padding:4px 12px;
+  font-size:.68rem;
+  color:var(--gold);
+}
+
+/* HERO - micrommomento actual */
+.hero {
+  margin:20px;
+  background:var(--sf);
+  border:1px solid var(--bd);
+  border-radius:20px;
+  padding:28px;
+  position:relative;
+  overflow:hidden;
+}
+.hero::before {
+  content:'';
+  position:absolute;
+  top:0; left:0; right:0;
+  height:3px;
+  background:linear-gradient(90deg, var(--gold), rgba(200,169,110,.2));
+}
+.hero-label {
+  font-size:.65rem;
+  color:var(--gold);
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  margin-bottom:10px;
+}
+.hero-turno {
+  font-size:1.8rem;
+  margin-bottom:4px;
+}
+.hero-dia {
+  font-family:'Cormorant Garamond',serif;
+  font-size:2.2rem;
+  font-weight:700;
+  color:var(--cr);
+  margin-bottom:16px;
+  line-height:1.1;
+}
+.hero-texto {
+  font-size:.92rem;
+  line-height:1.9;
+  color:var(--tx);
+  margin-bottom:16px;
+}
+.hero-decreto {
+  background:rgba(200,169,110,.08);
+  border-left:3px solid var(--gold);
+  border-radius:0 8px 8px 0;
+  padding:12px 16px;
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.05rem;
+  font-style:italic;
+  color:var(--gold);
+  line-height:1.6;
+}
+.hero-progreso {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-top:18px;
+  padding-top:16px;
+  border-top:1px solid var(--bd);
+}
+.progreso-bar {
+  flex:1;
+  height:4px;
+  background:var(--sf2);
+  border-radius:4px;
+  overflow:hidden;
+}
+.progreso-fill {
+  height:100%;
+  background:linear-gradient(90deg, var(--gold), rgba(200,169,110,.5));
+  border-radius:4px;
+  transition:width .6s ease;
+}
+.progreso-texto {
+  font-size:.68rem;
+  color:var(--txd);
+  white-space:nowrap;
+}
+
+/* SEMANAS */
+.semanas {
+  padding:0 20px 20px;
+}
+.semana-title {
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.1rem;
+  color:var(--cr);
+  margin:20px 0 12px;
+  padding-bottom:8px;
+  border-bottom:1px solid var(--bd);
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.semana-badge {
+  font-size:.6rem;
+  background:rgba(200,169,110,.1);
+  border:1px solid var(--bd);
+  border-radius:20px;
+  padding:2px 8px;
+  color:var(--gold);
+  font-family:'DM Sans',sans-serif;
+}
+
+/* DÍA CARD */
+.dias-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+}
+@media(max-width:500px) { .dias-grid { grid-template-columns:1fr; } }
+
+.dia-card {
+  background:var(--sf);
+  border:1px solid var(--bd);
+  border-radius:12px;
+  overflow:hidden;
+  cursor:pointer;
+  transition:border-color .2s, transform .15s;
+}
+.dia-card:hover { border-color:var(--gdim); transform:translateY(-1px); }
+.dia-card.activo { border-color:var(--gold); }
+.dia-card.activo .dia-header { background:rgba(200,169,110,.08); }
+.dia-card.bloqueado { opacity:.4; cursor:default; pointer-events:none; }
+.dia-card.completado .dia-header { background:rgba(63,185,80,.05); }
+.dia-card.completado { border-color:rgba(63,185,80,.2); }
+
+.dia-header {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:10px 14px;
+  background:var(--sf2);
+}
+.dia-num {
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.1rem;
+  font-weight:700;
+  color:var(--cr);
+}
+.dia-estado {
+  font-size:.75rem;
+}
+.dia-turnos {
+  padding:10px 14px;
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+.dia-turno {
+  display:flex;
+  align-items:flex-start;
+  gap:8px;
+  font-size:.72rem;
+  line-height:1.5;
+  color:var(--txd);
+}
+.dia-turno.activo-turno { color:var(--tx); }
+.dia-turno-emoji { flex-shrink:0; font-size:.85rem; }
+.dia-turno-texto { flex:1; }
+
+/* MODAL */
+#modal {
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:200;
+  background:rgba(0,0,0,.8);
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+#modal.vis { display:flex; }
+.modal-box {
+  background:var(--sf);
+  border:1px solid var(--bd);
+  border-radius:20px;
+  width:100%;
+  max-width:480px;
+  max-height:85vh;
+  overflow-y:auto;
+  padding:28px;
+  position:relative;
+}
+.modal-box::before {
+  content:'';
+  position:absolute;
+  top:0; left:0; right:0;
+  height:3px;
+  background:linear-gradient(90deg, var(--gold), rgba(200,169,110,.2));
+  border-radius:20px 20px 0 0;
+}
+.modal-label {
+  font-size:.65rem;
+  color:var(--gold);
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  margin-bottom:8px;
+}
+.modal-titulo {
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.6rem;
+  color:var(--cr);
+  margin-bottom:18px;
+}
+.modal-texto {
+  font-size:.9rem;
+  line-height:1.9;
+  color:var(--tx);
+  margin-bottom:16px;
+}
+.modal-decreto {
+  background:rgba(200,169,110,.08);
+  border-left:3px solid var(--gold);
+  border-radius:0 8px 8px 0;
+  padding:14px 16px;
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.05rem;
+  font-style:italic;
+  color:var(--gold);
+  line-height:1.6;
+  margin-bottom:20px;
+}
+.modal-close {
+  width:100%;
+  background:var(--sf2);
+  border:1px solid var(--bd);
+  border-radius:10px;
+  padding:11px;
+  color:var(--txd);
+  font-family:'DM Sans',sans-serif;
+  font-size:.85rem;
+  cursor:pointer;
+}
+.modal-close:hover { border-color:var(--gold); color:var(--gold); }
+
+/* NO DATA */
+.no-data {
+  text-align:center;
+  padding:60px 20px;
+  color:var(--txd);
+  font-size:.85rem;
+}
+
+/* FOOTER */
+.footer {
+  text-align:center;
+  padding:30px 20px;
+  font-size:.65rem;
+  color:var(--txd);
+  letter-spacing:.05em;
+}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login-screen">
+  <div class="login-box">
+    <div class="login-logo">MIELSY</div>
+    <div class="login-title">Micromomentos · Plan C</div>
+    <div class="login-sub">Desajuste Evolutivo · 30 días</div>
+    <label class="login-label">Tu código MIELSY</label>
+    <input class="login-input" id="inp-codigo" type="text" placeholder="M-0001" maxlength="10"/>
+    <label class="login-label">Fecha de inicio del plan</label>
+    <input class="login-input" id="inp-fecha" type="date"/>
+    <button class="login-btn" onclick="iniciar()">Ingresar a mis micromomentos</button>
+    <div class="login-err" id="login-err"></div>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <div class="topbar">
+    <div class="topbar-logo">M</div>
+    <div class="topbar-info">
+      <div class="topbar-title">Micromomentos MIELSY</div>
+      <div class="topbar-sub" id="topbar-sub">Plan C · Desajuste Evolutivo</div>
+    </div>
+    <div class="topbar-badge" id="topbar-badge">Día —</div>
+  </div>
+
+  <!-- HÉROE -->
+  <div class="hero" id="hero" style="display:none">
+    <div class="hero-label">Tu micrommomento de hoy</div>
+    <div class="hero-turno" id="hero-turno"></div>
+    <div class="hero-dia" id="hero-dia"></div>
+    <div class="hero-texto" id="hero-texto"></div>
+    <div class="hero-decreto" id="hero-decreto" style="display:none"></div>
+    <div class="hero-progreso">
+      <div class="progreso-bar"><div class="progreso-fill" id="progreso-fill"></div></div>
+      <div class="progreso-texto" id="progreso-texto"></div>
+    </div>
+  </div>
+
+  <!-- SEMANAS -->
+  <div class="semanas" id="semanas"></div>
+
+  <div class="footer">Ecosistema MIELSY® · Guatemala · 2026<br>Dra. C. Miday Columbié Pileta · academy@mielsy.org</div>
+</div>
+
+<!-- MODAL -->
+<div id="modal">
+  <div class="modal-box">
+    <div class="modal-label" id="modal-label"></div>
+    <div class="modal-titulo" id="modal-titulo"></div>
+    <div class="modal-texto" id="modal-texto"></div>
+    <div class="modal-decreto" id="modal-decreto" style="display:none"></div>
+    <button class="modal-close" onclick="cerrarModal()">Cerrar</button>
+  </div>
+</div>
+
+<script>
+// ── DATOS DEL PLAN C ──────────────────────────────────────────────────────
+const PLAN_C = {
+  1: {
+    ma: { texto:'Hoy empieza tu Plan MIELSY. Tu primera sesión está lista. Busca 60 minutos tranquilos hoy.', decreto:'Mi equilibrio comienza hoy. Doy el primer paso.' },
+    no: { texto:'¿Cómo te fue en la sesión? Escribe una palabra que describa cómo te sientes ahora.', decreto:null }
+  },
+  2: {
+    ma: { texto:'Antes de abrir el teléfono: siéntate en el borde de la cama. Pon los pies en el suelo. Tres respiraciones profundas — inhala 4 seg, exhala 8 seg.', decreto:'Hoy yo decido cómo empieza mi día.' },
+    no: { texto:'Deja el teléfono fuera del cuarto o boca abajo. Coloca la semilla de lavanda en tu mano si la tienes. Pregúntate: ¿Qué momento de hoy fue real — no digital? Escríbelo en una palabra en tu diario.', decreto:null }
+  },
+  3: {
+    ma: { texto:'Respiración de tierra: pon una mano en el abdomen, otra en el pecho. Inhala 4 seg — el abdomen sube. Exhala 8 seg — el abdomen baja. Repite 5 veces.', decreto:'Mi cuerpo sabe cómo calmarse. Le doy permiso.' },
+    no: { texto:'Gratitud analógica: escribe en tu diario tres cosas que viviste hoy que no tienen pantalla. Puede ser un olor, una conversación, el aire, una comida.', decreto:null }
+  },
+  4: {
+    ma: { texto:'Ancla del olor: abre la lavanda o cualquier aroma que tengas. Inhala 3 veces lento. Cierra los ojos. Recuerda el momento de calma de la primera sesión.', decreto:'Vuelvo a mi centro. Tengo todo lo que necesito.' },
+    no: { texto:'Masaje auricular antes de dormir. Abre este enlace: youtube.com/watch?v=Ow0-mkeozyY — 5 minutos. Después directo a dormir, sin teléfono en la mano.', decreto:null }
+  },
+  5: {
+    ma: { texto:'Sal 5 minutos afuera — balcón, jardín, calle. Sin teléfono. Solo observa: ¿Qué ves? ¿Qué escuchas? ¿Qué hueles?', decreto:'La naturaleza me restaura.' },
+    no: { texto:'Diario de la semana: ¿Qué fue lo más difícil esta semana? ¿Qué fue lo más fácil? ¿Qué sorpresa te dio tu propio cuerpo o mente?', decreto:null }
+  },
+  6: {
+    ma: { texto:'Ritual de intención: pon agua tibia en tus manos. Siente el calor. Inhala. Esta semana eliges una cosa diferente. Una sola. Y esa cuenta.', decreto:'Esta semana elijo una cosa diferente. Una sola. Y esa cuenta.' },
+    no: { texto:'Decreto de cierre: lee en voz alta, despacio — "Soy dueño/a de mi atención. Cuando apago el ruido exterior, escucho lo que realmente importa. Mi mente merece silencio." Pausa. Respira.', decreto:'Soy dueño/a de mi atención. Mi mente merece silencio.' }
+  },
+  7: {
+    ma: { texto:'Revisión breve: abre tu diario. Lee lo que escribiste el día 2. ¿Cambió algo? ¿Qué notaste esta semana que antes no notabas? Escribe solo una frase.', decreto:null },
+    no: { texto:'Preparación Semana 2: esta noche pon el teléfono a cargar fuera del cuarto. Duerme sin pantalla cerca. Mañana empieza la Semana 2 — Regulación.', decreto:null }
+  },
+  8: {
+    ma: { texto:'Hoy es tu Sesión 2 — Regulación. Busca 60 minutos para ti.', decreto:'Restauro mis ritmos. Me reconecto con mi entorno.' },
+    no: { texto:'¿Qué fue lo más significativo de la Sesión 2?', decreto:null }
+  },
+  9: {
+    ma: { texto:'Sal 5 min afuera. Si no puedes, abre la ventana y mira el cielo 5 min. Sin teléfono. Inhala el aire tres veces.', decreto:'El mundo real me restaura.' },
+    no: { texto:'Escribe en el diario: ¿Qué elemento de tu cultura guatemalteca (comida, música, idioma, tradición) extrañas o hace tiempo no practicas?', decreto:null }
+  },
+  10: {
+    ma: { texto:'Desayuna sin pantallas. Aunque sea 5 minutos. Solo la comida, el olor, el sabor.', decreto:'Estoy presente en este momento.' },
+    no: { texto:'Masaje auricular (youtube.com/watch?v=Ow0-mkeozyY). Después escribe: ¿Qué sonido natural te relaja? (lluvia, viento, pájaros, río). Esta semana busca ese sonido.', decreto:null }
+  },
+  11: {
+    ma: { texto:'Respiración 4-7-8: Inhala 4 seg → Retén 7 seg → Exhala 8 seg. Repite 4 ciclos.', decreto:'Mi mente es clara. Aprendo a mi ritmo.' },
+    no: { texto:'¿Qué elemento de la naturaleza tienes cerca y no aprovechas? (una planta, un parque, la lluvia, el sol de la tarde). Planifica tocarlo mañana.', decreto:null }
+  },
+  12: {
+    ma: { texto:'Toca algo de la naturaleza antes de abrir el teléfono — una planta, tierra, agua, madera. Cinco respiraciones sosteniendo ese contacto.', decreto:null },
+    no: { texto:'Historia nueva: escribe — "Cuando me conecto con la naturaleza, yo soy..." Completa libremente, sin pensar demasiado.', decreto:null }
+  },
+  13: {
+    ma: { texto:'Lee el decreto de la Semana 2 en voz alta: "Pertenezco a la naturaleza y ella me pertenece. Cuando me reconecto con el entorno, me reconecto conmigo mismo/a."', decreto:'Pertenezco a la naturaleza y ella me pertenece.' },
+    no: { texto:'Revisión de la semana: ¿Qué momento de contacto con la naturaleza o la cultura viviste esta semana? ¿Cómo te sentiste?', decreto:null }
+  },
+  14: {
+    ma: { texto:'Sin instrucción estructurada hoy. Solo siéntate 5 min con tu aroma favorito de las últimas dos semanas. Observa cómo te sientes comparado con el Día 1.', decreto:null },
+    no: { texto:'Escribe una sola intención para la Semana 3: ¿Qué quieres consolidar? ¿Qué nuevo hábito quieres que se quede contigo para siempre?', decreto:null }
+  },
+  15: {
+    ma: { texto:'Hoy es tu Sesión 3 — Consolidación. Lo que aprendiste, hoy lo anclas.', decreto:'Lo que aprendí, lo anclo. Es mío para siempre.' },
+    no: { texto:'¿Qué patrón nuevo en ti notaste en la Sesión 3?', decreto:null }
+  },
+  16: {
+    ma: { texto:'Di frente al espejo con tu nombre: "[Tu nombre], tu mente merece silencio."', decreto:null },
+    no: { texto:'¿Qué emoción fue más fácil de manejar esta semana comparado con hace tres semanas? Escríbelo.', decreto:null }
+  },
+  17: {
+    ma: { texto:'Toca algo de tu cultura antes de empezar el día — una tela, un objeto, una comida, una canción.', decreto:'Mi identidad cultural es una fuente de equilibrio.' },
+    no: { texto:'Historia nueva: escribe cómo quieres que sea tu relación con el teléfono en 3 meses.', decreto:null }
+  },
+  18: {
+    ma: { texto:'Respiración 4-7-8. Cuatro ciclos.', decreto:'Consolido lo aprendido. Lo nuevo ya es mío.' },
+    no: { texto:'Escribe una cosa que aprendiste de ti mismo/a en estas tres semanas que no sabías antes.', decreto:null }
+  },
+  19: {
+    ma: { texto:'Masaje auricular + di el decreto mientras lo haces.', decreto:'Consolido lo que aprendí. Es mío para siempre.' },
+    no: { texto:'Cuéntale a alguien de confianza algo que cambiaste. Escribe cómo te sentiste al contarlo.', decreto:null }
+  },
+  20: {
+    ma: { texto:'Sal 5 min afuera. Sin teléfono. Observa 3 cosas que nunca habías notado antes.', decreto:null },
+    no: { texto:'Revisa tu diario desde el Día 1. ¿Qué frase o respuesta te sorprende ahora?', decreto:null }
+  },
+  21: {
+    ma: { texto:'Sin instrucción. Solo 5 minutos con tu aroma favorito del plan. Escucha cómo te sientes.', decreto:null },
+    no: { texto:'Prepara la última semana: ¿Qué quieres que permanezca para siempre? Escribe tres cosas.', decreto:null }
+  },
+  22: {
+    ma: { texto:'Hoy es tu Sesión 4 — Mantenimiento. Tu última sesión guiada. Ahora eres tú quien lidera.', decreto:'Soy soberano/a de mi equilibrio.' },
+    no: { texto:'¿Cómo te sientes sabiendo que ya tienes todas las herramientas?', decreto:null }
+  },
+  23: {
+    ma: { texto:'Tu ritual de mañana. Tú decides qué necesitas hoy.', decreto:null },
+    no: { texto:'Lee tu Manifiesto Personal MIELSY en voz alta.', decreto:null }
+  },
+  24: {
+    ma: { texto:'5 min de naturaleza. Sin teléfono. Tu elección.', decreto:null },
+    no: { texto:'¿Qué dimensión de tu bienestar sientes más fuerte hoy?', decreto:null }
+  },
+  25: {
+    ma: { texto:'Tu decreto personal, en voz alta, mirándote al espejo.', decreto:null },
+    no: { texto:'Masaje auricular + tu aroma favorito. Tu Kit de Emergencia personal.', decreto:null }
+  },
+  26: {
+    ma: { texto:'Respiración 4-7-8. Cuatro ciclos. Sin instrucción adicional.', decreto:null },
+    no: { texto:'¿Cómo quieres que sea tu vida en 6 meses? Una sola frase.', decreto:null }
+  },
+  27: {
+    ma: { texto:'Toca algo de tu cultura. Conéctate con una raíz — comida, música, idioma.', decreto:null },
+    no: { texto:'Escribe a alguien que quieras: una frase de gratitud real.', decreto:null }
+  },
+  28: {
+    ma: { texto:'Sin instrucción. Escucha lo que tu cuerpo necesita hoy.', decreto:null },
+    no: { texto:'Lee todo tu diario MIELSY desde el Día 1 hasta hoy.', decreto:null }
+  },
+  29: {
+    ma: { texto:'Elige una herramienta del plan para usar el resto de tu vida. Solo una. La más tuya.', decreto:null },
+    no: { texto:'Escribe por qué elegiste esa herramienta. Eso es tu plan de mantenimiento personal.', decreto:null }
+  },
+  30: {
+    ma: { texto:'Última mañana. Tu ritual. Tu aroma. Tu decreto. Tu equilibrio.', decreto:'Mi Equilibrio Lo Siento Ya.' },
+    no: { texto:'Escribe la última frase de tu historia MIELSY. Que empiece con: "Hoy sé que..."', decreto:null }
+  }
+};
+
+const SEMANAS = [
+  { num:1, titulo:'Semana 1 — Rescate', subtitulo:'Apago el ruido, enciendo mi centro', dias:[1,2,3,4,5,6,7] },
+  { num:2, titulo:'Semana 2 — Regulación', subtitulo:'Restauro mis ritmos', dias:[8,9,10,11,12,13,14] },
+  { num:3, titulo:'Semana 3 — Consolidación', subtitulo:'Lo que aprendí, lo anclo', dias:[15,16,17,18,19,20,21] },
+  { num:4, titulo:'Semana 4 — Mantenimiento', subtitulo:'Soy soberano/a de mi equilibrio', dias:[22,23,24,25,26,27,28,29,30] },
+];
+
+let estadoApp = { codigo:'', fechaInicio:null, diaActual:0, turnoActual:'' };
+
+function iniciar() {
+  const codigo = document.getElementById('inp-codigo').value.trim().toUpperCase();
+  const fechaStr = document.getElementById('inp-fecha').value;
+  const err = document.getElementById('login-err');
+
+  if (!codigo || !codigo.startsWith('M-')) {
+    err.textContent = 'Ingresa tu código MIELSY (ej: M-0001)';
+    return;
+  }
+  if (!fechaStr) {
+    err.textContent = 'Selecciona la fecha de inicio de tu plan';
+    return;
+  }
+
+  const fechaInicio = new Date(fechaStr + 'T00:00:00');
+  const ahora = new Date();
+  const diffMs = ahora - fechaInicio;
+  const diaActual = Math.min(Math.max(Math.floor(diffMs / (1000*60*60*24)) + 1, 1), 30);
+
+  const hora = ahora.getHours();
+  const turnoActual = hora < 14 ? 'ma' : 'no';
+
+  estadoApp = { codigo, fechaInicio, diaActual, turnoActual };
+
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('app').style.display = 'block';
+
+  renderApp();
+}
+
+function renderApp() {
+  const { codigo, diaActual, turnoActual } = estadoApp;
+
+  // Topbar
+  document.getElementById('topbar-sub').textContent = `${codigo} · Plan C · Desajuste Evolutivo`;
+  document.getElementById('topbar-badge').textContent = `Día ${diaActual} de 30`;
+
+  // Hero
+  const contenidoHoy = PLAN_C[diaActual];
+  if (contenidoHoy) {
+    const turnoData = contenidoHoy[turnoActual];
+    const esManana = turnoActual === 'ma';
+    document.getElementById('hero-turno').textContent = esManana ? '🌅' : '🌙';
+    document.getElementById('hero-dia').textContent = `Día ${diaActual} · ${esManana ? 'Mañana' : 'Noche'}`;
+    document.getElementById('hero-texto').textContent = turnoData.texto;
+
+    const decretoEl = document.getElementById('hero-decreto');
+    if (turnoData.decreto) {
+      decretoEl.textContent = `"${turnoData.decreto}"`;
+      decretoEl.style.display = 'block';
+    } else {
+      decretoEl.style.display = 'none';
+    }
+
+    const pct = Math.round(((diaActual - 1) * 2 + (turnoActual === 'no' ? 1 : 0)) / 60 * 100);
+    document.getElementById('progreso-fill').style.width = pct + '%';
+    document.getElementById('progreso-texto').textContent = `${Math.round(pct)}% completado`;
+    document.getElementById('hero').style.display = 'block';
+  }
+
+  // Semanas
+  renderSemanas();
+}
+
+function renderSemanas() {
+  const { diaActual, turnoActual } = estadoApp;
+  const container = document.getElementById('semanas');
+  container.innerHTML = '';
+
+  SEMANAS.forEach(sem => {
+    const seccion = document.createElement('div');
+
+    const titulo = document.createElement('div');
+    titulo.className = 'semana-title';
+    titulo.innerHTML = `${sem.titulo} <span class="semana-badge">${sem.subtitulo}</span>`;
+    seccion.appendChild(titulo);
+
+    const grid = document.createElement('div');
+    grid.className = 'dias-grid';
+
+    sem.dias.forEach(dia => {
+      const contenido = PLAN_C[dia];
+      if (!contenido) return;
+
+      const card = document.createElement('div');
+      card.className = 'dia-card';
+
+      // Estado del día
+      let estado = '';
+      if (dia < diaActual) {
+        card.classList.add('completado');
+        estado = '✓';
+      } else if (dia === diaActual) {
+        card.classList.add('activo');
+        estado = '●';
+      } else {
+        card.classList.add('bloqueado');
+        estado = '🔒';
+      }
+
+      // Header
+      const header = document.createElement('div');
+      header.className = 'dia-header';
+      header.innerHTML = `
+        <span class="dia-num">Día ${dia}</span>
+        <span class="dia-estado">${estado}</span>
+      `;
+      card.appendChild(header);
+
+      // Turnos
+      const turnos = document.createElement('div');
+      turnos.className = 'dia-turnos';
+
+      ['ma','no'].forEach(t => {
+        const d = contenido[t];
+        if (!d) return;
+        const turnoDiv = document.createElement('div');
+        turnoDiv.className = 'dia-turno';
+        if (dia === diaActual && t === turnoActual) turnoDiv.classList.add('activo-turno');
+
+        const preview = d.texto.length > 55 ? d.texto.slice(0,55) + '…' : d.texto;
+        turnoDiv.innerHTML = `
+          <span class="dia-turno-emoji">${t==='ma'?'🌅':'🌙'}</span>
+          <span class="dia-turno-texto">${preview}</span>
+        `;
+        turnos.appendChild(turnoDiv);
+      });
+      card.appendChild(turnos);
+
+      // Click para ver completo
+      if (dia <= diaActual) {
+        card.addEventListener('click', () => abrirModal(dia));
+      }
+
+      grid.appendChild(card);
+    });
+
+    seccion.appendChild(grid);
+    container.appendChild(seccion);
+  });
+}
+
+function abrirModal(dia) {
+  const { turnoActual } = estadoApp;
+  const contenido = PLAN_C[dia];
+  if (!contenido) return;
+
+  // Mostrar el turno correcto: si es el día actual mostrar turno actual, si es pasado mostrar ambos
+  const esDiaActual = dia === estadoApp.diaActual;
+  const t = esDiaActual ? turnoActual : 'ma'; // para días pasados mostrar mañana por defecto
+
+  const turnoData = contenido[t];
+  const esManana = t === 'ma';
+
+  document.getElementById('modal-label').textContent = `Día ${dia} · ${esManana ? 'Mañana' : 'Noche'}`;
+  document.getElementById('modal-titulo').textContent = `${esManana ? '🌅 Micrommomento de Mañana' : '🌙 Micrommomento de Noche'}`;
+  document.getElementById('modal-texto').textContent = turnoData.texto;
+
+  const decretoEl = document.getElementById('modal-decreto');
+  if (turnoData.decreto) {
+    decretoEl.textContent = `"${turnoData.decreto}"`;
+    decretoEl.style.display = 'block';
+  } else {
+    decretoEl.style.display = 'none';
+  }
+
+  // Si el día tiene ambos turnos disponibles (días pasados), agregar botón para cambiar
+  if (dia < estadoApp.diaActual && contenido.ma && contenido.no) {
+    const actual = document.getElementById('modal-label').dataset.turno || 'ma';
+    document.getElementById('modal-label').dataset.dia = dia;
+    document.getElementById('modal-label').dataset.turno = t;
+  }
+
+  document.getElementById('modal').classList.add('vis');
+}
+
+function cerrarModal() {
+  document.getElementById('modal').classList.remove('vis');
+}
+
+// Cerrar modal al hacer clic fuera
+document.getElementById('modal').addEventListener('click', function(e) {
+  if (e.target === this) cerrarModal();
+});
+
+// Enter en login
+document.getElementById('inp-fecha').addEventListener('keydown', e => {
+  if (e.key === 'Enter') iniciar();
+});
+</script>
+</body>
+</html>
