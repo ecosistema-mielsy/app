@@ -124,18 +124,11 @@ html,body{background:var(--bg);color:var(--tx);font-family:'DM Sans',sans-serif;
       <label class="login-label">Fecha de inicio de tu plan</label>
       <input class="login-input" id="inp-fecha" type="date"/>
     </div>
-    <div class="login-field">
-      <label class="login-label">Tu plan asignado</label>
-      <select class="login-input" id="inp-plan">
-        <option value="C">Plan C · Desajuste Evolutivo</option>
-        <option value="A">Plan A · Crisis Endógena</option>
-        <option value="B">Plan B · Conflicto de Estructura</option>
-        <option value="AB">Plan AB · Colapso Sistémico</option>
-        <option value="AC">Plan AC · Crisis + Desajuste</option>
-        <option value="BC">Plan BC · Sobrecarga Ambiental</option>
-        <option value="ABC">Plan ABC · Agotamiento Total</option>
-      </select>
+    <div id="plan-info" style="background:var(--azul-bg);border:1px solid var(--bd);border-radius:10px;padding:10px 14px;margin-bottom:12px;text-align:left;">
+      <span style="font-size:.62rem;text-transform:uppercase;letter-spacing:.08em;color:var(--azul-dim);display:block;margin-bottom:3px;">Tu plan asignado</span>
+      <strong id="plan-nombre-display" style="color:var(--azul);font-size:.88rem;">Cargando...</strong>
     </div>
+    <input type="hidden" id="inp-plan" value="C">
     <button class="login-btn" onclick="iniciar()">Ingresar a mis micromomentos</button>
     <div class="login-err" id="login-err"></div>
     <div class="login-footer">Ecosistema MIELSY® · Guatemala<br>Dra. C. Miday Columbié Pileta</div>
@@ -454,7 +447,7 @@ function claveStorage(dia,turno){return `mielsy_${estado.codigo}_d${dia}_${turno
 function iniciar(){
   const codigo=document.getElementById('inp-codigo').value.trim().toUpperCase();
   const fechaStr=document.getElementById('inp-fecha').value;
-  const plan=document.getElementById('inp-plan').value;
+  const plan=document.getElementById('inp-plan').value||'C';
   const err=document.getElementById('login-err');
   if(!codigo.match(/^M-\d{4}$/)){err.textContent='Ingresa tu código MIELSY (ej: M-0001)';return;}
   if(!fechaStr){err.textContent='Selecciona la fecha de inicio de tu plan';return;}
@@ -475,14 +468,29 @@ function iniciar(){
 }
 
 window.addEventListener('load',()=>{
+  // Leer plan desde URL (?plan=C) — prioridad máxima
+  const params=new URLSearchParams(window.location.search);
+  const planURL=params.get('plan')||'';
+  const codigoURL=params.get('codigo')||'';
+  const fechaURL=params.get('fecha')||'';
+
   try{
-    const codigo=localStorage.getItem('mielsy_codigo');
-    const fecha=localStorage.getItem('mielsy_fecha');
+    const codigo=codigoURL||localStorage.getItem('mielsy_codigo')||'';
+    const fecha=fechaURL||localStorage.getItem('mielsy_fecha')||'';
+    const planGuardado=codigo?localStorage.getItem('mielsy_plan_'+codigo)||'':'';
+    const plan=planURL||planGuardado||'C';
+
     if(codigo)document.getElementById('inp-codigo').value=codigo;
     if(fecha)document.getElementById('inp-fecha').value=fecha;
-    if(codigo){
-      const plan=localStorage.getItem('mielsy_plan_'+codigo)||'';
-      if(plan)document.getElementById('inp-plan').value=plan;
+    document.getElementById('inp-plan').value=plan;
+
+    // Mostrar nombre del plan (solo informativo, no editable)
+    const info=PLANES_INFO[plan]||{nombre:'Plan MIELSY'};
+    document.getElementById('plan-nombre-display').textContent=info.nombre;
+
+    // Si vienen todos los datos desde URL → entrar directo sin login
+    if(codigoURL&&fechaURL&&planURL){
+      setTimeout(()=>iniciar(),100);
     }
   }catch(e){}
 });
