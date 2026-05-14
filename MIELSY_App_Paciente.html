@@ -6,147 +6,163 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="MIELSY">
-<meta name="theme-color" content="#f8f7ff">
+<meta name="theme-color" content="#f5f0eb">
 <title>Instituto MIELSY · Mi Espacio</title>
 <link rel="manifest" href="#" id="mlink">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
-  /* PALETA MIELSY PACIENTE */
-  --bg:#f8f7ff;              /* fondo lavanda muy suave */
-  --bg2:#f0edfa;             /* fondo lavanda medio */
-  --lavanda:#e8e3f5;         /* lavanda UI */
-  --lavanda2:#d4cce8;        /* lavanda borde */
-  --lavanda-deep:#9b8fc0;    /* lavanda profundo */
-  --verde:#3d8b6e;           /* verde-azul MIELSY */
-  --verde2:#2e7a5e;          /* verde hover */
-  --verde-bg:rgba(61,139,110,.1);
-  --gold:#C8A96E;
-  --gold-bg:rgba(200,169,110,.12);
-  --gold-borde:rgba(200,169,110,.3);
-  --tx:#2c3a4a;
-  --txd:rgba(44,58,74,.55);
-  --txs:rgba(44,58,74,.3);
-  --sf:#ffffff;
-  --bd:rgba(155,143,192,.2);
-  --bd2:rgba(155,143,192,.1);
+  --bg:#f5f0eb;--bg2:#ede7df;--sf:#ffffff;--sf2:#f9f5f0;
+  --bd:rgba(58,124,165,.15);--bd2:rgba(58,124,165,.08);
+  --azul:#3A7CA5;--azul-dim:rgba(58,124,165,.6);--azul-bg:rgba(58,124,165,.08);
+  --verde:#5C8A3C;--verde-bg:rgba(92,138,60,.1);
+  --gold:#C8A96E;--gold-bg:rgba(200,169,110,.12);
+  --lila:#9b8fc0;--lila-bg:rgba(155,143,192,.12);
+  --tx:#2c3e50;--txd:rgba(44,62,80,.55);--txs:rgba(44,62,80,.3);
+  --rd:#e05c5c;--gn:#5C8A3C;--yw:#d29922;
 }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-html,body{
-  background:var(--bg);color:var(--tx);font-family:'DM Sans',sans-serif;
-  font-size:15px;overflow-x:hidden;min-height:100vh;
-}
+html,body{background:var(--bg);color:var(--tx);font-family:'DM Sans',sans-serif;font-size:15px;overflow-x:hidden;min-height:100vh;}
 body::before{content:'';position:fixed;inset:0;
-  background:
-    radial-gradient(ellipse 80% 45% at 50% -5%,rgba(155,143,192,.18) 0%,transparent 60%),
-    radial-gradient(ellipse 45% 30% at 88% 88%,rgba(61,139,110,.07) 0%,transparent 50%),
-    radial-gradient(ellipse 35% 25% at 8% 75%,rgba(200,169,110,.06) 0%,transparent 50%);
+  background:radial-gradient(ellipse 70% 40% at 50% 0%,rgba(58,124,165,.07) 0%,transparent 55%),
+    radial-gradient(ellipse 50% 35% at 85% 85%,rgba(92,138,60,.05) 0%,transparent 50%);
   pointer-events:none;z-index:0;}
-.wrap{position:relative;z-index:1;max-width:480px;margin:0 auto;padding:0 0 64px;}
+.wrap{position:relative;z-index:1;max-width:480px;margin:0 auto;padding:0 0 60px;}
 
-/* ── HEADER ── */
-.hdr{padding:44px 24px 22px;text-align:center;}
-.logo-ring{
-  width:110px;height:110px;border-radius:50%;background:#fff;margin:0 auto 16px;
+/* HEADER */
+.hdr{padding:44px 24px 24px;text-align:center;}
+.logo-ring{width:110px;height:110px;border-radius:50%;background:#fff;margin:0 auto 18px;
   display:flex;align-items:center;justify-content:center;overflow:hidden;
-  box-shadow:0 0 0 3px var(--lavanda2),0 0 0 7px rgba(155,143,192,.08),0 10px 32px rgba(155,143,192,.22);
+  box-shadow:0 0 0 3px rgba(58,124,165,.15),0 0 0 7px rgba(58,124,165,.05),0 10px 36px rgba(58,124,165,.15);
   animation:float 5s ease-in-out infinite;}
 @keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);}}
+.logo-img{width:100px;height:100px;object-fit:contain;}
+.hdr-instituto{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700;color:var(--azul);letter-spacing:.02em;line-height:1.2;margin-bottom:4px;}
+.hdr-sub{font-size:.68rem;color:var(--azul-dim);letter-spacing:.1em;text-transform:uppercase;line-height:1.6;margin-bottom:6px;}
+.hdr-lema{font-family:'Cormorant Garamond',serif;font-size:1rem;font-style:italic;color:var(--gold);margin-top:6px;}
 
-/* LOGO: múltiples fallbacks */
-.logo-img{width:100px;height:100px;object-fit:contain;display:block;}
-
-
-.hdr-instituto{font-family:'Cormorant Garamond',serif;font-size:1.55rem;font-weight:700;
-  color:var(--tx);letter-spacing:.02em;line-height:1.2;margin-bottom:4px;}
-.hdr-sub{font-size:.68rem;color:var(--lavanda-deep);letter-spacing:.1em;
-  text-transform:uppercase;line-height:1.6;margin-bottom:6px;}
-.hdr-lema{font-family:'Cormorant Garamond',serif;font-size:.95rem;font-style:italic;
-  color:var(--gold);margin-top:4px;}
-
-/* ── LIVE BAR ── */
-.live-bar{display:flex;align-items:center;justify-content:center;gap:8px;
-  margin:0 18px 22px;padding:10px 16px;background:var(--sf);
-  border:1px solid var(--bd);border-radius:12px;font-size:.71rem;color:var(--txd);
-  box-shadow:0 2px 10px rgba(155,143,192,.08);}
-.dot-live{width:7px;height:7px;border-radius:50%;background:var(--verde);
-  box-shadow:0 0 6px var(--verde);animation:blink 2s infinite;}
+/* BARRA LIVE */
+.live-bar{display:flex;align-items:center;justify-content:center;gap:8px;margin:0 18px 22px;
+  padding:10px 16px;background:var(--sf);border:1px solid var(--bd);border-radius:12px;
+  font-size:.71rem;color:var(--txd);box-shadow:0 2px 10px rgba(58,124,165,.06);}
+.dot-live{width:7px;height:7px;border-radius:50%;background:var(--verde);box-shadow:0 0 6px var(--verde);animation:blink 2s infinite;}
 @keyframes blink{0%,100%{opacity:1;}50%{opacity:.3;}}
 
-/* ── NOTA INFORMATIVA ── */
-.nota-card{margin:0 14px 16px;background:var(--gold-bg);
-  border:1px solid var(--gold-borde);border-radius:14px;padding:14px 16px;}
-.nota-titulo{font-size:.68rem;font-weight:600;color:#8b6d2a;
-  text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px;}
-.nota-texto{font-size:.75rem;color:var(--txd);line-height:1.7;}
+/* SECCIÓN */
+.sec-lbl{font-size:.62rem;text-transform:uppercase;letter-spacing:.12em;color:var(--azul-dim);padding:0 18px;margin-bottom:10px;font-weight:600;}
 
-/* ── MÓDULOS ── */
-.sec-lbl{font-size:.62rem;text-transform:uppercase;letter-spacing:.12em;
-  color:var(--lavanda-deep);padding:0 18px;margin-bottom:10px;font-weight:600;}
-
+/* MÓDULOS */
 .mods{padding:0 14px;margin-bottom:14px;display:flex;flex-direction:column;gap:10px;}
-
 .mod{background:var(--sf);border:1px solid var(--bd);border-radius:18px;
-  cursor:pointer;text-decoration:none;display:flex;align-items:center;gap:16px;
-  padding:20px;transition:transform .18s,box-shadow .18s,border-color .2s;
-  box-shadow:0 2px 14px rgba(155,143,192,.08);
+  cursor:pointer;text-decoration:none;display:flex;align-items:center;gap:16px;padding:20px 20px;
+  transition:transform .18s,box-shadow .18s;
+  box-shadow:0 2px 14px rgba(58,124,165,.07);
   animation:fadeUp .4s ease both;position:relative;overflow:hidden;}
-.mod::before{content:'';position:absolute;top:0;left:0;bottom:0;width:4px;
-  border-radius:18px 0 0 18px;}
-
-/* Colores de acento por módulo */
-.mod.c-lav::before{background:var(--lavanda-deep);}
+.mod::before{content:'';position:absolute;top:0;left:0;bottom:0;width:4px;border-radius:18px 0 0 18px;}
+.mod.c-azul::before{background:var(--azul);}
 .mod.c-verde::before{background:var(--verde);}
 .mod.c-gold::before{background:var(--gold);}
-
-.mod:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(155,143,192,.15);}
+.mod:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(58,124,165,.14);}
 .mod:active{transform:scale(.98);}
-
-.mod-num{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;
-  justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1.2rem;
-  font-weight:700;flex-shrink:0;margin-left:4px;}
-.mod.c-lav   .mod-num{background:rgba(155,143,192,.15);color:var(--lavanda-deep);}
+.mod-num{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:700;flex-shrink:0;margin-left:4px;}
+.mod.c-azul .mod-num{background:var(--azul-bg);color:var(--azul);}
 .mod.c-verde .mod-num{background:var(--verde-bg);color:var(--verde);}
-.mod.c-gold  .mod-num{background:var(--gold-bg);color:#8b6d2a;}
-
+.mod.c-gold .mod-num{background:var(--gold-bg);color:#8b6d2a;}
 .mod-icon{font-size:1.6rem;flex-shrink:0;}
 .mod-body{flex:1;}
-.mod-name{font-family:'Cormorant Garamond',serif;font-size:1.12rem;font-weight:700;
-  color:var(--tx);line-height:1.2;margin-bottom:4px;}
+.mod-name{font-family:'Cormorant Garamond',serif;font-size:1.12rem;font-weight:700;color:var(--tx);line-height:1.2;margin-bottom:4px;}
 .mod-desc{font-size:.68rem;color:var(--txd);line-height:1.55;}
-.mod-badge{display:inline-block;font-size:.56rem;font-weight:600;letter-spacing:.07em;
-  text-transform:uppercase;padding:2px 8px;border-radius:20px;margin-top:6px;}
-.bg-lav  {background:rgba(155,143,192,.15);color:var(--lavanda-deep);}
+.mod-badge{display:inline-block;font-size:.56rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;padding:2px 8px;border-radius:20px;margin-top:6px;}
+.bg-azul{background:var(--azul-bg);color:var(--azul);}
 .bg-verde{background:var(--verde-bg);color:var(--verde);}
-.bg-gold {background:var(--gold-bg);color:#8b6d2a);}
-.mod-arr{font-size:1.1rem;color:var(--txs);flex-shrink:0;}
-
+.bg-gold{background:var(--gold-bg);color:#8b6d2a);}
+.mod-arr{font-size:1.1rem;color:var(--bd);flex-shrink:0;}
 @keyframes fadeUp{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
-.mod:nth-child(1){animation-delay:.05s;}
-.mod:nth-child(2){animation-delay:.12s;}
-.mod:nth-child(3){animation-delay:.19s;}
+.mod:nth-child(1){animation-delay:.05s;}.mod:nth-child(2){animation-delay:.12s;}.mod:nth-child(3){animation-delay:.19s;}
 
-/* ── INSTALAR ── */
-.inst-card{margin:6px 14px 24px;background:var(--sf);border:1px solid var(--bd);
-  border-radius:16px;padding:20px;box-shadow:0 2px 12px rgba(155,143,192,.07);}
-.inst-card h3{font-family:'Cormorant Garamond',serif;font-size:.98rem;
-  color:var(--lavanda-deep);margin-bottom:12px;}
+/* ── BUSCADOR DE RESULTADOS ── */
+.buscar-card{margin:0 14px 14px;background:var(--sf);border:1px solid var(--bd);border-radius:18px;padding:22px 20px;box-shadow:0 2px 14px rgba(58,124,165,.07);}
+.buscar-titulo{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:700;color:var(--azul);margin-bottom:4px;}
+.buscar-sub{font-size:.7rem;color:var(--txd);margin-bottom:16px;line-height:1.5;}
+.buscar-tabs{display:flex;gap:6px;margin-bottom:14px;}
+.buscar-tab{flex:1;background:var(--sf2);border:1px solid var(--bd);border-radius:9px;padding:8px;font-size:.75rem;cursor:pointer;color:var(--txd);text-align:center;transition:all .15s;font-weight:500;}
+.buscar-tab.active{background:var(--azul);color:#fff;border-color:var(--azul);font-weight:600;}
+.buscar-input-wrap{display:flex;gap:8px;margin-bottom:10px;}
+.buscar-input{flex:1;background:var(--sf2);border:1px solid var(--bd);border-radius:10px;padding:11px 14px;color:var(--tx);font-family:'DM Sans',sans-serif;font-size:.9rem;outline:none;}
+.buscar-input:focus{border-color:var(--azul);}
+.buscar-btn{background:var(--azul);color:#fff;border:none;border-radius:10px;padding:11px 18px;font-family:'DM Sans',sans-serif;font-size:.85rem;font-weight:600;cursor:pointer;white-space:nowrap;}
+.buscar-btn:hover{opacity:.9;}
+.buscar-err{font-size:.72rem;color:var(--rd);min-height:18px;margin-bottom:4px;}
+.buscar-loading{font-size:.75rem;color:var(--azul-dim);display:none;margin-bottom:8px;}
+
+/* ── REPORTE ── */
+#reporte-wrap{display:none;margin-top:6px;}
+.rpt-header{background:linear-gradient(135deg,var(--azul-bg),rgba(92,138,60,.06));border:1px solid var(--bd);border-radius:14px;padding:18px;margin-bottom:12px;}
+.rpt-codigo{font-size:.65rem;color:var(--azul-dim);text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px;}
+.rpt-nombre{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:700;color:var(--azul);margin-bottom:6px;}
+.rpt-meta{font-size:.7rem;color:var(--txd);line-height:1.7;}
+.rpt-dd-wrap{display:flex;align-items:center;gap:10px;margin-top:12px;padding-top:12px;border-top:1px solid var(--bd2);}
+.rpt-dd-num{font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-weight:700;line-height:1;}
+.rpt-dd-info{flex:1;}
+.rpt-dd-label{font-size:.62rem;color:var(--txd);text-transform:uppercase;letter-spacing:.08em;}
+.rpt-dd-nivel{font-size:.9rem;font-weight:600;margin-top:2px;}
+.rpt-dd-enfoque{font-size:.68rem;color:var(--txd);line-height:1.5;margin-top:4px;}
+
+.rpt-section{margin-bottom:12px;}
+.rpt-section-titulo{font-size:.62rem;text-transform:uppercase;letter-spacing:.1em;color:var(--azul-dim);font-weight:600;margin-bottom:8px;padding-left:2px;}
+.rpt-var{background:var(--sf2);border-radius:12px;padding:14px;margin-bottom:8px;border-left:3px solid var(--bd);}
+.rpt-var.gn{border-left-color:#5C8A3C;}
+.rpt-var.yw{border-left-color:#d29922;}
+.rpt-var.rd{border-left-color:#e05c5c;}
+.rpt-var-header{display:flex;align-items:center;gap:8px;margin-bottom:6px;}
+.rpt-var-emoji{font-size:1rem;}
+.rpt-var-nombre{font-family:'Cormorant Garamond',serif;font-size:.95rem;font-weight:700;color:var(--tx);}
+.rpt-var-score{font-size:.7rem;color:var(--txd);margin-left:auto;}
+.rpt-var-cat{font-size:.78rem;font-weight:600;margin-bottom:4px;}
+.rpt-var-act{font-size:.7rem;color:var(--txd);line-height:1.6;}
+.rpt-var-aroma{font-size:.68rem;color:var(--gold);margin-top:4px;}
+
+.rpt-dims-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
+@media(max-width:380px){.rpt-dims-grid{grid-template-columns:1fr;}}
+.rpt-dim{background:var(--sf2);border-radius:10px;padding:10px 12px;display:flex;align-items:center;gap:8px;}
+.rpt-dim-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.rpt-dim-info{flex:1;}
+.rpt-dim-nombre{font-size:.7rem;font-weight:600;color:var(--tx);}
+.rpt-dim-cat{font-size:.62rem;color:var(--txd);}
+.rpt-dim-score{font-size:.75rem;font-weight:700;color:var(--txd);flex-shrink:0;}
+
+.rpt-pe{background:var(--sf2);border-radius:12px;padding:14px;}
+.rpt-pe-total{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.rpt-pe-num{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:700;}
+.rpt-pe-label{font-size:.75rem;color:var(--txd);}
+.rpt-pe-coherencia{font-size:.75rem;line-height:1.6;padding:10px;background:var(--sf);border-radius:8px;border-left:3px solid var(--gold);}
+
+.rpt-protocolo{background:var(--sf2);border-radius:12px;padding:14px;}
+.rpt-prot-item{margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--bd2);}
+.rpt-prot-item:last-child{margin-bottom:0;padding-bottom:0;border-bottom:none;}
+.rpt-prot-titulo{font-family:'Cormorant Garamond',serif;font-size:.9rem;font-weight:700;color:var(--azul);margin-bottom:8px;}
+.rpt-prot-linea{font-size:.72rem;color:var(--txd);line-height:1.6;margin-bottom:4px;}
+.rpt-prot-linea span{font-weight:600;color:var(--tx);}
+
+/* NOTA */
+.nota-card{margin:0 14px 16px;background:rgba(200,169,110,.08);border:1px solid rgba(200,169,110,.25);border-radius:14px;padding:16px 18px;}
+.nota-titulo{font-size:.7rem;font-weight:600;color:#8b6d2a;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;}
+.nota-texto{font-size:.75rem;color:var(--txd);line-height:1.7;}
+
+/* INSTALAR */
+.inst-card{margin:6px 14px 26px;background:var(--sf);border:1px solid var(--bd);border-radius:16px;padding:20px;box-shadow:0 2px 12px rgba(58,124,165,.06);}
+.inst-card h3{font-family:'Cormorant Garamond',serif;font-size:.98rem;color:var(--azul);margin-bottom:12px;}
 .tabs-i{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap;}
-.ti{background:var(--lavanda);border:1px solid var(--lavanda2);border-radius:8px;
-  padding:6px 12px;font-size:.67rem;cursor:pointer;color:var(--txd);
-  transition:all .15s;font-weight:500;}
-.ti.on{background:var(--verde);color:#fff;border-color:var(--verde);font-weight:600;}
+.ti{background:var(--sf2);border:1px solid var(--bd);border-radius:8px;padding:6px 12px;font-size:.67rem;cursor:pointer;color:var(--txd);transition:all .15s;font-weight:500;}
+.ti.on{background:var(--azul);color:#fff;border-color:var(--azul);font-weight:600;}
 .ipanel{display:none;}.ipanel.on{display:block;}
 .istep{display:flex;gap:9px;margin-bottom:9px;align-items:flex-start;}
-.isn{width:20px;height:20px;border-radius:50%;background:var(--verde-bg);color:var(--verde);
-  font-size:.65rem;font-weight:700;display:flex;align-items:center;justify-content:center;
-  flex-shrink:0;margin-top:1px;}
-.ist{font-size:.73rem;color:var(--tx);line-height:1.6;}.ist b{color:var(--verde);font-weight:600;}
+.isn{width:20px;height:20px;border-radius:50%;background:var(--azul-bg);color:var(--azul);font-size:.65rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.ist{font-size:.73rem;color:var(--tx);line-height:1.6;}.ist b{color:var(--azul);font-weight:600;}
 
-/* ── FOOTER ── */
-.ftr{text-align:center;padding:20px 24px 16px;font-size:.64rem;color:var(--txd);
-  line-height:1.9;border-top:1px solid var(--bd2);margin:0 14px;}
-.ftr strong{color:var(--lavanda-deep);}
+.ftr{text-align:center;padding:20px 24px 16px;font-size:.64rem;color:var(--txd);line-height:1.9;border-top:1px solid var(--bd2);}
+.ftr strong{color:var(--azul-dim);}
 .ftr .sep{margin:0 5px;opacity:.3;}
 </style>
 </head>
@@ -156,8 +172,9 @@ body::before{content:'';position:fixed;inset:0;
 <!-- HEADER -->
 <div class="hdr">
   <div class="logo-ring">
-    <img class="logo-img" id="logo-img"
-      src="https://ecosistema-mielsy.github.io/app/logo_mielsy.png"
+    <img class="logo-img"
+      src="https://ecosistema-mielsy.github.io/app/Logo_Marca_Mielsy_03.png"
+      onerror="this.src='https://ecosistema-mielsy.github.io/app/logo_mielsy.png'"
       alt="MIELSY">
   </div>
   <div class="hdr-instituto">Instituto MIELSY</div>
@@ -165,7 +182,6 @@ body::before{content:'';position:fixed;inset:0;
   <div class="hdr-lema">"Mi Equilibrio Lo Siento Ya"</div>
 </div>
 
-<!-- LIVE BAR -->
 <div class="live-bar">
   <div class="dot-live"></div>
   <span id="fl">Cargando...</span>
@@ -174,28 +190,26 @@ body::before{content:'';position:fixed;inset:0;
 <!-- NOTA -->
 <div class="nota-card">
   <div class="nota-titulo">🌿 Tu camino de bienestar</div>
-  <div class="nota-texto">Sigue los tres pasos en orden: primero completa tu evaluación, luego accede a tus sesiones terapéuticas semanales y finalmente a tus micromomentos diarios. Cada paso potencia el siguiente.</div>
+  <div class="nota-texto">Sigue los tres pasos en orden: primero completa tu evaluación, luego accede a tus sesiones terapéuticas semanales y finalmente a tus micromomentos diarios.</div>
 </div>
 
 <!-- MÓDULOS -->
 <div class="sec-lbl">Tu programa personalizado</div>
 <div class="mods">
 
-  <!-- 1. CUESTIONARIO -->
-  <a class="mod c-lav"
+  <a class="mod c-azul"
      href="https://docs.google.com/forms/d/e/1FAIpQLSc5OEMAM2T_KYcHorehRyyubrVxSp7by20BSPs9Joztm9zFkw/viewform?usp=header"
      target="_blank">
     <div class="mod-num">1</div>
     <div class="mod-icon">📝</div>
     <div class="mod-body">
       <div class="mod-name">Evaluación IEBI-M13</div>
-      <div class="mod-desc">Cuestionario de Bienestar Integral · 52 ítems · 13 dimensiones · Recibirás tu resultado por correo</div>
-      <span class="mod-badge bg-lav">Paso 1 · Diagnóstico</span>
+      <div class="mod-desc">Cuestionario de Bienestar Integral · 52 ítems · 13 dimensiones</div>
+      <span class="mod-badge bg-azul">Paso 1 · Diagnóstico</span>
     </div>
     <div class="mod-arr">›</div>
   </a>
 
-  <!-- 2. SESIONES -->
   <a class="mod c-verde"
      href="https://ecosistema-mielsy.github.io/app/portal_paciente.html"
      target="_blank">
@@ -203,22 +217,20 @@ body::before{content:'';position:fixed;inset:0;
     <div class="mod-icon">🧠</div>
     <div class="mod-body">
       <div class="mod-name">Sesiones Terapéuticas</div>
-      <div class="mod-desc">4 sesiones guiadas de 60 minutos · Auriculoterapia · Su Jok · Narrativa terapéutica</div>
+      <div class="mod-desc">4 sesiones guiadas de 60 minutos · Auriculoterapia · Su Jok · Narrativa</div>
       <span class="mod-badge bg-verde">Paso 2 · Sesiones</span>
     </div>
     <div class="mod-arr">›</div>
   </a>
 
-  <!-- 3. MICROMOMENTOS — sin selector, plan viene del correo -->
   <a class="mod c-gold"
-     id="mod-micromomentos"
      href="https://ecosistema-mielsy.github.io/app/micromomentos.html"
      target="_blank">
     <div class="mod-num">3</div>
     <div class="mod-icon">🌿</div>
     <div class="mod-body">
       <div class="mod-name">Micromomentos Diarios</div>
-      <div class="mod-desc">30 días · Mañana y noche · Tu plan personalizado MIELSY</div>
+      <div class="mod-desc">30 días · Mañana y noche · Decretos terapéuticos · Reflexiones</div>
       <span class="mod-badge bg-gold">Paso 3 · Diario</span>
     </div>
     <div class="mod-arr">›</div>
@@ -226,25 +238,42 @@ body::before{content:'';position:fixed;inset:0;
 
 </div>
 
-<!-- MI PERFIL (visible solo si viene del correo con parámetros) -->
-<div id="perfil-section" style="display:none;">
-  <div class="sec-lbl">Tu resultado IEBI-M13</div>
-  <!-- El perfil se inyecta aquí — ver paciente.html completo -->
-  <div style="margin:0 14px;background:#fff;border:1px solid var(--bd);border-radius:16px;
-    padding:20px;text-align:center;">
-    <a id="btn-perfil" href="#" style="display:inline-block;background:var(--verde);color:#fff;
-      padding:12px 24px;border-radius:12px;text-decoration:none;font-weight:600;font-size:.88rem;
-      box-shadow:0 4px 16px rgba(61,139,110,.25);">
-      🌿 Ver mi Perfil de Bienestar
-    </a>
-    <p style="font-size:.7rem;color:var(--txd);margin-top:10px;line-height:1.6;">
-      Consulta tu puntuación IEBI-M13,<br>semáforo de bienestar y plan asignado.
-    </p>
+<!-- BUSCADOR DE RESULTADOS -->
+<div class="sec-lbl" style="margin-top:4px">Ver mi resultado</div>
+<div class="buscar-card">
+  <div class="buscar-titulo">🔍 Consulta tu perfil de bienestar</div>
+  <div class="buscar-sub">Después de completar el cuestionario, busca tu resultado aquí. Puedes buscar por tu código MIELSY o por tu nombre.</div>
+
+  <div class="buscar-tabs">
+    <div class="buscar-tab active" onclick="setTab('codigo',this)">Por código M-XXXX</div>
+    <div class="buscar-tab" onclick="setTab('nombre',this)">Por nombre</div>
   </div>
+
+  <div id="panel-codigo">
+    <div class="buscar-input-wrap">
+      <input class="buscar-input" id="inp-codigo" type="text" placeholder="Ej: M-0001"
+        maxlength="10" onkeydown="if(event.key==='Enter')buscar()"/>
+      <button class="buscar-btn" onclick="buscar()">Buscar</button>
+    </div>
+  </div>
+
+  <div id="panel-nombre" style="display:none">
+    <div class="buscar-input-wrap">
+      <input class="buscar-input" id="inp-nombre" type="text" placeholder="Escribe tu nombre completo"
+        onkeydown="if(event.key==='Enter')buscar()"/>
+      <button class="buscar-btn" onclick="buscar()">Buscar</button>
+    </div>
+  </div>
+
+  <div class="buscar-err" id="buscar-err"></div>
+  <div class="buscar-loading" id="buscar-loading">⟳ Buscando tu perfil...</div>
+
+  <!-- REPORTE -->
+  <div id="reporte-wrap"></div>
 </div>
 
 <!-- INSTALAR -->
-<div class="sec-lbl" style="margin-top:14px;">Instalar en tu dispositivo</div>
+<div class="sec-lbl" style="margin-top:8px">Instalar en tu dispositivo</div>
 <div class="inst-card">
   <h3>📲 Agregar a pantalla de inicio</h3>
   <div class="tabs-i">
@@ -272,70 +301,296 @@ body::before{content:'';position:fixed;inset:0;
   Ecosistema MIELSY® · Guatemala 2026<span class="sep">·</span>academy@mielsy.org<br>
   Dra. C. Miday Columbié Pileta
 </div>
-</div><!-- /wrap -->
+</div>
 
 <script>
-// ── FECHA EN VIVO ────────────────────────────────────────────
-function actualizarFecha() {
-  const d = new Date();
-  document.getElementById('fl').textContent =
-    d.toLocaleDateString('es-GT',{weekday:'long',month:'long',day:'numeric'}) +
-    ' · ' + d.toLocaleTimeString('es-GT',{hour:'2-digit',minute:'2-digit'});
-}
-actualizarFecha();
-setInterval(actualizarFecha, 30000);
+// ── API ───────────────────────────────────────────────────────────────────
+const API_URL   = 'https://script.google.com/macros/s/AKfycbyqLCoYxftkNcH3G5yY-QbIlwwmZouipC7S3eFjCHeWbdiMl5XRUlYfPXdSrWScTLk6Fg/exec';
+const API_TOKEN = 'mielsy-dashboard-2026';
 
-// ── TABS INSTALAR ────────────────────────────────────────────
-function si(id, el) {
-  document.querySelectorAll('.ipanel').forEach(p => p.classList.remove('on'));
-  document.querySelectorAll('.ti').forEach(t => t.classList.remove('on'));
-  document.getElementById('ii-' + id).classList.add('on');
-  el.classList.add('on');
-}
-
-// ── DETECTAR PARÁMETROS DEL CORREO ──────────────────────────
-// Si el paciente viene desde el correo con ?email=... o ?score=...
-// mostramos el botón de perfil apuntando a la página correcta
-(function() {
-  const params = new URLSearchParams(window.location.search);
-  const email  = params.get('email') || '';
-  const score  = params.get('score') || '';
-  const plan   = params.get('plan')  || '';
-
-  if (email || score) {
-    const section = document.getElementById('perfil-section');
-    section.style.display = 'block';
-
-    // Construir URL del perfil en Apps Script
-    // La URL base del Apps Script se inyecta aquí si esta página está en el Script;
-    // si está en GitHub Pages, usar la URL directa
-    let perfilURL = 'https://script.google.com/macros/s/AKfycbz6TuleFRu2lOKk-sfwpYw9vobEF2KvVYeNQgC_8bM5gcUZbC28XUhDihB9hFp2NeFOyA/exec?page=paciente';
-    if (email) perfilURL += '&email=' + encodeURIComponent(email);
-    if (score) perfilURL += '&score=' + encodeURIComponent(score);
-    if (params.get('dims')) perfilURL += '&dims=' + encodeURIComponent(params.get('dims'));
-    if (params.get('nombre')) perfilURL += '&nombre=' + encodeURIComponent(params.get('nombre'));
-
-    document.getElementById('btn-perfil').href = perfilURL;
-
-    // Si hay plan, actualizar el link de micromomentos con el plan asignado
-    if (plan) {
-      const modMicro = document.getElementById('mod-micromomentos');
-      modMicro.href = 'https://ecosistema-mielsy.github.io/app/micromomentos.html?plan=' + encodeURIComponent(plan);
-      modMicro.querySelector('.mod-desc').textContent =
-        '30 días · Mañana y noche · Plan ' + plan + ' asignado por la Dra. MIELSY';
-    }
-  }
-})();
-
-// ── PWA MANIFEST ─────────────────────────────────────────────
-const m = {
-  name: 'Instituto MIELSY', short_name: 'MIELSY',
-  start_url: location.href, display: 'standalone',
-  background_color: '#f8f7ff', theme_color: '#f8f7ff',
-  icons: [{src:'https://ecosistema-mielsy.github.io/app/logo_mielsy.png',sizes:'192x192',type:'image/png'}]
+// ── DATOS CLÍNICOS ────────────────────────────────────────────────────────
+const DN = ['','Física','Mental','Emocional','Espiritual','Creativa','Profesional','Económica','Familiar','Amor/Pareja','Social','Cultural','Medioambiental','Digital'];
+const DC = {
+  1:['Equilibrio Óptimo','Desequilibrio Moderado','Riesgo por Agotamiento'],
+  2:['Agilidad Mental','Saturación Cognitiva','Bloqueo Neurocognitivo'],
+  3:['Resiliencia Afectiva','Inestabilidad Reactiva','Fragilidad Emocional'],
+  4:['Propósito Sólido','Desorientación Vital','Crisis de Sentido'],
+  5:['Fluidez Creativa','Inhibición Creativa','Parálisis de Innovación'],
+  6:['Realización Activa','Desgaste Ocupacional','Colapso Funcional'],
+  7:['Solvencia y Calma','Alerta Financiera','Parálisis por Escasez'],
+  8:['Armonía Vincular','Tensión Relacional','Crisis de Convivencia'],
+  9:['Vínculo Nutritivo','Erosión Afectiva','Crisis de Intimidad'],
+  10:['Integración Saludable','Retraimiento Social','Desconexión Comunitaria'],
+  11:['Integridad Cultural','Erosión de Identidad','Rigidez Defensiva'],
+  12:['Conexión Biófila','Desapego Ambiental','Aislamiento Ecosistémico'],
+  13:['Soberanía Digital','Dependencia Reactiva','Saturación Tecnológica']
 };
-const b = new Blob([JSON.stringify(m)], {type:'application/json'});
-document.getElementById('mlink').href = URL.createObjectURL(b);
+const GC = [
+  {l:'Bienestar Consolidado',c:'#5C8A3C',ct:'gn',e:'Preventivo-Educativo: Potenciación neurocognitiva y mantenimiento de hábitos saludables.'},
+  {l:'Desequilibrio Sistémico',c:'#d29922',ct:'yw',e:'Regulatorio: Intervención activa mediante terapias sensoriales y reencuadre de narrativas.'},
+  {l:'Colapso del Bienestar',c:'#e05c5c',ct:'rd',e:'Rescate Neurofisiológico: Intervención profunda y urgente para restaurar plasticidad positiva.'}
+];
+const DVA = {thr:[46,73],n:'Yo Fundamental',r:'20–100',cats:['Núcleo Resiliente','Erosión del Self','Crisis de Identidad'],acts:['Preservación: Fortalecer neuroplasticidad positiva.','Modulación: Intervención sensorial somática para reducir cortisol.','Rescate: Terapia narrativa de emergencia.'],ar:['Romero / Menta','Bergamota / Geranio','Lavanda / Incienso']};
+const DVB = {thr:[46,73],n:'Interacción y Entorno',r:'20–100',cats:['Vínculos Nutritivos','Tensión Estructural','Colapso Relacional'],acts:['Optimización: Liderazgo afectivo.','Regulación: Rediseño de límites y comunicación asertiva.','Reconstrucción: Intervención sistémica.'],ar:['Limón / Naranja','Ylang Ylang / Jazmín','Sándalo / Cedro']};
+const DVC = {thr:[28,44],n:'Contexto Moderno',r:'12–60',cats:['Soberanía Consciente','Saturación Adaptativa','Alienación Contemporánea'],acts:['Liderazgo: Prácticas sostenibles.','Desintoxicación: Higiene digital y biofilia.','Reconexión: Terapia de choque analógico.'],ar:['Eucalipto / Pino','Lemongrass / Salvia','Vetiver / Pachulí']};
+
+function semDim(s){const p=(s-4)/16;if(p<0.44)return 0;if(p<0.72)return 1;return 2;}
+function semVar(s,thr){if(s<=thr[0])return 0;if(s<=thr[1])return 1;return 2;}
+function semGlobal(dd){if(dd<=103)return 0;if(dd<=143)return 1;return 2;}
+function emojiSem(i){return['🟢','🟡','🔴'][i];}
+function colorSem(i){return['#5C8A3C','#d29922','#e05c5c'][i];}
+function clsSem(i){return['gn','yw','rd'][i];}
+
+// ── UI HELPERS ────────────────────────────────────────────────────────────
+let modoTab = 'codigo';
+function setTab(modo, el){
+  modoTab = modo;
+  document.querySelectorAll('.buscar-tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('panel-codigo').style.display = modo==='codigo'?'block':'none';
+  document.getElementById('panel-nombre').style.display = modo==='nombre'?'block':'none';
+  document.getElementById('buscar-err').textContent='';
+  document.getElementById('reporte-wrap').style.display='none';
+  document.getElementById('reporte-wrap').innerHTML='';
+}
+
+function actualizarFecha(){
+  const d=new Date();
+  document.getElementById('fl').textContent=
+    d.toLocaleDateString('es-GT',{weekday:'long',month:'long',day:'numeric'})+
+    ' · '+d.toLocaleTimeString('es-GT',{hour:'2-digit',minute:'2-digit'});
+}
+actualizarFecha();setInterval(actualizarFecha,30000);
+
+// ── BÚSQUEDA ──────────────────────────────────────────────────────────────
+async function buscar(){
+  const err=document.getElementById('buscar-err');
+  const loading=document.getElementById('buscar-loading');
+  const rptWrap=document.getElementById('reporte-wrap');
+
+  let query = '';
+  if(modoTab==='codigo'){
+    query = document.getElementById('inp-codigo').value.trim().toUpperCase();
+    if(!query){err.textContent='Ingresa tu código MIELSY.';return;}
+  } else {
+    query = document.getElementById('inp-nombre').value.trim();
+    if(query.length<3){err.textContent='Ingresa al menos 3 letras de tu nombre.';return;}
+  }
+
+  err.textContent='';
+  loading.style.display='block';
+  rptWrap.style.display='none';
+  rptWrap.innerHTML='';
+
+  try {
+    const res = await fetch(`${API_URL}?token=${API_TOKEN}`);
+    const data = await res.json();
+    loading.style.display='none';
+
+    if(!data.ok) throw new Error(data.error||'Error de conexión');
+
+    // Buscar en los datos
+    let encontrados = [];
+    if(modoTab==='codigo'){
+      encontrados = data.rows.filter(r=>(r.codigo||'').toUpperCase()===query);
+    } else {
+      const q=query.toLowerCase();
+      encontrados = data.rows.filter(r=>(r.nombre||'').toLowerCase().includes(q));
+    }
+
+    if(!encontrados.length){
+      err.textContent = modoTab==='codigo'
+        ? 'Código no encontrado. Verifica que sea correcto (ej: M-0001).'
+        : 'No se encontró ningún participante con ese nombre.';
+      return;
+    }
+
+    // Si hay varios por nombre, mostrar lista para elegir
+    if(encontrados.length > 1){
+      mostrarLista(encontrados);
+    } else {
+      mostrarReporte(encontrados[0]);
+    }
+
+  } catch(e){
+    loading.style.display='none';
+    err.textContent='Error de conexión. Intenta de nuevo.';
+  }
+}
+
+function mostrarLista(rows){
+  const rptWrap=document.getElementById('reporte-wrap');
+  rptWrap.style.display='block';
+  rptWrap.innerHTML=`
+    <div style="font-size:.75rem;color:var(--azul-dim);margin-bottom:10px;font-weight:600">
+      Se encontraron ${rows.length} resultados. Selecciona el tuyo:
+    </div>
+    ${rows.map((r,i)=>`
+      <div onclick="mostrarReporte(encontradosCache[${i}])"
+        style="background:var(--sf2);border:1px solid var(--bd);border-radius:10px;
+               padding:12px 14px;margin-bottom:6px;cursor:pointer;
+               display:flex;align-items:center;gap:10px;">
+        <span style="font-size:1rem">${emojiSem(semGlobal(r.gDD))}</span>
+        <div>
+          <div style="font-size:.85rem;font-weight:600;color:var(--tx)">${r.nombre||'—'}</div>
+          <div style="font-size:.68rem;color:var(--txd)">${r.codigo||'—'} · ${r.fecha||'—'} · DD ${r.gDD}</div>
+        </div>
+        <span style="margin-left:auto;color:var(--bd);font-size:.9rem">›</span>
+      </div>
+    `).join('')}
+  `;
+  window.encontradosCache = rows;
+}
+
+function mostrarReporte(r){
+  const rptWrap=document.getElementById('reporte-wrap');
+  rptWrap.style.display='block';
+
+  const ig=semGlobal(r.gDD);
+  const cat=GC[ig];
+  const iA=semVar(r.vA,DVA.thr);
+  const iB=semVar(r.vB,DVB.thr);
+  const iC=semVar(r.vC,DVC.thr);
+  const pe=r.peTotal||0;
+  const semPE=pe<=7?0:pe<=11?1:2;
+
+  let coherencia='';
+  if(ig===0&&semPE===0) coherencia='✅ Equilibrio Real — Alta resiliencia, percepción alineada con la salud.';
+  else if(ig!==0&&semPE!==0) coherencia='⚠️ Crisis Consciente — Reconoces tu malestar. Esto facilita el proceso terapéutico.';
+  else if(ig!==0&&semPE===0) coherencia='🔴 Atención — Tu cuerpo envía señales que merece escuchar. Es momento de cuidarte.';
+  else coherencia='💛 Tu sensibilidad está activa. Canalizar esa energía hacia el bienestar es el camino.';
+
+  // Dimensiones
+  const dimsHTML = Array.from({length:13},(_,i)=>{
+    const d=i+1;
+    const sc=r.ds[d]||0;
+    const si=semDim(sc);
+    const color=colorSem(si);
+    return `<div class="rpt-dim">
+      <div class="rpt-dim-dot" style="background:${color}"></div>
+      <div class="rpt-dim-info">
+        <div class="rpt-dim-nombre">D${d}. ${DN[d]}</div>
+        <div class="rpt-dim-cat">${DC[d][si]}</div>
+      </div>
+      <div class="rpt-dim-score">${sc}/20</div>
+    </div>`;
+  }).join('');
+
+  // Protocolo simplificado para el paciente
+  const protVars = [
+    {v:'A',idx:iA,dv:DVA,score:r.vA},
+    {v:'B',idx:iB,dv:DVB,score:r.vB},
+    {v:'C',idx:iC,dv:DVC,score:r.vC},
+  ];
+  const protHTML = protVars.map(({v,idx,dv,score})=>`
+    <div class="rpt-prot-item">
+      <div class="rpt-prot-titulo">${emojiSem(idx)} ${v}. ${dv.n} — ${dv.cats[idx]}</div>
+      <div class="rpt-prot-linea">🎯 <span>Terapia sensorial:</span> ${['Su Jok Integrativo + SonoSensorial delta','Auriculoterapia + Estimulación propioceptiva','TexturaSensorial + SonoSensorial + Biofilia'][idx]}</div>
+      <div class="rpt-prot-linea">💬 <span>Narrativa:</span> ${dv.acts[idx]}</div>
+      <div class="rpt-prot-linea">🌿 <span>Aceite esencial:</span> ${dv.ar[idx]}</div>
+    </div>
+  `).join('');
+
+  rptWrap.innerHTML = `
+    <!-- Header -->
+    <div class="rpt-header">
+      <div class="rpt-codigo">${r.codigo||'—'} · ${r.fecha||'—'}</div>
+      <div class="rpt-nombre">${r.nombre||'Participante'}</div>
+      <div class="rpt-meta">
+        ${r.edad?`🎂 ${r.edad} años · `:''}${r.genero?`${r.genero} · `:''}${r.pais||''}
+      </div>
+      <div class="rpt-dd-wrap">
+        <div class="rpt-dd-num" style="color:${cat.c}">${r.gDD}</div>
+        <div class="rpt-dd-info">
+          <div class="rpt-dd-label">Score Global DD / 260</div>
+          <div class="rpt-dd-nivel" style="color:${cat.c}">${emojiSem(ig)} ${cat.l}</div>
+          <div class="rpt-dd-enfoque">${cat.e}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Variables complejas -->
+    <div class="rpt-section">
+      <div class="rpt-section-titulo">Tus tres áreas de vida</div>
+      <div class="rpt-var ${clsSem(iA)}">
+        <div class="rpt-var-header">
+          <span class="rpt-var-emoji">${emojiSem(iA)}</span>
+          <span class="rpt-var-nombre">A. ${DVA.n}</span>
+          <span class="rpt-var-score">${r.vA} / ${DVA.r}</span>
+        </div>
+        <div class="rpt-var-cat" style="color:${colorSem(iA)}">${DVA.cats[iA]}</div>
+        <div class="rpt-var-act">${DVA.acts[iA]}</div>
+        <div class="rpt-var-aroma">🌿 ${DVA.ar[iA]}</div>
+      </div>
+      <div class="rpt-var ${clsSem(iB)}">
+        <div class="rpt-var-header">
+          <span class="rpt-var-emoji">${emojiSem(iB)}</span>
+          <span class="rpt-var-nombre">B. ${DVB.n}</span>
+          <span class="rpt-var-score">${r.vB} / ${DVB.r}</span>
+        </div>
+        <div class="rpt-var-cat" style="color:${colorSem(iB)}">${DVB.cats[iB]}</div>
+        <div class="rpt-var-act">${DVB.acts[iB]}</div>
+        <div class="rpt-var-aroma">🌿 ${DVB.ar[iB]}</div>
+      </div>
+      <div class="rpt-var ${clsSem(iC)}">
+        <div class="rpt-var-header">
+          <span class="rpt-var-emoji">${emojiSem(iC)}</span>
+          <span class="rpt-var-nombre">C. ${DVC.n}</span>
+          <span class="rpt-var-score">${r.vC} / ${DVC.r}</span>
+        </div>
+        <div class="rpt-var-cat" style="color:${colorSem(iC)}">${DVC.cats[iC]}</div>
+        <div class="rpt-var-act">${DVC.acts[iC]}</div>
+        <div class="rpt-var-aroma">🌿 ${DVC.ar[iC]}</div>
+      </div>
+    </div>
+
+    <!-- 13 Dimensiones -->
+    <div class="rpt-section">
+      <div class="rpt-section-titulo">Tus 13 dimensiones de bienestar</div>
+      <div class="rpt-dims-grid">${dimsHTML}</div>
+    </div>
+
+    <!-- Percepción -->
+    <div class="rpt-section">
+      <div class="rpt-section-titulo">Tu percepción personal</div>
+      <div class="rpt-pe">
+        <div class="rpt-pe-total">
+          <div class="rpt-pe-num" style="color:${colorSem(semPE)}">${pe}</div>
+          <div class="rpt-pe-label">/ 15 · ${['Percepción de Control 🟢','Percepción de Tensión 🟡','Percepción de Desborde 🔴'][semPE]}</div>
+        </div>
+        <div class="rpt-pe-coherencia">${coherencia}</div>
+      </div>
+    </div>
+
+    <!-- Protocolo -->
+    <div class="rpt-section">
+      <div class="rpt-section-titulo">Tu protocolo terapéutico</div>
+      <div class="rpt-protocolo">${protHTML}</div>
+    </div>
+
+    <!-- Botón volver a buscar -->
+    <button onclick="document.getElementById('reporte-wrap').style.display='none';document.getElementById('reporte-wrap').innerHTML=''"
+      style="width:100%;background:var(--sf2);border:1px solid var(--bd);border-radius:10px;
+             padding:11px;color:var(--txd);font-family:'DM Sans',sans-serif;font-size:.82rem;
+             cursor:pointer;margin-top:4px;">
+      ← Nueva búsqueda
+    </button>
+  `;
+
+  // Scroll al reporte
+  setTimeout(()=>rptWrap.scrollIntoView({behavior:'smooth',block:'start'}),100);
+}
+
+// ── INSTALAR TABS ─────────────────────────────────────────────────────────
+function si(id,el){
+  document.querySelectorAll('.ipanel').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.ti').forEach(t=>t.classList.remove('on'));
+  document.getElementById('ii-'+id).classList.add('on');el.classList.add('on');
+}
+
+const m={name:'Instituto MIELSY',short_name:'MIELSY',start_url:location.href,display:'standalone',background_color:'#f5f0eb',theme_color:'#f5f0eb'};
+const b=new Blob([JSON.stringify(m)],{type:'application/json'});
+document.getElementById('mlink').href=URL.createObjectURL(b);
 </script>
 </body>
 </html>
