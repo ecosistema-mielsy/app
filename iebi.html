@@ -421,7 +421,7 @@ V.resultado = () => {
     h('h3', {}, 'Sus 13 dimensiones'),
     h('div', { class: 'dims' }, ...r.D.map((v, i) => h('div', { class: 'dim' }, h('span', { class: 'dot d' + r.zD[i] }), h('span', {}, `D${i + 1}. ${DIMS[i]}`, h('br'), h('small', { class: 'note' }, DCAT[i][{ V: 0, A: 1, R: 2 }[r.zD[i]]])), h('b', {}, v + (a ? ` (${a.D[i]})` : ''))))),
     h('h3', {}, 'Su plan de 30 días'), h('p', {}, h('b', {}, r.nombrePlan)),
-    h('p', {}, 'Su plan ya está listo en Mi Plan MIELSY: cada día verá lo que le toca, podrá marcar lo que hizo y escribir sus reflexiones.'),
+    h('p', {}, 'Su plan ya está listo en Mi Plan MIELSY. Empieza mañana: ese es su día 1, con su sesión 1. Hoy puede ver el video de bienvenida. Cada día verá lo que le toca, podrá marcar lo que hizo y escribir sus reflexiones.'),
     h('a', { class: 'btn gold', id: 'abrirPlan', href: 'mi-plan.html' + (S.resultado.sesion ? '#s=' + encodeURIComponent(S.resultado.sesion) : '') }, 'Abrir mi plan'),
     h('p', { class: 'warn' }, 'También le enviamos a ', h('b', {}, S.email), ' su informe completo con el enlace a su plan. Si no lo ve en unos minutos, revise «Spam» o «Promociones».'),
     h('p', { class: 'note' }, 'Este programa no sustituye la atención médica o psicológica. Si se encuentra en crisis o en peligro, llame a los servicios de emergencia de su país.'));
