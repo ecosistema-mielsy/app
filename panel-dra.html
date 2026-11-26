@@ -453,7 +453,7 @@ function vPersonas() {
       h('tbody', {}, L.map(p => h('tr', { onclick: () => abrirFicha(p.codigo), tabindex: 0, onkeydown: e => { if (e.key === 'Enter') abrirFicha(p.codigo); } },
         h('td', {}, h('b', {}, p.codigo)), h('td', {}, p.nombre), h('td', {}, p.orgNombre || h('span', { class: 'note' }, 'Individual')),
         h('td', {}, p.act ? h('span', { class: 'chip plan' }, p.act.plan) : h('span', { class: 'note' }, '—')),
-        h('td', { class: 'num' }, p.act ? String(p.act.dia) : '—'),
+        h('td', { class: 'num' }, p.act ? (p.act.dia < 1 ? 'mañana' : String(p.act.dia)) : '—'),
         h('td', {}, p.act && p.act.adherencia_pct != null ? h('div', { style: 'display:flex;gap:8px;align-items:center' }, h('div', { class: 'bar' }, h('i', { style: `width:${p.act.adherencia_pct}%` })), p.act.adherencia_pct + '%') : '—'),
         h('td', { class: 'num' }, p.act ? (p.act.sesiones_hechas || 0) + '/4' : '—'),
         h('td', {}, p.act ? (p.act.ultimo_registro ? fFecha(p.act.ultimo_registro) + (p.sinRegistro >= 4 ? ' ⏳' : '') : h('span', { class: 'note' }, 'Sin registros')) : '—'),
@@ -509,7 +509,7 @@ function vFicha() {
         String(d), s && s.animo != null ? h('small', {}, '♥' + s.animo) : s && s.escribio ? h('small', {}, '✎') : null));
     }
     out.push(h('div', { class: 'grid g2' },
-      h('div', { class: 'card' }, h('h2', {}, `Plan ${c.plan} · día ${c.dia} de 30`), h('p', {}, PNOM[c.plan] + ' · inicio ' + fFecha(c.inicio) + ' · ', h('b', {}, (c.adherencia_pct ?? 0) + '%'), ' del plan · ', h('b', {}, (c.sesiones_hechas || 0) + '/4'), ' sesiones · ', (c.dias_registrados || 0) + ' días con registro'),
+      h('div', { class: 'card' }, h('h2', {}, `Plan ${c.plan} · ${c.dia < 1 ? 'empieza mañana' : 'día ' + c.dia + ' de 30'}`), h('p', {}, PNOM[c.plan] + ' · inicio ' + fFecha(c.inicio) + ' · ', h('b', {}, (c.adherencia_pct ?? 0) + '%'), ' del plan · ', h('b', {}, (c.sesiones_hechas || 0) + '/4'), ' sesiones · ', (c.dias_registrados || 0) + ' días con registro'),
         cal, h('div', { class: 'legend' }, h('span', {}, h('i', { style: 'background:var(--verde)' }), 'Completo'), h('span', {}, h('i', { style: 'background:var(--verdeSoft);border:1px solid var(--line)' }), 'Empezado'), h('span', {}, h('i', { style: 'border:2px solid var(--oro)' }), 'Sesión'), h('span', {}, '♥ ánimo · ✎ escribió'))),
       h('div', { class: 'card' }, h('h2', {}, 'Ánimo diario'), lineaAnimo(p.seg))));
   }
@@ -857,7 +857,7 @@ function informeIndividual(p) {
         const v = typeof k === 'number' ? e.D[k] : e[k], v0 = typeof k === 'number' ? a.D[k] : a[k], zz = z ? e[z] : zDim(v);
         return h('tr', {}, h('td', {}, t), h('td', { class: 'num' }, String(v)), h('td', {}, zchip(zz)), p.evals.length > 1 ? [h('td', { class: 'num' }, String(v0)), h('td', { class: 'num ' + (v < v0 ? 'mejor' : v > v0 ? 'peor' : '') }, (v - v0 > 0 ? '+' : '') + (v - v0))] : null);
       }))),
-    p.act ? [h('h3', {}, '2. Su plan de 30 días'), h('p', {}, `Plan ${p.act.plan} · ${PNOM[p.act.plan]} · inicio ${fFecha(p.act.inicio)} · día ${p.act.dia} · ${p.act.adherencia_pct ?? 0}% realizado · ${p.act.sesiones_hechas || 0}/4 sesiones.`), lineaAnimo(p.seg)] : null,
+    p.act ? [h('h3', {}, '2. Su plan de 30 días'), h('p', {}, `Plan ${p.act.plan} · ${PNOM[p.act.plan]} · inicio ${fFecha(p.act.inicio)} · ${p.act.dia < 1 ? 'empieza mañana' : 'día ' + p.act.dia} · ${p.act.adherencia_pct ?? 0}% realizado · ${p.act.sesiones_hechas || 0}/4 sesiones.`), lineaAnimo(p.seg)] : null,
     repSel.protocolo ? h('div', { class: 'pb' }, mapaTerapeutico(e)) : null);
   if (repSel.escritos) {
     const box = h('div', {}, h('h3', {}, 'Escritos en Mi Plan'), h('p', { class: 'note' }, 'Cargando…')); rep.append(box);
