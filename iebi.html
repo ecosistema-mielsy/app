@@ -204,7 +204,8 @@ const P99 = [99, 'Prefiero no responder'];
 /* ---------- vistas ---------- */
 const V = {};
 V.inicio = () => {
-  const orgTxt = S.org ? h('p', { class: 'warn' }, 'Participa a través de ', h('b', {}, S.org.nombre), '. Su organización solo recibirá informes grupales y anónimos: nunca sus respuestas.') : null;
+  const orgTxt = !S.org ? null : S.org.canal ? h('p', { class: 'warn' }, 'Llega a esta evaluación por su plan de ', h('b', {}, '365 Fábulas MIELSY®'), '. Sus respuestas son confidenciales y solo las conoce el equipo clínico del Instituto MIELSY.')
+    : h('p', { class: 'warn' }, 'Participa a través de ', h('b', {}, S.org.nombre), '. Su organización solo recibirá informes grupales y anónimos: nunca sus respuestas.');
   return h('div', { class: 'card' },
     h('h1', {}, 'Bienvenida, bienvenido'),
     h('p', {}, 'El IEBI-M13 evalúa cómo el estrés afecta 13 dimensiones de su bienestar. Al terminar recibirá en su correo su informe y un plan MIELSY de 30 días hecho para su resultado. A los 30 días le invitaremos a repetirlo para medir su cambio.'),
@@ -316,7 +317,7 @@ V.perfil = () => {
     radios('antec_ae', '¿Algún profesional le ha diagnosticado ansiedad o depresión alguna vez?', [[0, 'No'], [1, 'Ansiedad'], [2, 'Depresión'], [3, 'Ambas'], P99], p),
     radios('cronica', '¿Tiene alguna enfermedad crónica diagnosticada?', [[0, 'No'], [1, 'Sí'], P99], p)];
   const campos = ['edad', 'pais', 'genero', 'zona', 'formacion', 'laboral', 'ocupacion', 'pareja', 'a_cargo', 'econ', 'antec_ae', 'cronica'];
-  if (S.org) {
+  if (S.org && !S.org.canal) {
     kids.push(h('h3', {}, 'Sobre su trabajo o estudio en ' + S.org.nombre),
       radios('modalidad', 'Modalidad', [[1, 'Presencial'], [2, 'Remoto'], [3, 'Híbrido']], p),
       radios('horas_sem', 'Horas de trabajo o estudio por semana', [[1, 'Menos de 20'], [2, '20 a 40'], [3, '41 a 50'], [4, 'Más de 50']], p),
