@@ -363,6 +363,14 @@ function stack(cuenta) {
   return h('div', {}, h('div', { class: 'stack' }, seg('V', 'var(--zV)'), seg('A', 'var(--zA)'), seg('R', 'var(--zR)')),
     h('div', { class: 'legend', style: 'margin-top:8px' }, ['V', 'A', 'R'].map(k => h('span', {}, h('i', { style: `background:var(--z${k})` }), ZG[k]))));
 }
+function sesionesFicha(seg) {
+  const L = [1, 8, 15, 22].map((d, i) => [i + 1, d, seg.find(s => s.dia === d)]).filter(x => x[2] && (x[2].animo_ini != null || x[2].animo != null));
+  if (!L.length) return null;
+  return h('div', {}, h('h3', {}, 'Sesiones: ánimo al llegar → al irse'), h('table', { class: 'tbl' }, h('thead', {}, h('tr', {}, ['Sesión', 'Día', 'Al llegar', 'Al irse', 'Δ'].map(t => h('th', {}, t)))),
+    h('tbody', {}, L.map(([n, d, s]) => { const a = s.animo_ini, b = s.animo, df = a != null && b != null ? b - a : null;
+      return h('tr', { style: 'cursor:default' }, h('td', {}, 'Sesión ' + n), h('td', { class: 'num' }, String(d)), h('td', { class: 'num' }, a ?? '—'), h('td', { class: 'num' }, b ?? '—'),
+        h('td', { class: 'num ' + (df > 0 ? 'mejor' : df < 0 ? 'peor' : '') }, df == null ? '—' : (df > 0 ? '+' : '') + df)); }))));
+}
 function lineaAnimo(seg, dias) {
   const pts = seg.filter(s => s.animo != null).map(s => [s.dia, s.animo]);
   if (!pts.length) return h('p', { class: 'empty' }, 'Aún no registra su ánimo.');
@@ -511,7 +519,7 @@ function vFicha() {
     out.push(h('div', { class: 'grid g2' },
       h('div', { class: 'card' }, h('h2', {}, `Plan ${c.plan} · ${c.dia < 1 ? 'empieza mañana' : 'día ' + c.dia + ' de 30'}`), h('p', {}, PNOM[c.plan] + ' · inicio ' + fFecha(c.inicio) + ' · ', h('b', {}, (c.adherencia_pct ?? 0) + '%'), ' del plan · ', h('b', {}, (c.sesiones_hechas || 0) + '/4'), ' sesiones · ', (c.dias_registrados || 0) + ' días con registro'),
         cal, h('div', { class: 'legend' }, h('span', {}, h('i', { style: 'background:var(--verde)' }), 'Completo'), h('span', {}, h('i', { style: 'background:var(--verdeSoft);border:1px solid var(--line)' }), 'Empezado'), h('span', {}, h('i', { style: 'border:2px solid var(--oro)' }), 'Sesión'), h('span', {}, '♥ ánimo · ✎ escribió'))),
-      h('div', { class: 'card' }, h('h2', {}, 'Ánimo diario'), lineaAnimo(p.seg))));
+      h('div', { class: 'card' }, h('h2', {}, 'Ánimo diario'), lineaAnimo(p.seg), sesionesFicha(p.seg))));
   }
   // Escritos (se cargan aparte)
   const hc = h('div', { class: 'card' }, h('h2', {}, 'Historia clínica'), h('p', {}, h('span', { class: 'spin' }), ' Cargando…'));
@@ -704,9 +712,26 @@ function tablaPareada(pares) {
     h('tbody', {}, fila('Global (DD)', e => e.DD), fila('A · Yo Fundamental', e => e.VA), fila('B · Interacción y Entorno', e => e.VB), fila('C · Contexto Moderno', e => e.VC), fila('Percepción', e => e.PE),
       DIMS.map((d, i) => fila(`D${i + 1} ${d}`, e => e.D[i])))));
 }
+/** Ánimo al llegar y al irse de cada sesión de una hora (días 1, 8, 15 y 22): efecto inmediato de la sesión. */
+function efectoSesiones(L) {
+  const cods = new Set(L.map(p => p.codigo));
+  const S = DATA.seguimiento.filter(s => cods.has(s.codigo) && s.tipo === 'sesion' && s.animo_ini != null && s.animo != null);
+  const card = h('div', { class: 'card' }, h('h2', {}, 'Efecto inmediato de las sesiones'),
+    h('p', { class: 'note' }, 'Ánimo de 1 a 10 al llegar y al irse de cada sesión de una hora, registrado por la persona en Mi Plan. Δ positivo = se va mejor de lo que llegó. Wilcoxon de rangos con signo; r = |z|/√n.'));
+  if (!S.length) { card.append(h('p', { class: 'empty' }, 'Aún no hay sesiones con las dos escalas registradas.')); return card; }
+  const fila = (n, L2) => {
+    const a = L2.map(s => s.animo_ini), b = L2.map(s => s.animo), d = b.map((x, i) => x - a[i]), w = wilcoxon(a, b), m = media(d);
+    return h('tr', { style: 'cursor:default', class: w.p < 0.05 ? 'sig' : '' }, h('td', {}, n), h('td', { class: 'num' }, String(L2.length)), h('td', { class: 'num' }, r1(media(a))), h('td', { class: 'num' }, r1(media(b))),
+      h('td', { class: 'num ' + (m > 0 ? 'mejor' : m < 0 ? 'peor' : '') }, (m > 0 ? '+' : '') + r1(m)), h('td', { class: 'num' }, String(d.filter(x => x > 0).length)),
+      h('td', { class: 'num' }, isNaN(w.z) ? '—' : w.z.toFixed(2).replace('.', ',')), h('td', { class: 'num' }, fp(w.p)), h('td', { class: 'num' }, isNaN(w.r) ? '—' : w.r.toFixed(2).replace('.', ',')));
+  };
+  card.append(h('div', { class: 'scroll' }, h('table', { class: 'tbl' }, h('thead', {}, h('tr', {}, ['Sesión', 'n', 'Al llegar', 'Al irse', 'Δ media', 'Mejoraron', 'z', 'p', 'r'].map(t => h('th', {}, t)))),
+    h('tbody', {}, [1, 8, 15, 22].map((d, i) => fila(`Sesión ${i + 1} (día ${d})`, S.filter(s => s.dia === d))), fila('Todas las sesiones', S)))));
+  return card;
+}
 function vCambio() {
   const L = filtrarG(), pares = L.filter(p => p.evals.length >= 2), out = [barra()];
-  if (!pares.length) { out.push(h('div', { class: 'card' }, h('h1', {}, 'Antes y después'), h('p', { class: 'empty' }, 'Con estos filtros no hay personas reevaluadas.'))); return out; }
+  if (!pares.length) { out.push(h('div', { class: 'card' }, h('h1', {}, 'Antes y después'), h('p', { class: 'empty' }, 'Con estos filtros no hay personas reevaluadas.')), efectoSesiones(L)); return out; }
   const ad = pares.filter(p => p.ult.adherencia_app !== '' && p.ult.adherencia_app != null);
   const rho = spearman(ad.map(p => Number(p.ult.adherencia_app)), ad.map(p => p.ult.DD - p.pri.DD));
   const mov = { mejoro: 0, igual: 0, empeoro: 0 }; pares.forEach(p => { const d = ordZ(p.ult.zona) - ordZ(p.pri.zona); mov[d < 0 ? 'mejoro' : d > 0 ? 'empeoro' : 'igual']++; });
@@ -718,6 +743,7 @@ function vCambio() {
     h('table', { class: 'tbl', style: 'max-width:480px' }, h('thead', {}, h('tr', {}, h('th', {}, ''), ['V', 'A', 'R'].map(z => h('th', { class: 'num' }, ZN[z])))), h('tbody', {}, ['V', 'A', 'R'].map((z, i) => h('tr', { style: 'cursor:default' }, h('td', {}, zchip(z)), trans[i].map((n, j) => h('td', { class: 'num ' + (j < i ? 'mejor' : j > i ? 'peor' : '') }, h('b', {}, String(n)))))))),
     tablaPareada(pares),
     h('p', {}, h('b', {}, 'Adherencia medida en la app y cambio global: '), isNaN(rho) ? `se necesitan al menos 5 personas reevaluadas con registros en la app (hay ${ad.length}).` : `ρ de Spearman = ${rho.toFixed(2).replace('.', ',')} (n = ${ad.length}). Un valor negativo indica que a más adherencia, más baja el puntaje (más mejora).`)));
+  out.push(efectoSesiones(L));
   return out;
 }
 
@@ -882,7 +908,7 @@ function vExportar() {
     h('div', { class: 'filters' },
       h('button', { class: 'btn', onclick: () => { const pf = Object.fromEntries(L.map(p => [p.codigo, p.perfil || {}])); csv('MIELSY_evaluaciones.csv', [evalK.concat(DIMS.map((d, i) => 'D' + (i + 1))).concat(perfilK.map(k => 'perfil_' + k))].concat(L.flatMap(p => p.evals).map(e => evalK.map(k => k === 'fecha' ? e.fecha.slice(0, 10) : e[k]).concat(e.D).concat(perfilK.map(k => pf[e.codigo][k]))))); } }, '⬇️ Evaluaciones (una fila por evaluación)'),
       h('button', { class: 'btn lav', onclick: () => csv('MIELSY_antes_despues.csv', [['codigo', 'dias_entre', 'plan_inicial', 'adherencia_app', 'DD_antes', 'DD_despues', 'VA_antes', 'VA_despues', 'VB_antes', 'VB_despues', 'VC_antes', 'VC_despues', 'PE_antes', 'PE_despues'].concat(DIMS.flatMap((d, i) => ['D' + (i + 1) + '_antes', 'D' + (i + 1) + '_despues']))].concat(L.filter(p => p.evals.length >= 2).map(p => [p.codigo, Math.round((new Date(p.ult.fecha) - new Date(p.pri.fecha)) / 864e5), p.pri.plan, p.ult.adherencia_app, p.pri.DD, p.ult.DD, p.pri.VA, p.ult.VA, p.pri.VB, p.ult.VB, p.pri.VC, p.ult.VC, p.pri.PE, p.ult.PE].concat(DIMS.flatMap((d, i) => [p.pri.D[i], p.ult.D[i]]))))) }, '⬇️ Antes y después (una fila por persona)'),
-      h('button', { class: 'btn gold', onclick: () => { const cods = new Set(L.map(p => p.codigo)); csv('MIELSY_seguimiento_diario.csv', [['codigo', 'eval_id', 'dia', 'tipo', 'hechos', 'total', 'animo', 'escribio']].concat(DATA.seguimiento.filter(s => cods.has(s.codigo)).map(s => [s.codigo, s.eval_id, s.dia, s.tipo, s.hechos, s.total, s.animo, s.escribio ? 1 : 0]))); } }, '⬇️ Seguimiento diario de Mi Plan')),
+      h('button', { class: 'btn gold', onclick: () => { const cods = new Set(L.map(p => p.codigo)); csv('MIELSY_seguimiento_diario.csv', [['codigo', 'eval_id', 'dia', 'tipo', 'hechos', 'total', 'animo_inicio_sesion', 'animo', 'escribio']].concat(DATA.seguimiento.filter(s => cods.has(s.codigo)).map(s => [s.codigo, s.eval_id, s.dia, s.tipo, s.hechos, s.total, s.animo_ini ?? '', s.animo, s.escribio ? 1 : 0]))); } }, '⬇️ Seguimiento diario de Mi Plan')),
       h('button', { class: 'btn lav', onclick: () => { const cods = new Set(L.map(p => p.codigo)), K = ['codigo', 'eval_id', 'plan', 'fecha', 'q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8', 'q9', 'q10', 'q11', 'q12', 'q13', 'q14', 'q17', 'q18', 'q19', 'q20']; csv('MIELSY_cierre_satisfaccion.csv', [K].concat(DATA.cierres.filter(c => cods.has(c.codigo)).map(c => K.map(k => Array.isArray(c[k]) ? c[k].join(' ') : k === 'fecha' ? String(c.fecha).slice(0, 10) : c[k])))); } }, '⬇️ Cuestionario de cierre (escalas y opciones)'),
     h('p', { class: 'note' }, 'Los escritos de los pacientes y los comentarios abiertos no se exportan. Los datos completos siguen en la hoja «MIELSY Clínico · Base de datos».'))];
 }
