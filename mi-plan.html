@@ -95,9 +95,13 @@ input:focus,textarea:focus{border-color:var(--azul2);outline:none;box-shadow:0 0
 .animo{display:grid;grid-template-columns:repeat(10,1fr);gap:4px}
 .animo label{position:relative}
 .animo input{position:absolute;opacity:0;pointer-events:none}
-.animo span{display:block;text-align:center;padding:9px 0;border:1.5px solid var(--line);border-radius:10px;font-weight:800;cursor:pointer;background:var(--panel)}
-.animo span{font-size:1.05rem}
-.animo input:checked+span{background:var(--verde);border-color:var(--verde);color:#fff}
+.animo span[aria-hidden]{display:flex;flex-direction:column;align-items:center;gap:3px;text-align:center;padding:7px 0 6px;border:2px solid var(--line);border-radius:14px;font-weight:800;cursor:pointer;background:var(--panel);transition:transform .12s,box-shadow .12s}
+.animo .cara{width:100%;max-width:40px;height:auto;display:block}
+.animo span b{font-size:1rem;color:var(--ink)}
+.animo label:hover span[aria-hidden]{transform:translateY(-2px)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.animo input:checked+span{border-color:var(--lavd);background:var(--lavSoft);box-shadow:0 0 0 3px var(--lav);transform:scale(1.08)}
+.animo input:checked+span b{color:var(--lavd)}
 .animo input:focus-visible+span{outline:3px solid var(--azul2);outline-offset:2px}
 .saved{position:fixed;left:50%;transform:translateX(-50%);bottom:84px;background:var(--verde);font-size:1rem!important;color:#fff;padding:7px 16px;border-radius:30px;font-weight:700;font-size:.85rem;z-index:6;opacity:0;transition:opacity .25s;pointer-events:none}
 .saved.on{opacity:1}
@@ -149,6 +153,11 @@ input:focus,textarea:focus{border-color:var(--azul2);outline:none;box-shadow:0 0
 .mpcomo summary{font-weight:800;color:var(--doradoInk);cursor:pointer}
 .mpcomo ol{margin:8px 0;padding-left:22px;display:flex;flex-direction:column;gap:6px}
 @media print{.mpmarco{max-height:none;overflow:visible}.mplienzo.zoom{width:100%}}
+.animoIni{border-left:5px solid var(--lav)}.animoFin{border-left:5px solid var(--dorado)}
+.sesAnimo{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}
+.sesAnimo>div{display:flex;flex-direction:column;gap:2px;background:var(--panel2);border-radius:12px;padding:10px 12px}
+.sesAnimo .par{font-size:1.35rem;font-weight:800;color:var(--azul)}.sesAnimo .par i{font-style:normal}
+.sesAnimo .dif{font-weight:800;font-size:.95rem;color:var(--muted)}.sesAnimo .dif.sube{color:var(--ok)}.sesAnimo .dif.baja{color:var(--bad)}
 /* calendario */
 .cal{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
 .cal button{aspect-ratio:1;border:1.5px solid var(--line);border-radius:12px;background:var(--panel);font:800 1rem var(--body);color:var(--ink);cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;padding:0}
@@ -320,7 +329,7 @@ async function cargar() {
       h('a', { class: 'btn gold', href: P.reevalUrl }, 'Responder el IEBI-M13'), salirBtn())); return;
   }
   // pendientes guardados sin conexión
-  (LS.get(K_PEND) || []).forEach(x => { P.registros[x.dia] = { hecho: x.hecho, textos: x.textos, animo: x.animo }; });
+  (LS.get(K_PEND) || []).forEach(x => { P.registros[x.dia] = { hecho: x.hecho, textos: x.textos, animo: x.animo, animo_ini: x.animo_ini ?? null }; });
   $('#hTitle').textContent = 'Hola, ' + P.nombre;
   $('#hSub').textContent = (P.contenido.nombre || P.nombrePlan) + ' · ' + P.codigo;
   $('#tabs').hidden = false;
@@ -356,12 +365,12 @@ function video(id, titulo) {
 const V = () => P.videos || { sesiones: {} };
 
 /* ---------- utilidades del plan ---------- */
-const reg = d => P.registros[d] || (P.registros[d] = { hecho: {}, textos: {}, animo: null });
+const reg = d => P.registros[d] || (P.registros[d] = { hecho: {}, textos: {}, animo: null, animo_ini: null });
 const D = d => P.contenido.dias[String(d)];
 function total(d) { const x = D(d); if (!x) return 0; if (x.tipo === 'sesion') return x.bloques.filter(b => b.t === 'checklist').reduce((a, b) => a + b.items.length, 0); return x.unico ? 1 : 2; }
 function hechos(d) { const r = P.registros[d]; return r ? Object.values(r.hecho || {}).filter(v => v === true).length : 0; }
 function estado(d) { const t = total(d), n = Math.min(hechos(d), t), r = P.registros[d];
-  if (t && n >= t) return 'full'; if (n > 0 || (r && (r.animo || Object.keys(r.textos || {}).length))) return 'part'; return ''; }
+  if (t && n >= t) return 'full'; if (n > 0 || (r && (r.animo || r.animo_ini || Object.keys(r.textos || {}).length))) return 'part'; return ''; }
 function fecha(d) { const f = new Date(P.inicio); f.setDate(f.getDate() + d); return f.toLocaleDateString('es', { weekday: 'long', day: 'numeric', month: 'long' }); }
 const nSesion = d => P.diasSesion.indexOf(d) + 1;
 
@@ -372,7 +381,7 @@ function cambiar(d) {
   tGuardar = setTimeout(() => guardar(d), 900);
 }
 async function guardar(d) {
-  const r = reg(d), datos = { dia: d, hecho: r.hecho, textos: r.textos, animo: r.animo };
+  const r = reg(d), datos = { dia: d, hecho: r.hecho, textos: r.textos, animo: r.animo, animo_ini: r.animo_ini };
   const pend = (LS.get(K_PEND) || []).filter(x => x.dia !== d);
   const res = await api('guardarDia', Object.assign({ sesion: LS.get(K_SES) }, datos));
   if (res.ok) { LS.set(K_PEND, pend); if (res.adherencia) P.adherencia = res.adherencia; aviso('Guardado ✓'); LS.set('mielsy.plan.cache', P); }
@@ -404,13 +413,27 @@ function caja(d, key, placeholder) {
   t.addEventListener('input', () => { r.textos = r.textos || {}; r.textos[key] = t.value; cambiar(d); });
   return t;
 }
-function animo(d) {
-  const r = reg(d), name = 'animo' + d;
-  return h('div', { class: 'card' }, h('h3', {}, '¿Cómo te sientes ahora?'), h('p', { class: 'note' }, '1 = muy mal · 10 = muy bien'),
-    h('div', { class: 'animo', role: 'radiogroup', 'aria-label': 'Ánimo de 1 a 10' }, Array.from({ length: 10 }, (_, i) => {
-      const inp = h('input', { type: 'radio', name, value: i + 1 }); inp.checked = r.animo === i + 1;
-      inp.addEventListener('change', () => { r.animo = i + 1; cambiar(d); });
-      return h('label', {}, inp, h('span', {}, String(i + 1)));
+/* Caritas de ánimo 1–10: del rojo (muy mal) al verde (muy bien); la boca pasa de triste a sonriente. */
+const ANIMO_COL = ['#D7263D', '#E8475F', '#F0603E', '#F47D45', '#F69A3B', '#F8C83A', '#CBD94C', '#A6D85A', '#6DC46B', '#3CB878'];
+function caraAnimo(v) {
+  const c = (v - 5.5) / 4.5, col = ANIMO_COL[v - 1], ink = '#2B1B12';
+  const boca = `M12 ${27 - c * 1.5} Q20 ${27 + c * 7} 28 ${27 - c * 1.5}`;
+  const cejas = v <= 3 ? `<path d="M10.5 14.2 Q13 12.6 16 11.6 M29.5 14.2 Q27 12.6 24 11.6" fill="none" stroke="${ink}" stroke-width="1.8" stroke-linecap="round"/>` : '';
+  const ojos = v >= 9 ? `<path d="M12.5 17.5 Q15 14.5 17.5 17.5 M22.5 17.5 Q25 14.5 27.5 17.5" fill="none" stroke="${ink}" stroke-width="2" stroke-linecap="round"/>`
+    : `<circle cx="15" cy="17" r="2.1" fill="${ink}"/><circle cx="25" cy="17" r="2.1" fill="${ink}"/>`;
+  const lagrima = v === 1 ? '<path d="M27.5 20 q-1.6 3 0 4 q1.6 -1 0 -4z" fill="#5BA7E6"/>' : '';
+  const mejillas = v >= 8 ? '<circle cx="11" cy="23" r="2.4" fill="#fff" opacity=".35"/><circle cx="29" cy="23" r="2.4" fill="#fff" opacity=".35"/>' : '';
+  return `<svg viewBox="0 0 40 40" class="cara"><circle cx="20" cy="20" r="18" fill="${col}" stroke="rgba(0,0,0,.15)" stroke-width="1.2"/>${mejillas}${cejas}${ojos}${lagrima}<path d="${boca}" fill="none" stroke="${ink}" stroke-width="2.4" stroke-linecap="round"/></svg>`;
+}
+/** Escala de ánimo 1–10. En las sesiones hay dos: al llegar (animo_ini) y al irse (animo); los demás días, una al final. */
+function animo(d, campo = 'animo', titulo = '¿Cómo te sientes ahora?', clase = '') {
+  const r = reg(d), name = campo + d;
+  return h('div', { class: 'card ' + clase }, h('h3', {}, titulo), h('p', { class: 'note' }, '1 = muy mal · 10 = muy bien'),
+    h('div', { class: 'animo', role: 'radiogroup', 'aria-label': titulo + ' Ánimo de 1 a 10' }, Array.from({ length: 10 }, (_, i) => {
+      const inp = h('input', { type: 'radio', name, value: i + 1 }); inp.checked = r[campo] === i + 1;
+      inp.addEventListener('change', () => { r[campo] = i + 1; cambiar(d); });
+      const sp = h('span', { 'aria-hidden': 'true' }); sp.innerHTML = caraAnimo(i + 1) + '<b>' + (i + 1) + '</b>';
+      return h('label', { title: (i + 1) + ' de 10' }, inp, sp, h('span', { class: 'sr' }, (i + 1) + ' de 10'));
     })));
 }
 
@@ -464,7 +487,9 @@ function vDia(d) {
   out.push(nav);
   const vd = (V().dias || {})[d];
   if (vd) out.push(h('div', { class: 'card' }, video(vd, { 2: 'Mensaje de la Dra. · Empezamos', 7: 'Mensaje de la Dra. · Fin de la semana 1', 14: 'Mensaje de la Dra. · Fin de la semana 2', 21: 'Mensaje de la Dra. · Fin de la semana 3', 30: 'Mensaje de la Dra. · Cerramos los 30 días' }[d] || 'Mensaje de la Dra.')));
-  return out.concat(x.tipo === 'sesion' ? sesion(d, x) : micro(d, x), animo(d), mkNav());
+  if (x.tipo === 'sesion') return out.concat(animo(d, 'animo_ini', '🌱 Antes de empezar: ¿cómo llegas a tu sesión?', 'animoIni'), sesion(d, x),
+    animo(d, 'animo', '🌟 Al terminar: ¿cómo te vas de tu sesión?', 'animoFin'), mkNav());
+  return out.concat(micro(d, x), animo(d), mkNav());
 }
 function sesion(d, x) {
   const out = [];
@@ -715,6 +740,12 @@ function vProgreso() {
     h('div', { class: 'stats' }, h('div', {}, h('b', {}, (a.pct || 0) + '%'), h('small', {}, 'del plan realizado')), h('div', {}, h('b', {}, String(a.dias)), h('small', {}, 'días con registro')), h('div', {}, h('b', {}, a.sesiones + '/4'), h('small', {}, 'sesiones'))),
     h('p', { class: 'note' }, 'Cuenta lo que marcas como hecho en cada día. Al día 30 te invitaremos a repetir el IEBI-M13 para medir tu cambio.'))];
   if (pts.length) out.push(h('div', { class: 'card' }, h('h3', {}, 'Mi ánimo'), grafico(pts, hasta)));
+  const ses = P.diasSesion.filter(d => d <= hasta).map((d, i) => { const r = P.registros[d] || {}; return [i + 1, d, r.animo_ini, r.animo]; }).filter(x => x[2] || x[3]);
+  if (ses.length) out.push(h('div', { class: 'card' }, h('h3', {}, 'Mis sesiones: cómo llegué y cómo me fui'),
+    h('div', { class: 'sesAnimo' }, ses.map(([n, d, a, b]) => h('div', {}, h('b', {}, 'Sesión ' + n), h('span', { class: 'note' }, 'Día ' + d),
+      h('span', { class: 'par' }, h('i', {}, a ?? '—'), ' → ', h('i', {}, b ?? '—')),
+      a && b ? h('span', { class: 'dif ' + (b > a ? 'sube' : b < a ? 'baja' : '') }, b > a ? '▲ +' + (b - a) : b < a ? '▼ ' + (b - a) : '= igual') : null))),
+    h('p', { class: 'note' }, 'Ánimo de 1 a 10 al empezar y al terminar cada sesión de una hora.')));
   const diario = h('div', { class: 'diario' });
   for (let d = hasta; d >= 1; d--) {
     const r = P.registros[d]; if (!r || !r.textos) continue;
